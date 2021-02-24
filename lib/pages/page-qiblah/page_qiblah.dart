@@ -16,30 +16,33 @@ class _QiblahPageState extends State<QiblahPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-          iconTheme: IconThemeData(color: ColorPalette.themeColor),
-          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: ColorPalette.themeColor,
+          elevation: 0,
           title: Text(
             "Kiblat",
-            style: TextStyle(
-                color: ColorPalette.themeColor, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )),
-      body: FutureBuilder(
-        future: _deviceSupport,
-        builder: (_, AsyncSnapshot<bool> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting)
-            return LoadingIndicator();
-          if (snapshot.hasError)
-            return Center(
-              child: Text("Error: ${snapshot.error.toString()}"),
-            );
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: FutureBuilder(
+          future: _deviceSupport,
+          builder: (_, AsyncSnapshot<bool> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting)
+              return LoadingIndicator();
+            if (snapshot.hasError)
+              return Center(
+                child: Text("Error: ${snapshot.error.toString()}"),
+              );
 
-          if (snapshot.data)
-            return QiblahCompass();
-          else
-            return QiblahMaps();
-        },
+            if (snapshot.data)
+              return QiblahCompass();
+            else
+              return QiblahMaps();
+          },
+        ),
       ),
     );
   }

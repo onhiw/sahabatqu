@@ -11,14 +11,14 @@ class _QuranPageState extends State<QuranPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-          iconTheme: IconThemeData(color: ColorPalette.themeColor),
-          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: ColorPalette.themeColor,
+          elevation: 0,
           title: Text(
             "Al-Quran",
-            style: TextStyle(
-                color: ColorPalette.themeColor, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )),
     );
   }
