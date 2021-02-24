@@ -2,8 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sahabatqu/utils/routes.dart';
 
+import 'pages/page_splash_screen.dart';
+
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: SplashScreen(),
+    routes: <String, WidgetBuilder>{
+      '/MyApp': (BuildContext context) => MyApp(),
+    },
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -30,6 +40,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
+        theme: ThemeData(
+          fontFamily: 'Poppins',
+        ),
         routes: appRoutes);
   }
 }

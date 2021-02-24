@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/themes-color.dart';
+import '../constants/themes-color.dart';
 
-class HomePage extends StatefulWidget {
+class QuranPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _QuranPageState createState() => _QuranPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _QuranPageState extends State<QuranPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
           iconTheme: IconThemeData(color: ColorPalette.themeColor),
           backgroundColor: Colors.white,
           title: Text(
-            "Home",
+            "Al-Quran",
             style: TextStyle(
                 color: ColorPalette.themeColor, fontWeight: FontWeight.bold),
           )),
