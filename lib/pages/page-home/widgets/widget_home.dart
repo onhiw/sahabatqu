@@ -64,10 +64,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                          Icon(Icons.home, color: Colors.white),
+                          Icon(Icons.home, color: Colors.grey[600]),
                           Text(
                             "Home",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.grey[600]),
                           ),
                         ]),
               _page == 1
@@ -76,10 +76,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                          Icon(Icons.access_time, color: Colors.white),
+                          Icon(Icons.access_time, color: Colors.grey[600]),
                           Text(
                             "Sholat",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.grey[600]),
                           ),
                         ]),
               _page == 2
@@ -88,10 +88,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                          Icon(Icons.menu_book, color: Colors.white),
+                          Icon(Icons.menu_book, color: Colors.grey[600]),
                           Text(
                             "Al-Quran",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.grey[600]),
                           ),
                         ]),
               _page == 3
@@ -100,16 +100,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                          Icon(Icons.public, color: Colors.white),
+                          Icon(Icons.explore, color: Colors.grey[600]),
                           Text(
                             "Kiblat",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.grey[600]),
                           )
                         ]),
             ],
-            color: ColorPalette.themeColor,
+            color: Colors.white,
             buttonBackgroundColor: ColorPalette.themeColor,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.grey[100],
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 600),
             onTap: (index) {
