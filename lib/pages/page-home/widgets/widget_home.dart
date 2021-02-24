@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:sahabatqu/pages/page-qiblah/page_qiblah.dart';
-import 'package:sahabatqu/pages/page_quran.dart';
+import 'package:sahabatqu/pages/page-quran/page_quran.dart';
 
 import '../../../constants/themes-color.dart';
 import '../../page_jadwal_sholat.dart';
