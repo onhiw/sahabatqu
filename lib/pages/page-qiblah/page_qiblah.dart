@@ -18,12 +18,13 @@ class _QiblahPageState extends State<QiblahPage> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: ColorPalette.themeColor,
+          iconTheme: IconThemeData(color: ColorPalette.textColor),
+          backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
             "Kiblat",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: ColorPalette.textColor, fontWeight: FontWeight.bold),
           )),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
