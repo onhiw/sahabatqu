@@ -57,17 +57,19 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
     DateTime now = DateTime.now();
     var today = new HijriCalendar.now();
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: ColorPalette.themeColor,
+        backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
           _currentAddress == null
               ? "Sedang mencari lokasi..."
               : _currentAddress,
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+              color: ColorPalette.textColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 16),
         ),
         actions: [
           Padding(
@@ -80,7 +82,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
               },
               child: Icon(
                 Icons.event,
-                color: Colors.white,
+                color: ColorPalette.themeColor,
               ),
             ),
           )
@@ -103,14 +105,14 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                   Text(
                     MyHelper.formatDate(now),
                     style: TextStyle(
-                        color: ColorPalette.themeColor,
+                        color: ColorPalette.textColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
                   ),
                   Text(
                     today.toFormat("dd MMMM yyyy") + " H",
                     style: TextStyle(
-                        color: ColorPalette.themeColor,
+                        color: Colors.grey[600],
                         // fontWeight: FontWeight.bold,
                         fontSize: 14),
                   ),
@@ -159,14 +161,14 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                           "Imsak",
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
                           jadwalSholatModel.results.datetime[index].times.imsak,
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -184,14 +186,14 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                           "Subuh (Fajr)",
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
                           jadwalSholatModel.results.datetime[index].times.fajr,
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -209,7 +211,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                           "Terbit",
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
@@ -217,7 +219,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                               .results.datetime[index].times.sunrise,
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -235,14 +237,14 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                           "Dzuhur",
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
                           jadwalSholatModel.results.datetime[index].times.dhuhr,
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -260,14 +262,14 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                           "Ashar",
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
                           jadwalSholatModel.results.datetime[index].times.asr,
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -285,7 +287,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                           "Magrib",
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
@@ -293,7 +295,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                               .results.datetime[index].times.maghrib,
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -311,14 +313,14 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                           "Isya",
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
                           jadwalSholatModel.results.datetime[index].times.isha,
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -342,7 +344,10 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
               SizedBox(
                 height: 8,
               ),
-              Text("Mohon Tunggu...")
+              Text(
+                "Mohon Tunggu...",
+                style: TextStyle(color: ColorPalette.textColor),
+              )
             ],
           ),
         );

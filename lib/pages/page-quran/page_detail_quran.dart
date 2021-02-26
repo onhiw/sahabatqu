@@ -56,10 +56,10 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: ColorPalette.themeColor,
+          iconTheme: IconThemeData(color: ColorPalette.textColor),
+          backgroundColor: Colors.white,
           elevation: 0,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,14 +67,14 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
               Text(
                 widget.name,
                 style: TextStyle(
-                    color: Colors.white,
+                    color: ColorPalette.textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 15),
               ),
               Text(
                 widget.type.toUpperCase(),
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.grey[600],
                     // fontWeight: FontWeight.bold,
                     fontSize: 12),
               ),
@@ -90,7 +90,10 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                   SizedBox(
                     height: 8,
                   ),
-                  Text("Mohon Tunggu...")
+                  Text(
+                    "Mohon Tunggu...",
+                    style: TextStyle(color: ColorPalette.textColor),
+                  )
                 ],
               ),
             )
@@ -104,7 +107,10 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                       SizedBox(
                         height: 8,
                       ),
-                      Text("Mohon Tunggu...")
+                      Text(
+                        "Mohon Tunggu...",
+                        style: TextStyle(color: ColorPalette.textColor),
+                      )
                     ],
                   ),
                 )
@@ -167,7 +173,8 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                                       Text(
                                         (i + 1).toString() + ".",
                                         style: TextStyle(
-                                            color: Colors.black, fontSize: 16),
+                                            color: ColorPalette.textColor,
+                                            fontSize: 16),
                                       ),
                                       SizedBox(
                                         width: 15,
@@ -177,7 +184,7 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                                           quranUthmaniModelID
                                               .data.ayahs[i].text,
                                           style: TextStyle(
-                                              color: Colors.black,
+                                              color: ColorPalette.textColor,
                                               fontSize: 16),
                                         ),
                                       ),
@@ -188,7 +195,7 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                                   height: 8,
                                 ),
                                 Divider(
-                                  thickness: 2,
+                                  thickness: 1,
                                 ),
                                 SizedBox(
                                   height: 8,
@@ -267,7 +274,10 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
               SizedBox(
                 height: 8,
               ),
-              Text("Mohon Tunggu...")
+              Text(
+                "Mohon Tunggu...",
+                style: TextStyle(color: ColorPalette.textColor),
+              )
             ],
           ),
         );

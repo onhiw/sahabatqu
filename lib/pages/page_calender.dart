@@ -20,8 +20,8 @@ class _CalenderPageState extends State<CalenderPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: ColorPalette.themeColor,
+          iconTheme: IconThemeData(color: ColorPalette.textColor),
+          backgroundColor: Colors.white,
           elevation: 0,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,14 +29,14 @@ class _CalenderPageState extends State<CalenderPage> {
               Text(
                 today.toFormat("dd MMMM yyyy") + " H",
                 style: TextStyle(
-                    color: Colors.white,
+                    color: ColorPalette.textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
               ),
               Text(
                 MyHelper.formatDate(now),
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.grey[600],
                     // fontWeight: FontWeight.bold,
                     fontSize: 14),
               ),

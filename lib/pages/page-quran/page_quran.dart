@@ -15,14 +15,15 @@ class _QuranPageState extends State<QuranPage> {
   Widget build(BuildContext context) {
     QuranViewModel quranVM = QuranViewModel();
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: ColorPalette.themeColor,
+          backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
             "Al-Quran",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: ColorPalette.textColor, fontWeight: FontWeight.bold),
           )),
       body: FutureBuilder<QuranModel>(
         future: quranVM.getDataQuran(),
@@ -54,7 +55,7 @@ class _QuranPageState extends State<QuranPage> {
                                 (index + 1).toString() + ".",
                                 style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.black,
+                                    color: ColorPalette.textColor,
                                     fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
@@ -92,7 +93,7 @@ class _QuranPageState extends State<QuranPage> {
                           quranModel.hasil[index].asma,
                           style: TextStyle(
                               fontSize: 20,
-                              color: Colors.black,
+                              color: ColorPalette.textColor,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -116,7 +117,10 @@ class _QuranPageState extends State<QuranPage> {
                 SizedBox(
                   height: 8,
                 ),
-                Text("Mohon Tunggu...")
+                Text(
+                  "Mohon Tunggu...",
+                  style: TextStyle(color: ColorPalette.textColor),
+                )
               ],
             ),
           );

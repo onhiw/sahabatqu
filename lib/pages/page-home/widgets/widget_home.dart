@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:sahabatqu/pages/page-qiblah/page_qiblah.dart';
 import 'package:sahabatqu/pages/page-quran/page_quran.dart';
+import 'package:sahabatqu/pages/page_event.dart';
 
 import '../../../constants/themes-color.dart';
 import '../../page_jadwal_sholat.dart';
@@ -21,7 +22,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     HomePage(),
     JadwalSholatPage(),
     QuranPage(),
-    QiblahPage()
+    EventPage()
   ];
 
   Future<bool> _onWillPop() async {
@@ -95,21 +96,21 @@ class _HomeWidgetState extends State<HomeWidget> {
                           ),
                         ]),
               _page == 3
-                  ? Icon(Icons.public, color: Colors.white)
+                  ? Icon(Icons.event, color: Colors.white)
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                          Icon(Icons.explore, color: Colors.grey[600]),
+                          Icon(Icons.event, color: Colors.grey[600]),
                           Text(
-                            "Kiblat",
+                            "Kegiatan",
                             style: TextStyle(color: Colors.grey[600]),
                           )
                         ]),
             ],
             color: Colors.white,
             buttonBackgroundColor: ColorPalette.themeColor,
-            backgroundColor: Colors.grey[100],
+            backgroundColor: Colors.grey[50],
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 600),
             onTap: (index) {
