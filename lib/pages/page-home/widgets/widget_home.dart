@@ -1,7 +1,10 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
-import 'package:sahabatqu/pages/page-qiblah/page_qiblah.dart';
 import 'package:sahabatqu/pages/page-quran/page_quran.dart';
 import 'package:sahabatqu/pages/page_event.dart';
 
@@ -25,6 +28,16 @@ class _HomeWidgetState extends State<HomeWidget> {
     EventPage()
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(Duration(milliseconds: 3000), (timer) {
+      setState(() {
+        _checkConnection();
+      });
+    });
+  }
+
   Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,
@@ -47,6 +60,46 @@ class _HomeWidgetState extends State<HomeWidget> {
           ),
         )) ??
         false;
+  }
+
+  void _checkConnection() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+      }
+    } on SocketException catch (_) {
+      return showFloatingFlushbar('Tidak ada koneksi internet');
+    }
+  }
+
+  void showFloatingFlushbar(String msg) {
+    Flushbar(
+      // aroundPadding: EdgeInsets.all(10),
+      margin: EdgeInsets.all(10.0),
+      borderRadius: 8,
+      backgroundGradient: LinearGradient(
+        colors: [Colors.red, Colors.redAccent],
+        stops: [0.6, 1],
+      ),
+      boxShadows: [
+        BoxShadow(
+          color: Colors.black45,
+          offset: Offset(3, 3),
+          blurRadius: 3,
+        ),
+      ],
+
+      dismissDirection: FlushbarDismissDirection.HORIZONTAL,
+      forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+      flushbarPosition: FlushbarPosition.TOP,
+      message: msg,
+      icon: Icon(
+        Icons.info,
+        color: Colors.white,
+      ),
+      duration: Duration(seconds: 2),
+    )..show(context);
   }
 
   @override
