@@ -8,9 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:sahabatqu/pages/page-quran/page_quran.dart';
 import 'package:sahabatqu/pages/page_event.dart';
 
-import '../../../constants/themes-color.dart';
-import '../../page_jadwal_sholat.dart';
-import '../page_home.dart';
+import '../constants/themes-color.dart';
+import '../pages/page_jadwal_sholat.dart';
+import '../pages/page-home/page_home.dart';
 
 class HomeWidget extends StatefulWidget {
   @override

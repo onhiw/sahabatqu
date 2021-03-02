@@ -8,6 +8,7 @@ import 'package:sahabatqu/bloc/schedule_pray/schedule_pray_bloc.dart';
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
 import 'package:sahabatqu/pages/page_calender.dart';
 import 'package:sahabatqu/utils/helper.dart';
+import 'package:sahabatqu/widgets/loading_indicator.dart';
 
 import '../constants/themes-color.dart';
 
@@ -168,35 +169,32 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
   }
 
   Widget _buildListSchedule() {
-    return Container(
-      margin: EdgeInsets.all(8),
-      child: BlocProvider(
-        create: (context) => prayBloc,
-        child: BlocListener<SchedulePrayBloc, SchedulePrayState>(
-          listener: (context, state) {
-            if (state is ScheduleError) {
-              return showFloatingFlushbar(state.message);
+    return BlocProvider(
+      create: (context) => prayBloc,
+      child: BlocListener<SchedulePrayBloc, SchedulePrayState>(
+        listener: (context, state) {
+          if (state is ScheduleError) {
+            return showFloatingFlushbar(state.message);
+          }
+        },
+        child: BlocBuilder<SchedulePrayBloc, SchedulePrayState>(
+          builder: (context, state) {
+            if (state is SchedulePrayInitial) {
+              return LoadingIndicator();
+            } else if (state is ScheduleLoading) {
+              return LoadingIndicator();
+            } else if (state is ScheduleLoaded) {
+              return _buildList(context, state.jadwalSholatModel);
+            } else if (state is ScheduleError) {
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: Text(state.message),
+                ),
+              );
             }
+            return Container();
           },
-          child: BlocBuilder<SchedulePrayBloc, SchedulePrayState>(
-            builder: (context, state) {
-              if (state is SchedulePrayInitial) {
-                return _buildLoading();
-              } else if (state is ScheduleLoading) {
-                return _buildLoading();
-              } else if (state is ScheduleLoaded) {
-                return _buildList(context, state.jadwalSholatModel);
-              } else if (state is ScheduleError) {
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Center(
-                    child: Text(state.message),
-                  ),
-                );
-              }
-              return Container();
-            },
-          ),
         ),
       ),
     );
@@ -394,22 +392,4 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
       },
     );
   }
-
-  Widget _buildLoading() => Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              "Mohon Tunggu...",
-              style: TextStyle(color: ColorPalette.textColor),
-            )
-          ],
-        ),
-      );
 }
