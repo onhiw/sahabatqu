@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
-import 'package:sahabatqu/pages/page-qiblah/loading_indicator.dart';
+import 'package:sahabatqu/widgets/loading_indicator.dart';
 import 'package:sahabatqu/pages/page-qiblah/qiblah_compas_widget.dart';
 import 'package:sahabatqu/pages/page-qiblah/qiblah_maps.dart';
 

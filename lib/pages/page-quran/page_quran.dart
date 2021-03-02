@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahabatqu/bloc/quran/quran_bloc.dart';
 import 'package:sahabatqu/models/quran_model.dart';
 import 'package:sahabatqu/pages/page-quran/page_detail_quran.dart';
+import 'package:sahabatqu/widgets/loading_indicator.dart';
 
 import '../../constants/themes-color.dart';
 
@@ -79,9 +80,9 @@ class _QuranPageState extends State<QuranPage> {
         child: BlocBuilder<QuranBloc, QuranState>(
           builder: (context, state) {
             if (state is QuranInitial) {
-              return _buildLoading();
+              return LoadingIndicator();
             } else if (state is QuranLoading) {
-              return _buildLoading();
+              return LoadingIndicator();
             } else if (state is QuranLoaded) {
               return _buildList(context, state.quranModel);
             } else if (state is QuranLoadError) {
@@ -178,24 +179,4 @@ class _QuranPageState extends State<QuranPage> {
       },
     );
   }
-
-  Widget _buildLoading() => Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                "Mohon Tunggu...",
-                style: TextStyle(color: ColorPalette.textColor),
-              )
-            ],
-          ),
-        ),
-      );
 }
