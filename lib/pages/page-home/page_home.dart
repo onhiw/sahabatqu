@@ -1,13 +1,20 @@
+import 'dart:async';
+
+import 'package:dio/dio.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hijri/hijri_calendar.dart';
-import 'package:sahabatqu/pages/page-home/widgets/widget_banner.dart';
+import 'package:intl/intl.dart';
+import 'package:sahabatqu/models/jadwal_sholat_model.dart';
 import 'package:sahabatqu/pages/page-qiblah/page_qiblah.dart';
 import 'package:sahabatqu/pages/page_about.dart';
 import 'package:sahabatqu/pages/page_doa.dart';
 import 'package:sahabatqu/pages/page_names_allah.dart';
 import 'package:sahabatqu/utils/helper.dart';
+import 'package:sahabatqu/viewmodel/jadwal_sholat_vm.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../constants/themes-color.dart';
 
@@ -23,6 +30,9 @@ class _HomePageState extends State<HomePage> {
   double _long = 0;
   String _currentAddress;
 
+  JadwalSholatModel jadwalSholatModel;
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -37,11 +47,10 @@ class _HomePageState extends State<HomePage> {
         if (_currentPosition != null) {
           _lat = _currentPosition.latitude;
           _long = _currentPosition.longitude;
-          print(_lat);
-          print(_long);
         }
       });
       _getAddressFromLatLng();
+      _getJadwaSholat();
     });
   }
 
@@ -52,6 +61,393 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _currentAddress = "${place.locality}";
     });
+  }
+
+  Future _getJadwaSholat() async {
+    try {
+      JadwalSholatViewModel jadwalSholatVM = JadwalSholatViewModel();
+      await jadwalSholatVM
+          .getJadwalSholat(_lat.toString(), _long.toString())
+          .then((value) {
+        setState(() {
+          jadwalSholatModel = value;
+          isLoading = false;
+        });
+      });
+    } on DioError catch (err) {
+      if (err.type == DioErrorType.CONNECT_TIMEOUT) {
+        return showFloatingFlushbar('Connection Timeout Exception');
+      } else if (err.type == DioErrorType.RESPONSE) {
+        return showFloatingFlushbar('Terjadi kesalahan saat permintaan');
+      }
+    }
+  }
+
+  void showFloatingFlushbar(String msg) {
+    Flushbar(
+      // aroundPadding: EdgeInsets.all(10),
+      margin: EdgeInsets.all(10.0),
+      borderRadius: 8,
+      backgroundGradient: LinearGradient(
+        colors: [Colors.red, Colors.redAccent],
+        stops: [0.6, 1],
+      ),
+      boxShadows: [
+        BoxShadow(
+          color: Colors.black45,
+          offset: Offset(3, 3),
+          blurRadius: 3,
+        ),
+      ],
+
+      dismissDirection: FlushbarDismissDirection.HORIZONTAL,
+      forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+      flushbarPosition: FlushbarPosition.TOP,
+      message: msg,
+      icon: Icon(
+        Icons.info,
+        color: Colors.white,
+      ),
+      duration: Duration(seconds: 2),
+    )..show(context);
+  }
+
+  Widget getDataJadwalSholat() {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+    // bool isValid;
+    var newDate = DateTime.parse("$formattedDate" +
+        " " +
+        jadwalSholatModel.results.datetime[0].times.fajr);
+    var newDate1 = DateTime.parse("$formattedDate" +
+        " " +
+        jadwalSholatModel.results.datetime[0].times.dhuhr);
+    var newDate2 = DateTime.parse("$formattedDate" +
+        " " +
+        jadwalSholatModel.results.datetime[0].times.asr);
+    var newDate3 = DateTime.parse("$formattedDate" +
+        " " +
+        jadwalSholatModel.results.datetime[0].times.maghrib);
+    var newDate4 = DateTime.parse("$formattedDate" +
+        " " +
+        jadwalSholatModel.results.datetime[0].times.isha);
+    var dateT = now.difference(newDate).inSeconds;
+    var dateT1 = now.difference(newDate1).inSeconds;
+    var dateT2 = now.difference(newDate2).inSeconds;
+    var dateT3 = now.difference(newDate3).inSeconds;
+    var dateT4 = now.difference(newDate4).inSeconds;
+
+    if (jadwalSholatModel == null) {
+      return Container();
+    }
+
+    if (dateT <= 0) {
+      return Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Subuh",
+              style: TextStyle(
+                  color: ColorPalette.themeColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+            Text(
+              jadwalSholatModel.results.datetime[0].times.fajr,
+              style: TextStyle(
+                  color: ColorPalette.textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.location_on,
+                  color: Colors.grey[600],
+                ),
+                SizedBox(
+                  width: 2,
+                ),
+                Expanded(
+                  child: Text(
+                    _currentAddress == null
+                        ? "Sedang mencari lokasi..."
+                        : _currentAddress,
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 16,
+            )
+          ],
+        ),
+      );
+    } else if (dateT1 <= 0) {
+      return Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Dzuhur",
+              style: TextStyle(
+                  color: ColorPalette.themeColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+            Text(
+              jadwalSholatModel.results.datetime[0].times.dhuhr,
+              style: TextStyle(
+                  color: ColorPalette.textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.location_on,
+                  color: Colors.grey[600],
+                ),
+                SizedBox(
+                  width: 2,
+                ),
+                Expanded(
+                  child: Text(
+                    _currentAddress == null
+                        ? "Sedang mencari lokasi..."
+                        : _currentAddress,
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 16,
+            )
+          ],
+        ),
+      );
+    } else if (dateT2 <= 0) {
+      return Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Ashar",
+              style: TextStyle(
+                  color: ColorPalette.themeColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+            Text(
+              jadwalSholatModel.results.datetime[0].times.asr,
+              style: TextStyle(
+                  color: ColorPalette.textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.location_on,
+                  color: Colors.grey[600],
+                ),
+                SizedBox(
+                  width: 2,
+                ),
+                Expanded(
+                  child: Text(
+                    _currentAddress == null
+                        ? "Sedang mencari lokasi..."
+                        : _currentAddress,
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 16,
+            )
+          ],
+        ),
+      );
+    } else if (dateT3 <= 0) {
+      return Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Magrib",
+              style: TextStyle(
+                  color: ColorPalette.themeColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+            Text(
+              jadwalSholatModel.results.datetime[0].times.maghrib,
+              style: TextStyle(
+                  color: ColorPalette.textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.location_on,
+                  color: Colors.grey[600],
+                ),
+                SizedBox(
+                  width: 2,
+                ),
+                Expanded(
+                  child: Text(
+                    _currentAddress == null
+                        ? "Sedang mencari lokasi..."
+                        : _currentAddress,
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 16,
+            )
+          ],
+        ),
+      );
+    } else if (dateT4 <= 0) {
+      return Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Isya",
+              style: TextStyle(
+                  color: ColorPalette.themeColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+            Text(
+              jadwalSholatModel.results.datetime[0].times.isha,
+              style: TextStyle(
+                  color: ColorPalette.textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.location_on,
+                  color: Colors.grey[600],
+                ),
+                SizedBox(
+                  width: 2,
+                ),
+                Expanded(
+                  child: Text(
+                    _currentAddress == null
+                        ? "Sedang mencari lokasi..."
+                        : _currentAddress,
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 16,
+            )
+          ],
+        ),
+      );
+    } else {
+      return Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Isya",
+              style: TextStyle(
+                  color: ColorPalette.themeColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+            Text(
+              jadwalSholatModel.results.datetime[0].times.isha,
+              style: TextStyle(
+                  color: ColorPalette.textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.location_on,
+                  color: Colors.grey[600],
+                ),
+                SizedBox(
+                  width: 2,
+                ),
+                Expanded(
+                  child: Text(
+                    _currentAddress == null
+                        ? "Sedang mencari lokasi..."
+                        : _currentAddress,
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 16,
+            )
+          ],
+        ),
+      );
+    }
+  }
+
+  Widget loadingSholat() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300],
+          highlightColor: Colors.grey[100],
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+            width: 120,
+            height: 15,
+          ),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300],
+          highlightColor: Colors.grey[100],
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+            width: 80,
+            height: 15,
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -98,51 +494,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Dzuhur",
-                          style: TextStyle(
-                              color: ColorPalette.themeColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                        Text(
-                          "12:20",
-                          style: TextStyle(
-                              color: ColorPalette.textColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25),
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              color: Colors.grey[600],
-                            ),
-                            SizedBox(
-                              width: 2,
-                            ),
-                            Expanded(
-                              child: Text(
-                                _currentAddress == null
-                                    ? "Sedang mencari lokasi..."
-                                    : _currentAddress,
-                                style: TextStyle(
-                                    color: Colors.grey[600], fontSize: 14),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 16,
-                        )
-                      ],
-                    ),
-                  ),
+                  isLoading ? loadingSholat() : getDataJadwalSholat(),
                   Image.asset(
                     "assets/mosque2.png",
                     width: 120,
@@ -181,12 +533,12 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Icon(Icons.self_improvement_outlined,
-                                      size: 40, color: ColorPalette.themeColor),
-                                  // Image.asset(
-                                  //   "assets/ic_doa.png",
-                                  //   color: ColorPalette.themeColor,
-                                  // ),
+                                  // Icon(Icons.self_improvement_outlined,
+                                  //     size: 40, color: ColorPalette.themeColor),
+                                  Image.asset(
+                                    "assets/ic_doa.png",
+                                    color: ColorPalette.themeColor,
+                                  ),
                                 ]),
                           ),
                         ),
