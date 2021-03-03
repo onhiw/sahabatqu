@@ -30,7 +30,7 @@ class _EventWidgetState extends State<EventWidget> {
               Text(
                 "Kegiatan",
                 style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: theme.brightness == Brightness.dark
                         ? Colors.white
@@ -46,7 +46,7 @@ class _EventWidgetState extends State<EventWidget> {
                   "Lihat Semua",
                   style: TextStyle(
                     color: ColorPalette.themeColor,
-                    fontSize: 13,
+                    fontSize: 14,
                   ),
                 ),
               )

@@ -1,19 +1,17 @@
-import 'dart:async';
-
-import 'package:dio/dio.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:sahabatqu/bloc/schedule_pray/schedule_pray_bloc.dart';
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
 import 'package:sahabatqu/pages/page-qiblah/page_qiblah.dart';
 import 'package:sahabatqu/pages/page_doa.dart';
-import 'package:sahabatqu/pages/page_gallery.dart';
+import 'package:sahabatqu/pages/page-media/page_gallery.dart';
 import 'package:sahabatqu/pages/page_names_allah.dart';
 import 'package:sahabatqu/utils/helper.dart';
-import 'package:sahabatqu/viewmodel/jadwal_sholat_vm.dart';
 import 'package:sahabatqu/widgets/widget_event.dart';
 import 'package:sahabatqu/widgets/widget_program.dart';
 import 'package:shimmer/shimmer.dart';
@@ -27,14 +25,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final Geolocator geolocator = Geolocator();
+  SchedulePrayBloc prayBloc = SchedulePrayBloc();
 
   Position _currentPosition;
   double _lat = 0;
   double _long = 0;
   String _currentAddress;
-
-  JadwalSholatModel jadwalSholatModel;
-  bool isLoading = true;
 
   @override
   void initState() {
@@ -53,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         }
       });
       _getAddressFromLatLng();
-      _getJadwaSholat();
+      prayBloc.add(GetScheduleList(_lat.toString(), _long.toString()));
     });
   }
 
@@ -64,26 +60,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _currentAddress = "${place.locality}";
     });
-  }
-
-  Future _getJadwaSholat() async {
-    try {
-      JadwalSholatViewModel jadwalSholatVM = JadwalSholatViewModel();
-      await jadwalSholatVM
-          .getJadwalSholat(_lat.toString(), _long.toString())
-          .then((value) {
-        setState(() {
-          jadwalSholatModel = value;
-          isLoading = false;
-        });
-      });
-    } on DioError catch (err) {
-      if (err.type == DioErrorType.CONNECT_TIMEOUT) {
-        return showFloatingFlushbar('Connection Timeout Exception');
-      } else if (err.type == DioErrorType.RESPONSE) {
-        return showFloatingFlushbar('Terjadi kesalahan saat permintaan');
-      }
-    }
   }
 
   void showFloatingFlushbar(String msg) {
@@ -115,7 +91,41 @@ class _HomePageState extends State<HomePage> {
     )..show(context);
   }
 
-  Widget getDataJadwalSholat() {
+  Widget _buildListSchedule() {
+    return BlocProvider(
+      create: (context) => prayBloc,
+      child: BlocListener<SchedulePrayBloc, SchedulePrayState>(
+        listener: (context, state) {
+          if (state is ScheduleError) {
+            return showFloatingFlushbar(state.message);
+          }
+        },
+        child: BlocBuilder<SchedulePrayBloc, SchedulePrayState>(
+          builder: (context, state) {
+            if (state is SchedulePrayInitial) {
+              return loadingSholat();
+            } else if (state is ScheduleLoading) {
+              return loadingSholat();
+            } else if (state is ScheduleLoaded) {
+              return _buildList(context, state.jadwalSholatModel);
+            } else if (state is ScheduleError) {
+              return Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Text(state.message),
+                  ),
+                ),
+              );
+            }
+            return Container();
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildList(BuildContext context, JadwalSholatModel jadwalSholatModel) {
     final ThemeData theme = Theme.of(context);
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
@@ -472,10 +482,7 @@ class _HomePageState extends State<HomePage> {
     var today = new HijriCalendar.now();
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      // backgroundColor: Colors.grey[50],
       appBar: AppBar(
-          // iconTheme: IconThemeData(color: Colors.white),
-          // backgroundColor: Colors.white,
           elevation: 0,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -491,10 +498,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Text(
                 today.toFormat("dd MMMM yyyy") + " H",
-                style: TextStyle(
-                    color: Colors.grey[600],
-                    // fontWeight: FontWeight.bold,
-                    fontSize: 14),
+                style: TextStyle(color: Colors.grey[600], fontSize: 14),
               ),
             ],
           )),
@@ -513,11 +517,10 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  isLoading ? loadingSholat() : getDataJadwalSholat(),
+                  _buildListSchedule(),
                   Image.asset(
                     "assets/mosque2.png",
                     width: 120,
-                    // color: ColorPalette.themeColor,
                   ),
                 ],
               ),
