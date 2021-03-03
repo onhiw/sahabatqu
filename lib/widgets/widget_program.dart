@@ -26,9 +26,9 @@ class _ProgramWidgetState extends State<ProgramWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Program Kami",
+                "Program",
                 style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: theme.brightness == Brightness.dark
                         ? Colors.white
@@ -44,7 +44,7 @@ class _ProgramWidgetState extends State<ProgramWidget> {
                   "Lihat Semua",
                   style: TextStyle(
                     color: ColorPalette.themeColor,
-                    fontSize: 13,
+                    fontSize: 14,
                   ),
                 ),
               )
@@ -66,9 +66,7 @@ class _ProgramWidgetState extends State<ProgramWidget> {
                 elevation: 2,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
-                child: Container(
-                  // width: 150,
-                  height: 310,
+                child: IntrinsicHeight(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Stack(
@@ -101,7 +99,7 @@ class _ProgramWidgetState extends State<ProgramWidget> {
                                 ),
                                 child: Center(
                                     child: Text(
-                                  "Program Sedekah Harian",
+                                  "Gerakan Sedekah Sehari Seribu",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
