@@ -120,10 +120,10 @@ class QiblahCompassWidget extends StatelessWidget {
               alignment: Alignment.center,
               child: _needleSvg,
             ),
-            Positioned(
-              bottom: 8,
-              child: Text("${qiblahDirection.offset.toStringAsFixed(3)}°"),
-            )
+            // Positioned(
+            //   bottom: 8,
+            //   child: Text("${qiblahDirection.offset.toStringAsFixed(3)}°"),
+            // )
           ],
         );
       },

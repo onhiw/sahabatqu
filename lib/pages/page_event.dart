@@ -9,17 +9,21 @@ class EventPage extends StatefulWidget {
 class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: ColorPalette.textColor,
-          ),
-          backgroundColor: Colors.white,
+          // iconTheme: IconThemeData(
+          //   color: ColorPalette.textColor,
+          // ),
+          // backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
             "Kegiatan",
             style: TextStyle(
-                color: ColorPalette.textColor, fontWeight: FontWeight.bold),
+                color: theme.brightness == Brightness.dark
+                    ? Colors.white
+                    : ColorPalette.textColor,
+                fontWeight: FontWeight.bold),
           )),
     );
   }

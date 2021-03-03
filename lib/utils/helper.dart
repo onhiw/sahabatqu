@@ -11,6 +11,6 @@ class MyHelper {
 
   static String formatDate(DateTime dateTime) {
     initializeDateFormatting("id");
-    return DateFormat.yMMMEd("id").format(dateTime);
+    return DateFormat.yMMMMEEEEd("id").format(dateTime);
   }
 }

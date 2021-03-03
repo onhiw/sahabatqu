@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sahabatqu/constants/themes-color.dart';
 
-class DoaPage extends StatefulWidget {
+class GalleryPage extends StatefulWidget {
   @override
-  _DoaPageState createState() => _DoaPageState();
+  _GalleryPageState createState() => _GalleryPageState();
 }
 
-class _DoaPageState extends State<DoaPage> {
+class _GalleryPageState extends State<GalleryPage> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -20,7 +20,7 @@ class _DoaPageState extends State<DoaPage> {
           // backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
-            "Doa-Doa",
+            "Gallery",
             style: TextStyle(
                 color: theme.brightness == Brightness.dark
                     ? Colors.white
