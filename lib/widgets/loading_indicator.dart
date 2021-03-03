@@ -7,8 +7,11 @@ import 'package:sahabatqu/constants/themes-color.dart';
 class LoadingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     final widget = (Platform.isAndroid)
-        ? CircularProgressIndicator()
+        ? CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(ColorPalette.themeColor),
+          )
         : CupertinoActivityIndicator();
     return Padding(
       padding: EdgeInsets.all(16),
@@ -23,7 +26,10 @@ class LoadingIndicator extends StatelessWidget {
           ),
           Text(
             "Mohon Tunggu...",
-            style: TextStyle(color: ColorPalette.textColor),
+            style: TextStyle(
+                color: theme.brightness == Brightness.dark
+                    ? Colors.white
+                    : ColorPalette.textColor),
           )
         ],
       )),

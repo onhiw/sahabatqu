@@ -15,16 +15,24 @@ class _QiblahPageState extends State<QiblahPage> {
   final _deviceSupport = FlutterQiblah.androidDeviceSensorSupport();
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-          iconTheme: IconThemeData(color: ColorPalette.textColor),
-          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(
+            color: theme.brightness == Brightness.dark
+                ? Colors.white
+                : ColorPalette.textColor,
+          ),
+          // backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
             "Kiblat",
             style: TextStyle(
-                color: ColorPalette.textColor, fontWeight: FontWeight.bold),
+                color: theme.brightness == Brightness.dark
+                    ? Colors.white
+                    : ColorPalette.textColor,
+                fontWeight: FontWeight.bold),
           )),
       body: Padding(
         padding: const EdgeInsets.all(10.0),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sahabatqu/models/quran_id_indonesian_model.dart';
 import 'package:sahabatqu/models/quran_uthmani_model.dart';
 import 'package:sahabatqu/viewmodel/quran_vm.dart';
+import 'package:sahabatqu/widgets/loading_indicator.dart';
 
 import '../../constants/themes-color.dart';
 
@@ -55,11 +56,16 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      // backgroundColor: Colors.grey[50],
       appBar: AppBar(
-          iconTheme: IconThemeData(color: ColorPalette.textColor),
-          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(
+            color: theme.brightness == Brightness.dark
+                ? Colors.white
+                : ColorPalette.textColor,
+          ),
+          // backgroundColor: Colors.white,
           elevation: 0,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +73,9 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
               Text(
                 widget.name,
                 style: TextStyle(
-                    color: ColorPalette.textColor,
+                    color: theme.brightness == Brightness.dark
+                        ? Colors.white
+                        : ColorPalette.textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 15),
               ),
@@ -81,39 +89,9 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
             ],
           )),
       body: isLoading
-          ? Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    "Mohon Tunggu...",
-                    style: TextStyle(color: ColorPalette.textColor),
-                  )
-                ],
-              ),
-            )
+          ? LoadingIndicator()
           : isLoadingIndonesian
-              ? Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        "Mohon Tunggu...",
-                        style: TextStyle(color: ColorPalette.textColor),
-                      )
-                    ],
-                  ),
-                )
+              ? LoadingIndicator()
               : ListView(
                   padding: EdgeInsets.all(16),
                   physics: BouncingScrollPhysics(),
@@ -157,7 +135,7 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                                           ""),
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      // color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 35),
                                 ),
@@ -173,7 +151,10 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                                       Text(
                                         (i + 1).toString() + ".",
                                         style: TextStyle(
-                                            color: ColorPalette.textColor,
+                                            color: theme.brightness ==
+                                                    Brightness.dark
+                                                ? Colors.white
+                                                : ColorPalette.textColor,
                                             fontSize: 16),
                                       ),
                                       SizedBox(
@@ -184,7 +165,10 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                                           quranUthmaniModelID
                                               .data.ayahs[i].text,
                                           style: TextStyle(
-                                              color: ColorPalette.textColor,
+                                              color: theme.brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : ColorPalette.textColor,
                                               fontSize: 16),
                                         ),
                                       ),
@@ -265,22 +249,7 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
             },
           );
         }
-        return Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                "Mohon Tunggu...",
-                style: TextStyle(color: ColorPalette.textColor),
-              )
-            ],
-          ),
-        );
+        return LoadingIndicator();
       },
     );
   }

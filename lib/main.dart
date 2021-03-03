@@ -41,6 +41,12 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Colors.white,
+          fontFamily: 'Poppins',
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
           fontFamily: 'Poppins',
         ),
         routes: appRoutes);

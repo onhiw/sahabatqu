@@ -9,17 +9,23 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
           iconTheme: IconThemeData(
-            color: ColorPalette.textColor,
+            color: theme.brightness == Brightness.dark
+                ? Colors.white
+                : ColorPalette.textColor,
           ),
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
-            "Tentang",
+            "Tentang Kami",
             style: TextStyle(
-                color: ColorPalette.textColor, fontWeight: FontWeight.bold),
+                color: theme.brightness == Brightness.dark
+                    ? Colors.white
+                    : ColorPalette.textColor,
+                fontWeight: FontWeight.bold),
           )),
     );
   }

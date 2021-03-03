@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sahabatqu/constants/themes-color.dart';
 
-class DoaPage extends StatefulWidget {
+class ProgramPage extends StatefulWidget {
   @override
-  _DoaPageState createState() => _DoaPageState();
+  _ProgramPageState createState() => _ProgramPageState();
 }
 
-class _DoaPageState extends State<DoaPage> {
+class _ProgramPageState extends State<ProgramPage> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -20,7 +20,7 @@ class _DoaPageState extends State<DoaPage> {
           // backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
-            "Doa-Doa",
+            "Program Kami",
             style: TextStyle(
                 color: theme.brightness == Brightness.dark
                     ? Colors.white

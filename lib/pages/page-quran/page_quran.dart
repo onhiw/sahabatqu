@@ -53,16 +53,20 @@ class _QuranPageState extends State<QuranPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      // backgroundColor: Colors.grey[50],
       appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: Colors.white,
+          // iconTheme: IconThemeData(color: Colors.white),
+          // backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
             "Al-Quran",
             style: TextStyle(
-                color: ColorPalette.textColor, fontWeight: FontWeight.bold),
+                color: theme.brightness == Brightness.dark
+                    ? Colors.white
+                    : ColorPalette.textColor,
+                fontWeight: FontWeight.bold),
           )),
       body: _buildQuranList(),
     );
@@ -101,6 +105,7 @@ class _QuranPageState extends State<QuranPage> {
   }
 
   Widget _buildList(BuildContext context, QuranModel quranModel) {
+    final ThemeData theme = Theme.of(context);
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       itemCount: quranModel.hasil.length,
@@ -126,7 +131,9 @@ class _QuranPageState extends State<QuranPage> {
                         (index + 1).toString() + ".",
                         style: TextStyle(
                             fontSize: 16,
-                            color: ColorPalette.textColor,
+                            color: theme.brightness == Brightness.dark
+                                ? Colors.white
+                                : ColorPalette.textColor,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
@@ -164,7 +171,9 @@ class _QuranPageState extends State<QuranPage> {
                   quranModel.hasil[index].asma,
                   style: TextStyle(
                       fontSize: 20,
-                      color: ColorPalette.textColor,
+                      color: theme.brightness == Brightness.dark
+                          ? Colors.white
+                          : ColorPalette.textColor,
                       fontWeight: FontWeight.bold),
                 )
               ],

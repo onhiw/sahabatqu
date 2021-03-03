@@ -9,11 +9,13 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
 import 'package:sahabatqu/pages/page-qiblah/page_qiblah.dart';
-import 'package:sahabatqu/pages/page_about.dart';
 import 'package:sahabatqu/pages/page_doa.dart';
+import 'package:sahabatqu/pages/page_gallery.dart';
 import 'package:sahabatqu/pages/page_names_allah.dart';
 import 'package:sahabatqu/utils/helper.dart';
 import 'package:sahabatqu/viewmodel/jadwal_sholat_vm.dart';
+import 'package:sahabatqu/widgets/widget_event.dart';
+import 'package:sahabatqu/widgets/widget_program.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../constants/themes-color.dart';
@@ -25,6 +27,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final Geolocator geolocator = Geolocator();
+
   Position _currentPosition;
   double _lat = 0;
   double _long = 0;
@@ -113,6 +116,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getDataJadwalSholat() {
+    final ThemeData theme = Theme.of(context);
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
@@ -157,7 +161,9 @@ class _HomePageState extends State<HomePage> {
             Text(
               jadwalSholatModel.results.datetime[0].times.fajr,
               style: TextStyle(
-                  color: ColorPalette.textColor,
+                  color: theme.brightness == Brightness.dark
+                      ? Colors.white
+                      : ColorPalette.textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -202,7 +208,9 @@ class _HomePageState extends State<HomePage> {
             Text(
               jadwalSholatModel.results.datetime[0].times.dhuhr,
               style: TextStyle(
-                  color: ColorPalette.textColor,
+                  color: theme.brightness == Brightness.dark
+                      ? Colors.white
+                      : ColorPalette.textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -247,7 +255,9 @@ class _HomePageState extends State<HomePage> {
             Text(
               jadwalSholatModel.results.datetime[0].times.asr,
               style: TextStyle(
-                  color: ColorPalette.textColor,
+                  color: theme.brightness == Brightness.dark
+                      ? Colors.white
+                      : ColorPalette.textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -292,7 +302,9 @@ class _HomePageState extends State<HomePage> {
             Text(
               jadwalSholatModel.results.datetime[0].times.maghrib,
               style: TextStyle(
-                  color: ColorPalette.textColor,
+                  color: theme.brightness == Brightness.dark
+                      ? Colors.white
+                      : ColorPalette.textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -337,7 +349,9 @@ class _HomePageState extends State<HomePage> {
             Text(
               jadwalSholatModel.results.datetime[0].times.isha,
               style: TextStyle(
-                  color: ColorPalette.textColor,
+                  color: theme.brightness == Brightness.dark
+                      ? Colors.white
+                      : ColorPalette.textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -382,7 +396,9 @@ class _HomePageState extends State<HomePage> {
             Text(
               jadwalSholatModel.results.datetime[0].times.isha,
               style: TextStyle(
-                  color: ColorPalette.textColor,
+                  color: theme.brightness == Brightness.dark
+                      ? Colors.white
+                      : ColorPalette.textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -454,11 +470,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     var today = new HijriCalendar.now();
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      // backgroundColor: Colors.grey[50],
       appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: Colors.white,
+          // iconTheme: IconThemeData(color: Colors.white),
+          // backgroundColor: Colors.white,
           elevation: 0,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -466,7 +483,9 @@ class _HomePageState extends State<HomePage> {
               Text(
                 MyHelper.formatDate(now),
                 style: TextStyle(
-                    color: ColorPalette.textColor,
+                    color: theme.brightness == Brightness.dark
+                        ? Colors.white
+                        : ColorPalette.textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
               ),
@@ -546,9 +565,12 @@ class _HomePageState extends State<HomePage> {
                           margin: EdgeInsets.only(top: 5),
                           child: Text("Doa-Doa",
                               style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorPalette.textColor)),
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: theme.brightness == Brightness.dark
+                                    ? Colors.white
+                                    : ColorPalette.textColor,
+                              )),
                         )
                       ],
                     ),
@@ -582,9 +604,12 @@ class _HomePageState extends State<HomePage> {
                           margin: EdgeInsets.only(top: 5),
                           child: Text("99 Nama",
                               style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorPalette.textColor)),
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: theme.brightness == Brightness.dark
+                                    ? Colors.white
+                                    : ColorPalette.textColor,
+                              )),
                         )
                       ],
                     ),
@@ -619,9 +644,12 @@ class _HomePageState extends State<HomePage> {
                           margin: EdgeInsets.only(top: 5),
                           child: Text("Kiblat",
                               style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorPalette.textColor)),
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: theme.brightness == Brightness.dark
+                                    ? Colors.white
+                                    : ColorPalette.textColor,
+                              )),
                         )
                       ],
                     ),
@@ -634,7 +662,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return AboutPage();
+                              return GalleryPage();
                             }));
                           },
                           child: Container(
@@ -644,18 +672,21 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Icon(Icons.info_outline,
+                                  Icon(Icons.image_outlined,
                                       size: 40, color: ColorPalette.themeColor),
                                 ]),
                           ),
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 5),
-                          child: Text("Tentang",
+                          child: Text("Gallery",
                               style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorPalette.textColor)),
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: theme.brightness == Brightness.dark
+                                    ? Colors.white
+                                    : ColorPalette.textColor,
+                              )),
                         )
                       ],
                     ),
@@ -663,6 +694,17 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          EventWidget(),
+          SizedBox(
+            height: 10,
+          ),
+          ProgramWidget(),
+          SizedBox(
+            height: 10,
           ),
         ],
       ),

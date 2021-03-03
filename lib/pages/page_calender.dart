@@ -14,14 +14,19 @@ class _CalenderPageState extends State<CalenderPage> {
   var selectedDate = new HijriCalendar.now();
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     DateTime now = DateTime.now();
     var today = new HijriCalendar.now();
     HijriCalendar.setLocal(Localizations.localeOf(context).languageCode);
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
-          iconTheme: IconThemeData(color: ColorPalette.textColor),
-          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(
+            color: theme.brightness == Brightness.dark
+                ? Colors.white
+                : ColorPalette.textColor,
+          ),
+          // backgroundColor: Colors.white,
           elevation: 0,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +34,9 @@ class _CalenderPageState extends State<CalenderPage> {
               Text(
                 today.toFormat("dd MMMM yyyy") + " H",
                 style: TextStyle(
-                    color: ColorPalette.textColor,
+                    color: theme.brightness == Brightness.dark
+                        ? Colors.white
+                        : ColorPalette.textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
               ),
@@ -46,7 +53,7 @@ class _CalenderPageState extends State<CalenderPage> {
         children: [
           Container(
             width: double.infinity,
-            color: Colors.white,
+            // color: Colors.white,
             child: Center(
               child: HijriMonthPicker(
                 lastDate: new HijriCalendar()
