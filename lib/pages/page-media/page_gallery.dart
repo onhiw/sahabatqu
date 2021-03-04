@@ -99,6 +99,7 @@ class _GalleryPageState extends State<GalleryPage> {
       body: StaggeredGridView.countBuilder(
         padding: EdgeInsets.all(8),
         crossAxisCount: 4,
+        physics: BouncingScrollPhysics(),
         itemCount: imageList.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
