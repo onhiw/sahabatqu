@@ -139,42 +139,47 @@ class _QuranPageState extends State<QuranPage> {
                       SizedBox(
                         width: 16,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            quranModel.hasil[index].nama,
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: ColorPalette.themeColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Text(
-                            quranModel.hasil[index].arti +
-                                " (" +
-                                quranModel.hasil[index].ayat +
-                                ")",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[600],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              quranModel.hasil[index].nama,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: ColorPalette.themeColor,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          )
-                        ],
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Text(
+                              quranModel.hasil[index].arti +
+                                  " (" +
+                                  quranModel.hasil[index].ayat +
+                                  ")",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey[600],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Text(
-                  quranModel.hasil[index].asma,
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: theme.brightness == Brightness.dark
-                          ? Colors.white
-                          : ColorPalette.textColor,
-                      fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Text(
+                    quranModel.hasil[index].asma,
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: theme.brightness == Brightness.dark
+                            ? Colors.white
+                            : ColorPalette.textColor,
+                        fontWeight: FontWeight.bold),
+                  ),
                 )
               ],
             ),
