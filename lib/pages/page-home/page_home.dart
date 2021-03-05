@@ -12,6 +12,7 @@ import 'package:sahabatqu/pages/page_doa.dart';
 import 'package:sahabatqu/pages/page-media/page_gallery.dart';
 import 'package:sahabatqu/pages/page_names_allah.dart';
 import 'package:sahabatqu/utils/helper.dart';
+import 'package:sahabatqu/widgets/push_notification_service.dart';
 import 'package:sahabatqu/widgets/widget_event.dart';
 import 'package:sahabatqu/widgets/widget_program.dart';
 import 'package:shimmer/shimmer.dart';
@@ -36,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _getCurrentLocation();
+    PushNotificationHelper(this.context);
   }
 
   _getCurrentLocation() async {
