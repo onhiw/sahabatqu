@@ -50,6 +50,7 @@ class _CalenderPageState extends State<CalenderPage> {
             ],
           )),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
           Container(
             width: double.infinity,
