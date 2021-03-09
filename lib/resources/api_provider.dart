@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:sahabatqu/constants/constants.dart';
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
+import 'package:sahabatqu/models/nearme_mosque.dart';
 import 'package:sahabatqu/models/quran_model.dart';
 import 'package:sahabatqu/models/quran_uthmani_model.dart';
 
@@ -43,6 +45,21 @@ class ApiProvider {
       final QuranUthmaniModel quranUthmaniModel =
           QuranUthmaniModel.fromJson(_res.data);
       return quranUthmaniModel;
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return null;
+    }
+  }
+
+  Future<NearmeMosqueModel> fetchNearmeMosque(String lat, String long) async {
+    final String _url =
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$long&radius=1000&sensor=true&types=mosque&key=AIzaSyBFRpXPf8BXaR22nDvvx2ghBfbUbGGX8N8";
+    try {
+      Response _res = await _dio.get(_url);
+      print(_res);
+      final NearmeMosqueModel nearmeMosqueModel =
+          NearmeMosqueModel.fromJson(_res.data);
+      return nearmeMosqueModel;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return null;

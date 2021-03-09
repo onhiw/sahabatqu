@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sahabatqu/constants/themes-color.dart';
-import 'package:sahabatqu/pages/page_detail_program.dart';
-import 'package:sahabatqu/pages/page_program.dart';
+import 'package:sahabatqu/pages/page-program/page_detail_program.dart';
+import 'package:sahabatqu/pages/page-program/page_program.dart';
 
 class ProgramWidget extends StatefulWidget {
   @override
