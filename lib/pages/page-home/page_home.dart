@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:sahabatqu/bloc/schedule_pray/schedule_pray_bloc.dart';
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
 import 'package:sahabatqu/pages/page-qiblah/page_qiblah.dart';
-import 'package:sahabatqu/pages/page_doa.dart';
+import 'package:sahabatqu/pages/page-doa/page_doa.dart';
 import 'package:sahabatqu/pages/page-media/page_gallery.dart';
 import 'package:sahabatqu/pages/page_names_allah.dart';
 import 'package:sahabatqu/utils/helper.dart';
