@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:sahabatqu/constants/constants.dart';
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
+import 'package:sahabatqu/models/nearme_halal_model.dart';
 import 'package:sahabatqu/models/nearme_mosque.dart';
 import 'package:sahabatqu/models/quran_model.dart';
 import 'package:sahabatqu/models/quran_uthmani_model.dart';
@@ -60,6 +61,22 @@ class ApiProvider {
       final NearmeMosqueModel nearmeMosqueModel =
           NearmeMosqueModel.fromJson(_res.data);
       return nearmeMosqueModel;
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return null;
+    }
+  }
+
+  Future<NearmeHalalModel> fetchNearmeHalal(
+      String lat, String long, String date) async {
+    final String _url =
+        "https://api.foursquare.com/v2/venues/explore?client_id=N3OTUQEA05WTT3K3L2FTJRWGBUERHOXEWU1R3LTC0FTZBZEL&client_secret=TTBPDQ0VBOFWLCAGBJFEYPK0VU1Y0ZXHCD0U5Z1RK4EN3Y5J&v=$date&limit=10&ll=$lat,$long&categoryId=52e81612bcbc57f1066b79ff";
+    try {
+      Response _res = await _dio.get(_url);
+      print(_res);
+      final NearmeHalalModel nearmeHalalModel =
+          NearmeHalalModel.fromJson(_res.data);
+      return nearmeHalalModel;
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return null;

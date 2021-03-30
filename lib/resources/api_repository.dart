@@ -1,4 +1,5 @@
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
+import 'package:sahabatqu/models/nearme_halal_model.dart';
 import 'package:sahabatqu/models/nearme_mosque.dart';
 import 'package:sahabatqu/models/quran_model.dart';
 import 'package:sahabatqu/models/quran_uthmani_model.dart';
@@ -21,6 +22,11 @@ class ApiRespository {
 
   Future<NearmeMosqueModel> fetchNeameMosque(String lat, String long) {
     return _provider.fetchNearmeMosque(lat, long);
+  }
+
+  Future<NearmeHalalModel> fetchNeameHalal(
+      String lat, String long, String date) {
+    return _provider.fetchNearmeHalal(lat, long, date);
   }
 }
 

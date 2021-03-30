@@ -61,6 +61,8 @@ dependencies:
   webview_flutter: ^0.3.22+1
   flutter_html: ^1.0.0
   flutter_local_notifications: ^1.4.4+2
+  expand_widget: ^1.2.0+1
+  youtube_player_flutter: ^7.0.0+7
 
 dev_dependencies:
   flutter_test:
