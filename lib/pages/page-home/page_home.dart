@@ -1,3 +1,4 @@
+import 'package:expand_widget/expand_widget.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,9 @@ import 'package:sahabatqu/pages/page-qiblah/page_qiblah.dart';
 import 'package:sahabatqu/pages/page-doa/page_doa.dart';
 import 'package:sahabatqu/pages/page-media/page_gallery.dart';
 import 'package:sahabatqu/pages/page_names_allah.dart';
+import 'package:sahabatqu/pages/page_nearme_halal.dart';
+import 'package:sahabatqu/pages/page_nearme_mosque.dart';
+import 'package:sahabatqu/pages/page_video_mekkah.dart';
 import 'package:sahabatqu/utils/helper.dart';
 import 'package:sahabatqu/widgets/push_notification_service.dart';
 import 'package:sahabatqu/widgets/widget_event.dart';
@@ -535,169 +539,356 @@ class _HomePageState extends State<HomePage> {
             elevation: 2,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        InkWell(
-                          borderRadius: BorderRadius.circular(50),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return DoaPage();
-                            }));
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  // Icon(Icons.self_improvement_outlined,
-                                  //     size: 40, color: ColorPalette.themeColor),
-                                  Image.asset(
-                                    "assets/ic_doa.png",
-                                    color: ColorPalette.themeColor,
-                                  ),
-                                ]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            InkWell(
+                              borderRadius: BorderRadius.circular(50),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return DoaPage();
+                                }));
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      // Icon(Icons.self_improvement_outlined,
+                                      //     size: 40, color: ColorPalette.themeColor),
+                                      Image.asset(
+                                        "assets/ic_doa.png",
+                                        color: ColorPalette.themeColor,
+                                      ),
+                                    ]),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text("Doa-Doa",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.brightness == Brightness.dark
+                                        ? Colors.white
+                                        : ColorPalette.textColor,
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            InkWell(
+                              borderRadius: BorderRadius.circular(50),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return NamesAllahPage();
+                                }));
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Image.asset(
+                                        "assets/ic_allah.png",
+                                        color: ColorPalette.themeColor,
+                                      ),
+                                    ]),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text("99 Nama",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.brightness == Brightness.dark
+                                        ? Colors.white
+                                        : ColorPalette.textColor,
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            InkWell(
+                              borderRadius: BorderRadius.circular(40),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return QiblahPage();
+                                }));
+                              },
+                              child: Container(
+                                // padding: EdgeInsets.all(18),
+                                height: 40,
+                                width: 40,
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Icon(Icons.explore_outlined,
+                                          size: 40,
+                                          color: ColorPalette.themeColor),
+                                      // Image.asset("assets/ic_qiblah.png",
+                                      //     color: ColorPalette.themeColor),
+                                    ]),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text("Kiblat",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.brightness == Brightness.dark
+                                        ? Colors.white
+                                        : ColorPalette.textColor,
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            InkWell(
+                              borderRadius: BorderRadius.circular(40),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return GalleryPage();
+                                }));
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Icon(Icons.image_outlined,
+                                          size: 40,
+                                          color: ColorPalette.themeColor),
+                                    ]),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text("Gallery",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.brightness == Brightness.dark
+                                        ? Colors.white
+                                        : ColorPalette.textColor,
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ExpandChild(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 25),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: <Widget>[
+                              InkWell(
+                                borderRadius: BorderRadius.circular(50),
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return NearmeHalalPage();
+                                  }));
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        // Icon(Icons.self_improvement_outlined,
+                                        //     size: 40, color: ColorPalette.themeColor),
+                                        Image.asset(
+                                          "assets/ic_halal.png",
+                                          color: ColorPalette.themeColor,
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Text("Halal",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: theme.brightness == Brightness.dark
+                                          ? Colors.white
+                                          : ColorPalette.textColor,
+                                    )),
+                              )
+                            ],
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(top: 5),
-                          child: Text("Doa-Doa",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: theme.brightness == Brightness.dark
-                                    ? Colors.white
-                                    : ColorPalette.textColor,
-                              )),
-                        )
+                        Expanded(
+                          child: Column(
+                            children: <Widget>[
+                              InkWell(
+                                borderRadius: BorderRadius.circular(50),
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return NearmeMosquePage();
+                                  }));
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Image.asset(
+                                          "assets/ic_masjid.png",
+                                          color: ColorPalette.themeColor,
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Text("Masjid",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: theme.brightness == Brightness.dark
+                                          ? Colors.white
+                                          : ColorPalette.textColor,
+                                    )),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: <Widget>[
+                              InkWell(
+                                borderRadius: BorderRadius.circular(40),
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return VideoMekkahPage();
+                                  }));
+                                },
+                                child: Container(
+                                  // padding: EdgeInsets.all(18),
+                                  height: 40,
+                                  width: 40,
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Image.asset(
+                                          "assets/ic_kaaba.png",
+                                          color: ColorPalette.themeColor,
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Text("Mekah",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: theme.brightness == Brightness.dark
+                                          ? Colors.white
+                                          : ColorPalette.textColor,
+                                    )),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: <Widget>[
+                              // InkWell(
+                              //   borderRadius: BorderRadius.circular(40),
+                              //   onTap: () {
+                              //     Navigator.push(context,
+                              //         MaterialPageRoute(builder: (context) {
+                              //       return GalleryPage();
+                              //     }));
+                              //   },
+                              //   child: Container(
+                              //     height: 40,
+                              //     width: 40,
+                              //     child: Column(
+                              //         crossAxisAlignment:
+                              //             CrossAxisAlignment.center,
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.center,
+                              //         children: <Widget>[
+                              //           Icon(Icons.image_outlined,
+                              //               size: 40,
+                              //               color: ColorPalette.themeColor),
+                              //         ]),
+                              //   ),
+                              // ),
+                              // Container(
+                              //   margin: EdgeInsets.only(top: 5),
+                              //   child: Text("Gallery",
+                              //       style: TextStyle(
+                              //         fontSize: 12,
+                              //         fontWeight: FontWeight.bold,
+                              //         color: theme.brightness == Brightness.dark
+                              //             ? Colors.white
+                              //             : ColorPalette.textColor,
+                              //       )),
+                              // )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        InkWell(
-                          borderRadius: BorderRadius.circular(50),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return NamesAllahPage();
-                            }));
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Image.asset(
-                                    "assets/ic_allah.png",
-                                    color: ColorPalette.themeColor,
-                                  ),
-                                ]),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 5),
-                          child: Text("99 Nama",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: theme.brightness == Brightness.dark
-                                    ? Colors.white
-                                    : ColorPalette.textColor,
-                              )),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        InkWell(
-                          borderRadius: BorderRadius.circular(40),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return QiblahPage();
-                            }));
-                          },
-                          child: Container(
-                            // padding: EdgeInsets.all(18),
-                            height: 40,
-                            width: 40,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(Icons.explore_outlined,
-                                      size: 40, color: ColorPalette.themeColor),
-                                  // Image.asset("assets/ic_qiblah.png",
-                                  //     color: ColorPalette.themeColor),
-                                ]),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 5),
-                          child: Text("Kiblat",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: theme.brightness == Brightness.dark
-                                    ? Colors.white
-                                    : ColorPalette.textColor,
-                              )),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        InkWell(
-                          borderRadius: BorderRadius.circular(40),
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return GalleryPage();
-                            }));
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(Icons.image_outlined,
-                                      size: 40, color: ColorPalette.themeColor),
-                                ]),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 5),
-                          child: Text("Gallery",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: theme.brightness == Brightness.dark
-                                    ? Colors.white
-                                    : ColorPalette.textColor,
-                              )),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                )
+              ],
             ),
           ),
           SizedBox(
