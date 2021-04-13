@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:sahabatqu/bloc/nearme_mosque/nearme_mosque_bloc.dart';
 import 'package:sahabatqu/constants/themes-color.dart';
 import 'package:sahabatqu/models/nearme_mosque.dart';
+import 'package:sahabatqu/models/nearme_mosque_model.dart';
 import 'package:sahabatqu/widgets/loading_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,6 +33,9 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
   }
 
   _getCurrentLocation() async {
+    DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('yyyyMMdd');
+    final String formatted = formatter.format(now);
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium)
         .then((value) {
       setState(() {
@@ -43,7 +48,8 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
         }
       });
       _getAddressFromLatLng();
-      mosqueBloc.add(GetNearmeMosqueList(_lat.toString(), _long.toString()));
+      mosqueBloc.add(
+          GetNearmeMosqueList(_lat.toString(), _long.toString(), formatted));
     });
   }
 
@@ -142,7 +148,7 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
   }
 
   Widget _buildList(BuildContext context, NearmeMosqueModel nearmeMosqueModel) {
-    if (nearmeMosqueModel.results.length == 0) {
+    if (nearmeMosqueModel.response.groups.length == 0) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -168,17 +174,48 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
           ),
         ),
       );
+    } else {
+      for (int i = 0; i < nearmeMosqueModel.response.groups.length; i++) {
+        if (nearmeMosqueModel.response.groups[i].items.length == 0) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/ic_mosque.png",
+                    width: 100,
+                    height: 100,
+                    color: ColorPalette.themeColor,
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    "Oops Terjadi kesalahan, Lokasi masjid tidak ditemukan, coba beberapa saat lagi",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16),
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+      }
     }
     return ListView.separated(
       physics: BouncingScrollPhysics(),
-      itemCount: nearmeMosqueModel.results.length,
-      itemBuilder: (context, index) {
+      itemCount: nearmeMosqueModel.response.groups[0].items.length,
+      shrinkWrap: true,
+      itemBuilder: (context, i) {
         return InkWell(
           onTap: () {
             _launchMaps(
-                nearmeMosqueModel.results[index].geometry.location.lat
+                nearmeMosqueModel.response.groups[0].items[i].venue.location.lat
                     .toString(),
-                nearmeMosqueModel.results[index].geometry.location.lng
+                nearmeMosqueModel.response.groups[0].items[i].venue.location.lng
                     .toString());
           },
           child: Padding(
@@ -186,7 +223,7 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
             child: Row(
               children: [
                 Image.asset(
-                  "assets/ic_mosque.png",
+                  "assets/ic_halal.png",
                   width: 24,
                   height: 24,
                   color: ColorPalette.themeColor,
@@ -199,7 +236,8 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        nearmeMosqueModel.results[index].name,
+                        nearmeMosqueModel
+                            .response.groups[0].items[i].venue.name,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
@@ -207,7 +245,8 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
                         height: 2,
                       ),
                       Text(
-                        nearmeMosqueModel.results[index].vicinity,
+                        nearmeMosqueModel.response.groups[0].items[i].venue
+                            .location.formattedAddress[0],
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.grey[600],
