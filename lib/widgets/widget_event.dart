@@ -11,13 +11,20 @@ class EventWidget extends StatefulWidget {
 
 class _EventWidgetState extends State<EventWidget> {
   List<String> imgList = [
+    "assets/acara4.jpeg",
     "assets/acara3.jpg",
     "assets/acara2.jpg",
-    "assets/acara1.jpg"
+    "assets/acara1.jpg",
   ];
 
-  List<String> dateList = ["2020-05-10", "2019-05-19", "2018-06-03"];
+  List<String> dateList = [
+    "2021-05-01",
+    "2020-05-10",
+    "2019-05-19",
+    "2018-06-03"
+  ];
   List<String> urlList = [
+    "https://www.instagram.com/p/CNmf4X0Hhjk/?igshid=62aj8dk2fvlf",
     "https://www.instagram.com/p/B_erVfTHo1N/?igshid=abe36a3so2zb",
     "https://www.instagram.com/p/BxhNBH1J0lr/?igshid=rp7s57rsnz8j",
     "https://www.instagram.com/p/BjUVKdgH_Ef/?igshid=1ou83v5kn6q0e",

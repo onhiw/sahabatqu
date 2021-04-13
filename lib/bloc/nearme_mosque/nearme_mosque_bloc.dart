@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sahabatqu/models/nearme_mosque.dart';
+import 'package:sahabatqu/models/nearme_mosque_model.dart';
 import 'package:sahabatqu/resources/api_repository.dart';
 
 part 'nearme_mosque_event.dart';
@@ -23,8 +23,8 @@ class NearmeMosqueBloc extends Bloc<NearmeMosqueEvent, NearmeMosqueState> {
     if (event is GetNearmeMosqueList) {
       try {
         yield NearmeMosqueLoading();
-        final mosqueList =
-            await _apiRespository.fetchNeameMosque(event.lat, event.lat);
+        final mosqueList = await _apiRespository.fetchNeameMosque(
+            event.lat, event.lat, event.date);
         yield NearmeMosqueLoaded(mosqueList);
         if (mosqueList == null) {
           yield NearmeMosqueError(

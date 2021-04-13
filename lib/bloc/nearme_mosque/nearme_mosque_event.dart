@@ -6,9 +6,9 @@ abstract class NearmeMosqueEvent {
 }
 
 class GetNearmeMosqueList extends NearmeMosqueEvent {
-  final String lat, long;
+  final String lat, long, date;
 
-  GetNearmeMosqueList(this.lat, this.long);
+  GetNearmeMosqueList(this.lat, this.long, this.date);
   @override
   List<Object> get props => null;
 }

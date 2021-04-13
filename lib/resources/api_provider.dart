@@ -3,6 +3,7 @@ import 'package:sahabatqu/constants/constants.dart';
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
 import 'package:sahabatqu/models/nearme_halal_model.dart';
 import 'package:sahabatqu/models/nearme_mosque.dart';
+import 'package:sahabatqu/models/nearme_mosque_model.dart';
 import 'package:sahabatqu/models/quran_model.dart';
 import 'package:sahabatqu/models/quran_uthmani_model.dart';
 
@@ -52,9 +53,10 @@ class ApiProvider {
     }
   }
 
-  Future<NearmeMosqueModel> fetchNearmeMosque(String lat, String long) async {
+  Future<NearmeMosqueModel> fetchNearmeMosque(
+      String lat, String long, String date) async {
     final String _url =
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$long&radius=1000&sensor=true&types=mosque&key=AIzaSyBFRpXPf8BXaR22nDvvx2ghBfbUbGGX8N8";
+        "https://api.foursquare.com/v2/venues/explore?client_id=N3OTUQEA05WTT3K3L2FTJRWGBUERHOXEWU1R3LTC0FTZBZEL&client_secret=TTBPDQ0VBOFWLCAGBJFEYPK0VU1Y0ZXHCD0U5Z1RK4EN3Y5J&v=$date&limit=10&ll=$lat,$long&categoryId=4bf58dd8d48988d138941735";
     try {
       Response _res = await _dio.get(_url);
       print(_res);
