@@ -55,6 +55,9 @@ class ApiProvider {
 
   Future<NearmeMosqueModel> fetchNearmeMosque(
       String lat, String long, String date) async {
+    print("long wa");
+    print(long);
+    print(date);
     final String _url =
         "https://api.foursquare.com/v2/venues/explore?client_id=N3OTUQEA05WTT3K3L2FTJRWGBUERHOXEWU1R3LTC0FTZBZEL&client_secret=TTBPDQ0VBOFWLCAGBJFEYPK0VU1Y0ZXHCD0U5Z1RK4EN3Y5J&v=$date&limit=10&ll=$lat,$long&categoryId=4bf58dd8d48988d138941735";
     try {

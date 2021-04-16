@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:sahabatqu/bloc/nearme_halal/nearme_halal_bloc.dart';
 import 'package:sahabatqu/constants/themes-color.dart';
 import 'package:sahabatqu/models/nearme_halal_model.dart';
@@ -29,13 +30,18 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
-  }
-
-  _getCurrentLocation() async {
+    Map<String, dynamic> basket = Provider.of(context, listen: false);
     DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('yyyyMMdd');
     final String formatted = formatter.format(now);
+    _getCurrentLocation();
+    nearmeHalalBloc.add(GetNearmeHalal(
+        basket['latitude'] == null ? _lat.toString() : basket['latitude'],
+        basket['longitude'] == null ? _long.toString() : basket['longitude'],
+        formatted));
+  }
+
+  _getCurrentLocation() async {
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium)
         .then((value) {
       setState(() {
@@ -48,8 +54,6 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
         }
       });
       _getAddressFromLatLng();
-      nearmeHalalBloc
-          .add(GetNearmeHalal(_lat.toString(), _long.toString(), formatted));
     });
   }
 
@@ -104,7 +108,7 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
           // backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
-            "Tempat Halal Terdekat",
+            "Tempat Halal",
             style: TextStyle(
                 color: theme.brightness == Brightness.dark
                     ? Colors.white
@@ -148,6 +152,7 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
   }
 
   Widget _buildList(BuildContext context, NearmeHalalModel nearmeHalalModel) {
+    final ThemeData theme = Theme.of(context);
     if (nearmeHalalModel.response.groups.length == 0) {
       return Center(
         child: Padding(
@@ -238,7 +243,11 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
                       Text(
                         nearmeHalalModel.response.groups[0].items[i].venue.name,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: theme.brightness == Brightness.dark
+                                ? Colors.white
+                                : ColorPalette.textColor),
                       ),
                       SizedBox(
                         height: 2,

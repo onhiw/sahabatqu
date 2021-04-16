@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:sahabatqu/bloc/nearme_mosque/nearme_mosque_bloc.dart';
 import 'package:sahabatqu/constants/themes-color.dart';
 import 'package:sahabatqu/models/nearme_mosque.dart';
@@ -29,13 +30,20 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
-  }
-
-  _getCurrentLocation() async {
+    Map<String, dynamic> basket = Provider.of(context, listen: false);
     DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('yyyyMMdd');
     final String formatted = formatter.format(now);
+    _getCurrentLocation();
+    print(basket['latitude']);
+    print(basket['longitude']);
+    mosqueBloc.add(GetNearmeMosqueList(
+        basket['latitude'] == null ? _lat.toString() : basket['latitude'],
+        basket['longitude'] == null ? _long.toString() : basket['longitude'],
+        formatted));
+  }
+
+  _getCurrentLocation() async {
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium)
         .then((value) {
       setState(() {
@@ -48,8 +56,6 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
         }
       });
       _getAddressFromLatLng();
-      mosqueBloc.add(
-          GetNearmeMosqueList(_lat.toString(), _long.toString(), formatted));
     });
   }
 
@@ -104,7 +110,7 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
           // backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
-            "Masjid Terdekat",
+            "Masjid",
             style: TextStyle(
                 color: theme.brightness == Brightness.dark
                     ? Colors.white
@@ -148,6 +154,7 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
   }
 
   Widget _buildList(BuildContext context, NearmeMosqueModel nearmeMosqueModel) {
+    final ThemeData theme = Theme.of(context);
     if (nearmeMosqueModel.response.groups.length == 0) {
       return Center(
         child: Padding(
@@ -223,7 +230,7 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
             child: Row(
               children: [
                 Image.asset(
-                  "assets/ic_halal.png",
+                  "assets/ic_mosque.png",
                   width: 24,
                   height: 24,
                   color: ColorPalette.themeColor,
@@ -239,7 +246,11 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
                         nearmeMosqueModel
                             .response.groups[0].items[i].venue.name,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: theme.brightness == Brightness.dark
+                                ? Colors.white
+                                : ColorPalette.textColor),
                       ),
                       SizedBox(
                         height: 2,

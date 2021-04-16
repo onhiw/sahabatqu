@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:provider/provider.dart';
 import 'package:sahabatqu/bloc/schedule_pray/schedule_pray_bloc.dart';
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
 import 'package:sahabatqu/pages/page_calender.dart';
@@ -28,7 +29,13 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
   @override
   void initState() {
     super.initState();
+    Map<String, dynamic> basket = Provider.of(context, listen: false);
     _getCurrentLocation();
+    print("object");
+    print(basket['latitude']);
+    prayBloc.add(GetScheduleList(
+        basket['latitude'] == null ? _lat.toString() : basket['latitude'],
+        basket['longitude'] == null ? _long.toString() : basket['longitude']));
   }
 
   _getCurrentLocation() async {
@@ -44,7 +51,6 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
         }
       });
       _getAddressFromLatLng();
-      prayBloc.add(GetScheduleList(_lat.toString(), _long.toString()));
     });
   }
 

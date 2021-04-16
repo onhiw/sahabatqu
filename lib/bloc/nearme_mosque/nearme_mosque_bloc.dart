@@ -24,7 +24,7 @@ class NearmeMosqueBloc extends Bloc<NearmeMosqueEvent, NearmeMosqueState> {
       try {
         yield NearmeMosqueLoading();
         final mosqueList = await _apiRespository.fetchNeameMosque(
-            event.lat, event.lat, event.date);
+            event.lat, event.long, event.date);
         yield NearmeMosqueLoaded(mosqueList);
         if (mosqueList == null) {
           yield NearmeMosqueError(
