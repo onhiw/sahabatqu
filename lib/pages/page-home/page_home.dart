@@ -488,6 +488,9 @@ class _HomePageState extends State<HomePage> {
     var today = new HijriCalendar.now();
     final ThemeData theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: theme.brightness == Brightness.dark
+          ? ColorPalette.bgDarkColor
+          : Colors.grey[100],
       appBar: AppBar(
           elevation: 0,
           title: Column(

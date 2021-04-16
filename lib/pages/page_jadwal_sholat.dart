@@ -92,7 +92,9 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
     DateTime now = DateTime.now();
     var today = new HijriCalendar.now();
     return Scaffold(
-      // backgroundColor: Colors.grey[50],
+      backgroundColor: theme.brightness == Brightness.dark
+          ? ColorPalette.bgDarkColor
+          : Colors.grey[100],
       appBar: AppBar(
         // iconTheme: IconThemeData(color: Colors.white),
         // backgroundColor: Colors.white,
