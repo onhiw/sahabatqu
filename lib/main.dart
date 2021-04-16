@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:sahabatqu/providers.dart';
 import 'package:sahabatqu/utils/routes.dart';
 
 import 'pages/page_splash_screen.dart';
@@ -37,18 +39,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        theme: ThemeData(
-          brightness: Brightness.light,
-          primaryColor: Colors.white,
-          fontFamily: 'Poppins',
-        ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          fontFamily: 'Poppins',
-        ),
-        routes: appRoutes);
+    return MultiProvider(
+      providers: providers,
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          theme: ThemeData(
+            brightness: Brightness.light,
+            primaryColor: Colors.white,
+            fontFamily: 'Poppins',
+          ),
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            fontFamily: 'Poppins',
+          ),
+          routes: appRoutes),
+    );
   }
 }

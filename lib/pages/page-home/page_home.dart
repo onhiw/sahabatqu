@@ -6,6 +6,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:sahabatqu/bloc/schedule_pray/schedule_pray_bloc.dart';
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
 import 'package:sahabatqu/pages/page-qiblah/page_qiblah.dart';
@@ -40,11 +41,18 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    Map<String, dynamic> basket = Provider.of(context, listen: false);
     _getCurrentLocation();
+    print("object");
+    print(basket['latitude']);
+    prayBloc.add(GetScheduleList(
+        basket['latitude'] == null ? _lat.toString() : basket['latitude'],
+        basket['longitude'] == null ? _long.toString() : basket['longitude']));
     PushNotificationHelper(this.context);
   }
 
   _getCurrentLocation() async {
+    Map<String, dynamic> basket = Provider.of(context, listen: false);
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium)
         .then((value) {
       setState(() {
@@ -52,10 +60,13 @@ class _HomePageState extends State<HomePage> {
         if (_currentPosition != null) {
           _lat = _currentPosition.latitude;
           _long = _currentPosition.longitude;
+          basket.addAll({
+            "latitude": _currentPosition.latitude.toString(),
+            "longitude": _currentPosition.longitude.toString(),
+          });
         }
       });
       _getAddressFromLatLng();
-      prayBloc.add(GetScheduleList(_lat.toString(), _long.toString()));
     });
   }
 
