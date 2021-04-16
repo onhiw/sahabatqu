@@ -297,7 +297,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             buttonBackgroundColor: ColorPalette.themeColor,
             backgroundColor: theme.brightness == Brightness.dark
                 ? ColorPalette.bgDarkColor
-                : Colors.grey[50],
+                : Colors.grey[100],
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 600),
             onTap: (index) {
