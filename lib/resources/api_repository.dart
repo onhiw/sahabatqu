@@ -1,6 +1,5 @@
 import 'package:sahabatqu/models/jadwal_sholat_model.dart';
 import 'package:sahabatqu/models/nearme_halal_model.dart';
-import 'package:sahabatqu/models/nearme_mosque.dart';
 import 'package:sahabatqu/models/nearme_mosque_model.dart';
 import 'package:sahabatqu/models/quran_model.dart';
 import 'package:sahabatqu/models/quran_uthmani_model.dart';
