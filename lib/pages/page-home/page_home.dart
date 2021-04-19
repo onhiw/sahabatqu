@@ -41,13 +41,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Map<String, dynamic> basket = Provider.of(context, listen: false);
     _getCurrentLocation();
-    print("object");
-    print(basket['latitude']);
-    prayBloc.add(GetScheduleList(
-        basket['latitude'] == null ? _lat.toString() : basket['latitude'],
-        basket['longitude'] == null ? _long.toString() : basket['longitude']));
+
     PushNotificationHelper(this.context);
   }
 
@@ -67,6 +62,13 @@ class _HomePageState extends State<HomePage> {
         }
       });
       _getAddressFromLatLng();
+      print("object");
+      print(basket['latitude']);
+      prayBloc.add(GetScheduleList(
+          basket['latitude'] == null ? _lat.toString() : basket['latitude'],
+          basket['longitude'] == null
+              ? _long.toString()
+              : basket['longitude']));
     });
   }
 
