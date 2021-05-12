@@ -42,6 +42,21 @@ class _GalleryPageState extends State<GalleryPage> {
     "assets/images28.jpg",
     "assets/images29.jpg",
     "assets/images30.jpg",
+    "assets/images31.jpg",
+    "assets/images32.jpg",
+    "assets/images33.jpg",
+    "assets/images34.jpg",
+    "assets/images35.jpg",
+    "assets/images36.jpg",
+    "assets/images37.jpg",
+    "assets/images38.jpg",
+    "assets/images39.jpg",
+    "assets/images40.jpg",
+    "assets/images41.jpg",
+    "assets/images42.jpg",
+    "assets/images43.jpg",
+    "assets/images44.jpg",
+    "assets/images45.jpg",
   ];
 
   List<String> dateList = [
@@ -75,6 +90,21 @@ class _GalleryPageState extends State<GalleryPage> {
     "2020-05-10",
     "2020-05-10",
     "2020-05-10",
+    "2021-05-10",
+    "2021-05-10",
+    "2021-05-10",
+    "2021-05-01",
+    "2021-05-01",
+    "2021-05-01",
+    "2021-05-01",
+    "2021-05-01",
+    "2021-05-01",
+    "2021-05-01",
+    "2021-05-09",
+    "2021-05-09",
+    "2021-05-09",
+    "2021-05-09",
+    "2021-05-09",
   ];
   @override
   Widget build(BuildContext context) {
@@ -96,9 +126,14 @@ class _GalleryPageState extends State<GalleryPage> {
                     : ColorPalette.textColor,
                 fontWeight: FontWeight.bold),
           )),
-      body: StaggeredGridView.countBuilder(
+      body: GridView.builder(
         padding: EdgeInsets.all(8),
-        crossAxisCount: 4,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisSpacing: 8.0,
+          crossAxisSpacing: 8.0,
+          childAspectRatio: 1,
+        ),
         physics: BouncingScrollPhysics(),
         itemCount: imageList.length,
         itemBuilder: (BuildContext context, int index) {
@@ -130,7 +165,7 @@ class _GalleryPageState extends State<GalleryPage> {
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.65),
+                                    color: Colors.black.withOpacity(0.5),
                                     spreadRadius: 20,
                                     blurRadius: 30,
                                     offset: Offset(
@@ -149,6 +184,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.bold),
                               ))),
                         ),
@@ -160,10 +196,6 @@ class _GalleryPageState extends State<GalleryPage> {
             ),
           );
         },
-        staggeredTileBuilder: (int index) =>
-            new StaggeredTile.count(2, index.isEven ? 2 : 1),
-        mainAxisSpacing: 4.0,
-        crossAxisSpacing: 4.0,
       ),
     );
   }
