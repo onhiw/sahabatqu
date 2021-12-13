@@ -10,6 +10,5 @@ class GetScheduleList extends SchedulePrayEvent {
 
   GetScheduleList(this.lat, this.long);
 
-  @override
   List<Object> get props => null;
 }

@@ -125,7 +125,9 @@ class _ProgramWidgetState extends State<ProgramWidget> {
                             "Gerakan Sedekah Sehari Seribu",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: Colors.white,
+                                color: theme.brightness == Brightness.dark
+                                    ? Colors.white
+                                    : ColorPalette.textColor,
                                 fontWeight: FontWeight.bold),
                           ),
                         ],

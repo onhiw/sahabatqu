@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sahabatqu/constants/themes-color.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -75,19 +76,34 @@ class _AboutPageState extends State<AboutPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "assets/facebook.png",
-                width: 40,
-                height: 40,
+              GestureDetector(
+                onTap: () {
+                  _launchBrowser("https://www.facebook.com/sahabat.azzikra/");
+                },
+                child: Image.asset(
+                  "assets/facebook.png",
+                  width: 40,
+                  height: 40,
+                ),
               ),
               SizedBox(
                 width: 8,
               ),
-              Image.asset("assets/instagram.jpg", width: 40, height: 40),
+              GestureDetector(
+                  onTap: () {
+                    _launchBrowser("https://www.instagram.com/sahabat.azzikra");
+                  },
+                  child: Image.asset("assets/instagram.jpg",
+                      width: 40, height: 40)),
               SizedBox(
                 width: 8,
               ),
-              Image.asset("assets/wa.png", width: 40, height: 40),
+              GestureDetector(
+                  onTap: () {
+                    _launchBrowser(
+                        "https://api.whatsapp.com/send?phone=6285223140369");
+                  },
+                  child: Image.asset("assets/wa.png", width: 40, height: 40)),
             ],
           ),
           SizedBox(
@@ -96,5 +112,13 @@ class _AboutPageState extends State<AboutPage> {
         ],
       ),
     );
+  }
+
+  _launchBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch url';
+    }
   }
 }

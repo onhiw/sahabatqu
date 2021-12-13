@@ -10,7 +10,7 @@ class DoaPage extends StatefulWidget {
 
 class _DoaPageState extends State<DoaPage> {
   List<DoaModel> getDoaInformation() {
-    List<DoaModel> doaModelList = new List<DoaModel>();
+    List<DoaModel> doaModelList = [];
     doaModelList.add(new DoaModel(
         "1",
         "Doa Masuk Masjid",

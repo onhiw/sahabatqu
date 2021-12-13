@@ -28,7 +28,7 @@ class LocationErrorWidget extends StatelessWidget {
               style: TextStyle(color: errorColor, fontWeight: FontWeight.bold),
             ),
             box,
-            RaisedButton(
+            TextButton(
               child: Text("Retry"),
               onPressed: () {
                 if (callback != null) callback();

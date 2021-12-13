@@ -9,7 +9,7 @@ class NamesAllahPage extends StatefulWidget {
 
 class _NamesAllahPageState extends State<NamesAllahPage> {
   List<Asma> getAsmaInformation() {
-    List<Asma> dataList = new List<Asma>();
+    List<Asma> dataList = [];
     dataList.add(new Asma("", "الله", "Allah", "Allah"));
     dataList.add(new Asma("1", "الرحمن", "Ar Rahman", "Yang Maha Pengasih"));
     dataList.add(new Asma("2", "الرحيم", "Ar Rahiim", "Yang Maha Penyayang"));

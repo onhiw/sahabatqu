@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
@@ -70,7 +70,7 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
     Flushbar(
       // aroundPadding: EdgeInsets.all(10),
       margin: EdgeInsets.all(10.0),
-      borderRadius: 8,
+      borderRadius: BorderRadius.circular(8),
       backgroundGradient: LinearGradient(
         colors: [Colors.red, Colors.redAccent],
         stops: [0.6, 1],

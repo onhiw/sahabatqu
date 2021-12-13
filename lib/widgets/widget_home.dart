@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
@@ -180,7 +180,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     Flushbar(
       // aroundPadding: EdgeInsets.all(10),
       margin: EdgeInsets.all(10.0),
-      borderRadius: 8,
+      borderRadius: BorderRadius.circular(8),
       backgroundGradient: LinearGradient(
         colors: [Colors.red, Colors.redAccent],
         stops: [0.6, 1],

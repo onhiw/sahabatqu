@@ -9,6 +9,6 @@ class GetNearmeHalal extends NearmeHalalEvent {
   final String lat, long, date;
 
   GetNearmeHalal(this.lat, this.long, this.date);
-  @override
+
   List<Object> get props => null;
 }

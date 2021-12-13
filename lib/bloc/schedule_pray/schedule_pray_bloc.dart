@@ -14,7 +14,6 @@ class SchedulePrayBloc extends Bloc<SchedulePrayEvent, SchedulePrayState> {
 
   final ApiRespository _apiRespository = ApiRespository();
 
-  @override
   SchedulePrayState get initialState => SchedulePrayInitial();
 
   @override

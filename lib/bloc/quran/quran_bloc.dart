@@ -13,7 +13,6 @@ class QuranBloc extends Bloc<QuranEvent, QuranState> {
 
   final ApiRespository _apiRespository = ApiRespository();
 
-  @override
   QuranState get initialState => QuranInitial();
 
   @override

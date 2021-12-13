@@ -13,7 +13,6 @@ class NearmeMosqueBloc extends Bloc<NearmeMosqueEvent, NearmeMosqueState> {
 
   final ApiRespository _apiRespository = ApiRespository();
 
-  @override
   NearmeMosqueState get initialState => NearmeMosqueInitial();
 
   @override

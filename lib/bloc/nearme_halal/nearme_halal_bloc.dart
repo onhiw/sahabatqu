@@ -13,7 +13,6 @@ class NearmeHalalBloc extends Bloc<NearmeHalalEvent, NearmeHalalState> {
 
   final ApiRespository _apiRespository = ApiRespository();
 
-  @override
   NearmeHalalState get initialState => NearmeHalalInitial();
 
   @override
