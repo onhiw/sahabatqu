@@ -1,20 +1,20 @@
 class Asma {
-  String ayat, bacaan, arti, no;
+  String? ayat, bacaan, arti, no;
 
   String getAyat() {
-    return ayat;
+    return ayat!;
   }
 
   String getBacaan() {
-    return bacaan;
+    return bacaan!;
   }
 
   String getArti() {
-    return arti;
+    return arti!;
   }
 
   String getNo() {
-    return no;
+    return no!;
   }
 
   Asma(String no, String ayat, String bacaan, String arti) {

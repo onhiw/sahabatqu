@@ -21,11 +21,11 @@ class NearmeHalalPage extends StatefulWidget {
 class _NearmeHalalPageState extends State<NearmeHalalPage> {
   final Geolocator geolocator = Geolocator();
   NearmeHalalBloc nearmeHalalBloc = NearmeHalalBloc();
-  Position _currentPosition;
+  Position? _currentPosition;
   double _lat = 0;
   double _long = 0;
-  String currentDate;
-  String currentAddress;
+  String? currentDate;
+  String? currentAddress;
 
   @override
   void initState() {
@@ -47,8 +47,8 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
       setState(() {
         _currentPosition = value;
         if (_currentPosition != null) {
-          _lat = _currentPosition.latitude;
-          _long = _currentPosition.longitude;
+          _lat = _currentPosition!.latitude;
+          _long = _currentPosition!.longitude;
           print(_lat);
           print(_long);
         }
@@ -153,7 +153,7 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
 
   Widget _buildList(BuildContext context, NearmeHalalModel nearmeHalalModel) {
     final ThemeData theme = Theme.of(context);
-    if (nearmeHalalModel.response.groups.length == 0) {
+    if (nearmeHalalModel.response!.groups!.length == 0) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -180,8 +180,8 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
         ),
       );
     } else {
-      for (int i = 0; i < nearmeHalalModel.response.groups.length; i++) {
-        if (nearmeHalalModel.response.groups[i].items.length == 0) {
+      for (int i = 0; i < nearmeHalalModel.response!.groups!.length; i++) {
+        if (nearmeHalalModel.response!.groups![i].items!.length == 0) {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -212,15 +212,17 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
     }
     return ListView.separated(
       physics: BouncingScrollPhysics(),
-      itemCount: nearmeHalalModel.response.groups[0].items.length,
+      itemCount: nearmeHalalModel.response!.groups![0].items!.length,
       shrinkWrap: true,
       itemBuilder: (context, i) {
         return InkWell(
           onTap: () {
             _launchMaps(
-                nearmeHalalModel.response.groups[0].items[i].venue.location.lat
+                nearmeHalalModel
+                    .response!.groups![0].items![i].venue!.location!.lat
                     .toString(),
-                nearmeHalalModel.response.groups[0].items[i].venue.location.lng
+                nearmeHalalModel
+                    .response!.groups![0].items![i].venue!.location!.lng
                     .toString());
           },
           child: Padding(
@@ -241,7 +243,8 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        nearmeHalalModel.response.groups[0].items[i].venue.name,
+                        nearmeHalalModel
+                            .response!.groups![0].items![i].venue!.name!,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -253,8 +256,8 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
                         height: 2,
                       ),
                       Text(
-                        nearmeHalalModel.response.groups[0].items[i].venue
-                            .location.formattedAddress[0],
+                        nearmeHalalModel.response!.groups![0].items![i].venue!
+                            .location!.formattedAddress![0],
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.grey[600],

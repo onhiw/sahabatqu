@@ -14,7 +14,7 @@ class NearmeMosqueInitial extends NearmeMosqueState {
 class NearmeMosqueLoading extends NearmeMosqueState {
   const NearmeMosqueLoading();
 
-  List<Object> get props => null;
+  List<Object>? get props => null;
 }
 
 class NearmeMosqueLoaded extends NearmeMosqueState {

@@ -1,23 +1,23 @@
 class DoaModel {
-  String nama;
-  String arab;
-  String arti;
-  String nomor;
+  String? nama;
+  String? arab;
+  String? arti;
+  String? nomor;
 
   String getNomor() {
-    return nomor;
+    return nomor!;
   }
 
   String getNama() {
-    return nama;
+    return nama!;
   }
 
   String getArab() {
-    return arab;
+    return arab!;
   }
 
   String getArti() {
-    return arti;
+    return arti!;
   }
 
   DoaModel(String nomor, String nama, String arab, String arti) {

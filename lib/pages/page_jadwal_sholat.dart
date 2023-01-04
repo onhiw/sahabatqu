@@ -21,10 +21,10 @@ class JadwalSholatPage extends StatefulWidget {
 class _JadwalSholatPageState extends State<JadwalSholatPage> {
   final Geolocator geolocator = Geolocator();
   SchedulePrayBloc prayBloc = SchedulePrayBloc();
-  Position _currentPosition;
+  Position? _currentPosition;
   double _lat = 0;
   double _long = 0;
-  String _currentAddress;
+  String? _currentAddress;
 
   @override
   void initState() {
@@ -44,8 +44,8 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
       setState(() {
         _currentPosition = value;
         if (_currentPosition != null) {
-          _lat = _currentPosition.latitude;
-          _long = _currentPosition.longitude;
+          _lat = _currentPosition!.latitude;
+          _long = _currentPosition!.longitude;
           print(_lat);
           print(_long);
         }
@@ -108,7 +108,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
         title: Text(
           _currentAddress == null
               ? "Sedang mencari lokasi..."
-              : _currentAddress,
+              : _currentAddress!,
           style: TextStyle(
               color: theme.brightness == Brightness.dark
                   ? Colors.white
@@ -218,7 +218,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       shrinkWrap: true,
-      itemCount: jadwalSholatModel.results.datetime.length,
+      itemCount: jadwalSholatModel.results!.datetime!.length,
       itemBuilder: (context, index) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,7 +241,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    jadwalSholatModel.results.datetime[index].times.imsak,
+                    jadwalSholatModel.results!.datetime![index].times!.imsak!,
                     style: TextStyle(
                         fontSize: 16,
                         color: theme.brightness == Brightness.dark
@@ -270,7 +270,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    jadwalSholatModel.results.datetime[index].times.fajr,
+                    jadwalSholatModel.results!.datetime![index].times!.fajr!,
                     style: TextStyle(
                         fontSize: 16,
                         color: theme.brightness == Brightness.dark
@@ -299,7 +299,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    jadwalSholatModel.results.datetime[index].times.sunrise,
+                    jadwalSholatModel.results!.datetime![index].times!.sunrise!,
                     style: TextStyle(
                         fontSize: 16,
                         color: theme.brightness == Brightness.dark
@@ -328,7 +328,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    jadwalSholatModel.results.datetime[index].times.dhuhr,
+                    jadwalSholatModel.results!.datetime![index].times!.dhuhr!,
                     style: TextStyle(
                         fontSize: 16,
                         color: theme.brightness == Brightness.dark
@@ -357,7 +357,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    jadwalSholatModel.results.datetime[index].times.asr,
+                    jadwalSholatModel.results!.datetime![index].times!.asr!,
                     style: TextStyle(
                         fontSize: 16,
                         color: theme.brightness == Brightness.dark
@@ -386,7 +386,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    jadwalSholatModel.results.datetime[index].times.maghrib,
+                    jadwalSholatModel.results!.datetime![index].times!.maghrib!,
                     style: TextStyle(
                         fontSize: 16,
                         color: theme.brightness == Brightness.dark
@@ -415,7 +415,7 @@ class _JadwalSholatPageState extends State<JadwalSholatPage> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    jadwalSholatModel.results.datetime[index].times.isha,
+                    jadwalSholatModel.results!.datetime![index].times!.isha!,
                     style: TextStyle(
                         fontSize: 16,
                         color: theme.brightness == Brightness.dark

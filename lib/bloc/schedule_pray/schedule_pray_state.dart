@@ -14,7 +14,7 @@ class SchedulePrayInitial extends SchedulePrayState {
 class ScheduleLoading extends SchedulePrayState {
   const ScheduleLoading();
 
-  List<Object> get props => null;
+  List<Object>? get props => null;
 }
 
 class ScheduleLoaded extends SchedulePrayState {

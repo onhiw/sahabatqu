@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ImageDetailWidget extends StatefulWidget {
-  final String image;
+  final String? image;
   ImageDetailWidget({this.image});
   @override
   _ImageDetailWidgetState createState() => _ImageDetailWidgetState();
@@ -23,11 +23,7 @@ class _ImageDetailWidgetState extends State<ImageDetailWidget> {
                   child: CircularProgressIndicator(),
                 ),
               ),
-              loadFailedChild: Image.asset(
-                "assets/default_image.png",
-                fit: BoxFit.cover,
-              ),
-              imageProvider: AssetImage(widget.image),
+              imageProvider: AssetImage(widget.image!),
             ),
           ),
           Align(

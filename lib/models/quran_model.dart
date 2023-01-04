@@ -16,9 +16,9 @@ class QuranModel {
     this.hasil,
   });
 
-  String status;
-  Query query;
-  List<Hasil> hasil;
+  String? status;
+  Query? query;
+  List<Hasil>? hasil;
 
   factory QuranModel.fromJson(Map<String, dynamic> json) => QuranModel(
         status: json["status"] == null ? null : json["status"],
@@ -30,10 +30,10 @@ class QuranModel {
 
   Map<String, dynamic> toJson() => {
         "status": status == null ? null : status,
-        "query": query == null ? null : query.toJson(),
+        "query": query == null ? null : query!.toJson(),
         "hasil": hasil == null
             ? null
-            : List<dynamic>.from(hasil.map((x) => x.toJson())),
+            : List<dynamic>.from(hasil!.map((x) => x.toJson())),
       };
 }
 
@@ -52,17 +52,17 @@ class Hasil {
     this.keterangan,
   });
 
-  String nomor;
-  String nama;
-  String asma;
-  String name;
-  String start;
-  String ayat;
-  String type;
-  String urut;
-  String rukuk;
-  String arti;
-  String keterangan;
+  String? nomor;
+  String? nama;
+  String? asma;
+  String? name;
+  String? start;
+  String? ayat;
+  String? type;
+  String? urut;
+  String? rukuk;
+  String? arti;
+  String? keterangan;
 
   factory Hasil.fromJson(Map<String, dynamic> json) => Hasil(
         nomor: json["nomor"] == null ? null : json["nomor"],
@@ -99,8 +99,8 @@ class Query {
     this.surat,
   });
 
-  String format;
-  String surat;
+  String? format;
+  String? surat;
 
   factory Query.fromJson(Map<String, dynamic> json) => Query(
         format: json["format"] == null ? null : json["format"],

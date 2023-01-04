@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:sahabatqu/constants/themes-color.dart';
 
 class ProgramDetailPage extends StatefulWidget {
-  final String image;
-  final String content;
+  final String? image;
+  final String? content;
 
   ProgramDetailPage({
-    Key key,
+    Key? key,
     @required this.image,
     @required this.content,
   }) : super(key: key);
@@ -38,14 +38,14 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: [
-          Image.asset(widget.image),
+          Image.asset(widget.image!),
           SizedBox(
             height: 16,
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              widget.content,
+              widget.content!,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white

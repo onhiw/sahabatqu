@@ -12,7 +12,7 @@ class QiblahPage extends StatefulWidget {
 }
 
 class _QiblahPageState extends State<QiblahPage> {
-  final _deviceSupport = FlutterQiblah.androidDeviceSensorSupport();
+  Future<bool?> _deviceSupport = FlutterQiblah.androidDeviceSensorSupport();
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -36,9 +36,9 @@ class _QiblahPageState extends State<QiblahPage> {
           )),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: FutureBuilder(
+        child: FutureBuilder<bool?>(
           future: _deviceSupport,
-          builder: (_, AsyncSnapshot<bool> snapshot) {
+          builder: (_, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting)
               return LoadingIndicator();
             if (snapshot.hasError)
@@ -46,7 +46,7 @@ class _QiblahPageState extends State<QiblahPage> {
                 child: Text("Error: ${snapshot.error.toString()}"),
               );
 
-            if (snapshot.data)
+            if (snapshot.data!)
               return QiblahCompass();
             else
               return QiblahMaps();

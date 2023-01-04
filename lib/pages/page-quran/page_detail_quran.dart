@@ -7,12 +7,12 @@ import 'package:sahabatqu/widgets/loading_indicator.dart';
 import '../../constants/themes-color.dart';
 
 class DetailQuranPage extends StatefulWidget {
-  final String idNumber;
-  final String name;
-  final String type;
+  final String? idNumber;
+  final String? name;
+  final String? type;
 
   DetailQuranPage({
-    Key key,
+    Key? key,
     @required this.idNumber,
     @required this.name,
     @required this.type,
@@ -22,14 +22,14 @@ class DetailQuranPage extends StatefulWidget {
 }
 
 class _DetailQuranPageState extends State<DetailQuranPage> {
-  QuranUthmaniModel quranUthmaniModel;
-  QuranIndonesianModel quranUthmaniModelID;
+  QuranUthmaniModel? quranUthmaniModel;
+  QuranIndonesianModel? quranUthmaniModelID;
   bool isLoading = true;
   bool isLoadingIndonesian = true;
 
   getRequestUthmani() async {
     QuranViewModel quranVM = QuranViewModel();
-    await quranVM.getDataQuranUthmani(widget.idNumber).then((value) {
+    await quranVM.getDataQuranUthmani(widget.idNumber!).then((value) {
       setState(() {
         quranUthmaniModel = value;
         isLoading = false;
@@ -39,7 +39,7 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
 
   getRequestIndonesiaon() async {
     QuranViewModel quranVM = QuranViewModel();
-    await quranVM.getDataQuranIndonesian(widget.idNumber).then((value) {
+    await quranVM.getDataQuranIndonesian(widget.idNumber!).then((value) {
       setState(() {
         quranUthmaniModelID = value;
         isLoadingIndonesian = false;
@@ -71,7 +71,7 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.name,
+                widget.name!,
                 style: TextStyle(
                     color: theme.brightness == Brightness.dark
                         ? Colors.white
@@ -80,7 +80,7 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                     fontSize: 15),
               ),
               Text(
-                widget.type.toUpperCase(),
+                widget.type!.toUpperCase(),
                 style: TextStyle(
                     color: Colors.grey[600],
                     // fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                         : SizedBox(
                             height: 16,
                           ),
-                    ...quranUthmaniModel.data.ayahs
+                    ...quranUthmaniModel!.data!.ayahs!
                         .asMap()
                         .map((i, value) => MapEntry(
                             i,
@@ -129,8 +129,8 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                               children: [
                                 Text(
                                   widget.idNumber == "1"
-                                      ? value.text
-                                      : value.text.replaceAll(
+                                      ? value.text!
+                                      : value.text!.replaceAll(
                                           "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
                                           ""),
                                   textAlign: TextAlign.end,
@@ -162,8 +162,8 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          quranUthmaniModelID
-                                              .data.ayahs[i].text,
+                                          quranUthmaniModelID!
+                                              .data!.ayahs![i].text!,
                                           style: TextStyle(
                                               color: theme.brightness ==
                                                       Brightness.dark
@@ -196,21 +196,21 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
   Widget getDataQuran() {
     QuranViewModel quranVM = QuranViewModel();
     return FutureBuilder<QuranUthmaniModel>(
-      future: quranVM.getDataQuranUthmani(widget.idNumber),
+      future: quranVM.getDataQuranUthmani(widget.idNumber!),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final QuranUthmaniModel quranUthmaniModel = snapshot.data;
+          final QuranUthmaniModel quranUthmaniModel = snapshot.data!;
           return ListView.builder(
             padding: EdgeInsets.all(16),
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
-            itemCount: quranUthmaniModel.data.ayahs.length,
+            itemCount: quranUthmaniModel.data!.ayahs!.length,
             itemBuilder: (context, index) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    quranUthmaniModel.data.ayahs[index].text,
+                    quranUthmaniModel.data!.ayahs![index].text!,
                     textAlign: TextAlign.end,
                     style: TextStyle(
                         color: Colors.black,
@@ -218,21 +218,21 @@ class _DetailQuranPageState extends State<DetailQuranPage> {
                         fontSize: 35),
                   ),
                   FutureBuilder<QuranIndonesianModel>(
-                    future: quranVM.getDataQuranIndonesian(widget.idNumber),
+                    future: quranVM.getDataQuranIndonesian(widget.idNumber!),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final QuranIndonesianModel quranUthmaniModelID =
-                            snapshot.data;
+                            snapshot.data!;
                         return ListView.builder(
                           shrinkWrap: true,
                           physics: BouncingScrollPhysics(),
-                          itemCount: quranUthmaniModel.data.ayahs.length,
+                          itemCount: quranUthmaniModel.data!.ayahs!.length,
                           itemBuilder: (context, i) {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  quranUthmaniModelID.data.ayahs[i].text,
+                                  quranUthmaniModelID.data!.ayahs![i].text!,
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 16),
                                 ),

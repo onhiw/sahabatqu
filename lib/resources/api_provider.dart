@@ -18,9 +18,9 @@ class ApiProvider {
       final JadwalSholatModel jadwalSholatModel =
           JadwalSholatModel.fromJson(_res.data);
       return jadwalSholatModel;
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return null;
+    } on DioError catch (error) {
+      print("Exception occured: $error");
+      return error.error;
     }
   }
 
@@ -31,9 +31,9 @@ class ApiProvider {
       print(_res);
       final QuranModel quranModel = QuranModel.fromJson(_res.data);
       return quranModel;
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return null;
+    } on DioError catch (error) {
+      print("Exception occured: $error");
+      return error.error;
     }
   }
 
@@ -45,9 +45,9 @@ class ApiProvider {
       final QuranUthmaniModel quranUthmaniModel =
           QuranUthmaniModel.fromJson(_res.data);
       return quranUthmaniModel;
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return null;
+    } on DioError catch (error) {
+      print("Exception occured: $error");
+      return error.error;
     }
   }
 
@@ -64,9 +64,9 @@ class ApiProvider {
       final NearmeMosqueModel nearmeMosqueModel =
           NearmeMosqueModel.fromJson(_res.data);
       return nearmeMosqueModel;
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return null;
+    } on DioError catch (error) {
+      print("Exception occured: $error");
+      return error.error;
     }
   }
 
@@ -80,9 +80,9 @@ class ApiProvider {
       final NearmeHalalModel nearmeHalalModel =
           NearmeHalalModel.fromJson(_res.data);
       return nearmeHalalModel;
-    } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
-      return null;
+    } on DioError catch (error) {
+      print("Exception occured: $error");
+      return error.error;
     }
   }
 }

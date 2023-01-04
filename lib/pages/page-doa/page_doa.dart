@@ -156,7 +156,7 @@ class _DoaPageState extends State<DoaPage> {
                     child: Row(
                       children: [
                         Text(
-                          getDoaInformation()[index].nomor + ".",
+                          getDoaInformation()[index].nomor! + ".",
                           style: TextStyle(
                               fontSize: 16,
                               color: theme.brightness == Brightness.dark
@@ -172,7 +172,7 @@ class _DoaPageState extends State<DoaPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                getDoaInformation()[index].nama,
+                                getDoaInformation()[index].nama!,
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: ColorPalette.themeColor,

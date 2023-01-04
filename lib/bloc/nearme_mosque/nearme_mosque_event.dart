@@ -10,5 +10,5 @@ class GetNearmeMosqueList extends NearmeMosqueEvent {
 
   GetNearmeMosqueList(this.lat, this.long, this.date);
 
-  List<Object> get props => null;
+  List<Object>? get props => null;
 }

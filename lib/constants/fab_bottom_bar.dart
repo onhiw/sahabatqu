@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class FABBottomBarItem {
   FABBottomBarItem({this.iconData, this.text});
-  IconData iconData;
-  String text;
+  IconData? iconData;
+  String? text;
 }
 
 class FABBottomBar extends StatefulWidget {
@@ -18,17 +18,17 @@ class FABBottomBar extends StatefulWidget {
     this.notchedShape,
     this.onTabSelected,
   }) {
-    assert(this.items.length == 2 || this.items.length == 4);
+    assert(this.items!.length == 2 || this.items!.length == 4);
   }
-  final List<FABBottomBarItem> items;
-  final String centerItemText;
-  final double height;
-  final double iconSize;
-  final Color backgroundColor;
-  final Color color;
-  final Color selectedColor;
-  final NotchedShape notchedShape;
-  final ValueChanged<int> onTabSelected;
+  final List<FABBottomBarItem>? items;
+  final String? centerItemText;
+  final double? height;
+  final double? iconSize;
+  final Color? backgroundColor;
+  final Color? color;
+  final Color? selectedColor;
+  final NotchedShape? notchedShape;
+  final ValueChanged<int>? onTabSelected;
 
   @override
   State<StatefulWidget> createState() => FABBottomBarState();
@@ -38,7 +38,7 @@ class FABBottomBarState extends State<FABBottomBar> {
   int _selectedIndex = 0;
 
   _updateIndex(int index) {
-    widget.onTabSelected(index);
+    widget.onTabSelected!(index);
     setState(() {
       _selectedIndex = index;
     });
@@ -46,9 +46,9 @@ class FABBottomBarState extends State<FABBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> items = List.generate(widget.items.length, (int index) {
+    List<Widget> items = List.generate(widget.items!.length, (int index) {
       return _buildTabItem(
-        item: widget.items[index],
+        item: widget.items![index],
         index: index,
         onPressed: _updateIndex,
       );
@@ -86,25 +86,28 @@ class FABBottomBarState extends State<FABBottomBar> {
   }
 
   Widget _buildTabItem({
-    FABBottomBarItem item,
-    int index,
-    ValueChanged<int> onPressed,
+    FABBottomBarItem? item,
+    int? index,
+    ValueChanged<int>? onPressed,
   }) {
-    Color color = _selectedIndex == index ? widget.selectedColor : widget.color;
+    Color? color =
+        _selectedIndex == index ? widget.selectedColor : widget.color;
     return Expanded(
       child: SizedBox(
         height: MediaQuery.of(context).size.height / 12,
         child: Material(
           type: MaterialType.transparency,
           child: InkWell(
-            onTap: () => onPressed(index),
+            onTap: () => onPressed!(index!),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(item.iconData, color: color, size: MediaQuery.of(context).size.height / 25),
+                Icon(item!.iconData,
+                    color: color,
+                    size: MediaQuery.of(context).size.height / 25),
                 Text(
-                  item.text,
+                  item.text!,
                   style: TextStyle(color: color),
                 )
               ],

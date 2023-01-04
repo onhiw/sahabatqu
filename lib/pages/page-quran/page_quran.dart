@@ -110,15 +110,15 @@ class _QuranPageState extends State<QuranPage> {
     final ThemeData theme = Theme.of(context);
     return ListView.separated(
       physics: BouncingScrollPhysics(),
-      itemCount: quranModel.hasil.length,
+      itemCount: quranModel.hasil!.length,
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return DetailQuranPage(
-                  idNumber: quranModel.hasil[index].nomor,
-                  name: quranModel.hasil[index].nama,
-                  type: quranModel.hasil[index].type);
+                  idNumber: quranModel.hasil![index].nomor,
+                  name: quranModel.hasil![index].nama,
+                  type: quranModel.hasil![index].type);
             }));
           },
           child: Padding(
@@ -146,7 +146,7 @@ class _QuranPageState extends State<QuranPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              quranModel.hasil[index].nama,
+                              quranModel.hasil![index].nama!,
                               style: TextStyle(
                                   fontSize: 16,
                                   color: ColorPalette.themeColor,
@@ -156,9 +156,9 @@ class _QuranPageState extends State<QuranPage> {
                               height: 2,
                             ),
                             Text(
-                              quranModel.hasil[index].arti +
+                              quranModel.hasil![index].arti! +
                                   " (" +
-                                  quranModel.hasil[index].ayat +
+                                  quranModel.hasil![index].ayat! +
                                   ")",
                               style: TextStyle(
                                 fontSize: 14,
@@ -174,7 +174,7 @@ class _QuranPageState extends State<QuranPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: Text(
-                    quranModel.hasil[index].asma,
+                    quranModel.hasil![index].asma!,
                     style: TextStyle(
                         fontSize: 20,
                         color: theme.brightness == Brightness.dark

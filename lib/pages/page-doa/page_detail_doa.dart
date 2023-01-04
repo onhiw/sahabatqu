@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sahabatqu/constants/themes-color.dart';
 
 class DoaDetailPage extends StatefulWidget {
-  final String title;
-  final String arab;
-  final String arti;
+  final String? title;
+  final String? arab;
+  final String? arti;
 
   DoaDetailPage({
-    Key key,
+    Key? key,
     @required this.title,
     @required this.arab,
     @required this.arti,
@@ -30,7 +30,7 @@ class _DoaDetailPageState extends State<DoaDetailPage> {
           // backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
-            widget.title,
+            widget.title!,
             style: TextStyle(
                 color: theme.brightness == Brightness.dark
                     ? Colors.white
@@ -44,7 +44,7 @@ class _DoaDetailPageState extends State<DoaDetailPage> {
           Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Text(
-              widget.arab,
+              widget.arab!,
               textAlign: TextAlign.end,
               style: TextStyle(
                   // color: Colors.black,
@@ -62,7 +62,7 @@ class _DoaDetailPageState extends State<DoaDetailPage> {
             height: 8,
           ),
           Text(
-            widget.arti,
+            widget.arti!,
             style: TextStyle(
               // color: Colors.black,
               color: theme.brightness == Brightness.dark

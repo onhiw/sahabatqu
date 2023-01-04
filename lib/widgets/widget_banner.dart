@@ -51,8 +51,8 @@ class _BannerWidgetState extends State<BannerWidget> {
                   fit: BoxFit.cover,
                   placeholder: (context, url) => Center(
                       child: Shimmer.fromColors(
-                    baseColor: Colors.grey[300],
-                    highlightColor: Colors.grey[100],
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
                     child: Container(
                       color: Colors.white,
                       width: double.infinity,

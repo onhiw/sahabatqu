@@ -106,7 +106,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       borderRadius: BorderRadius.circular(10),
                                       color: Colors.white,
                                       border:
-                                          Border.all(color: Colors.grey[400])),
+                                          Border.all(color: Colors.grey[400]!)),
                                   child: Center(
                                     child: Text(
                                       "Tidak",
@@ -297,7 +297,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             buttonBackgroundColor: ColorPalette.themeColor,
             backgroundColor: theme.brightness == Brightness.dark
                 ? ColorPalette.bgDarkColor
-                : Colors.grey[100],
+                : Colors.grey[100]!,
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 600),
             onTap: (index) {

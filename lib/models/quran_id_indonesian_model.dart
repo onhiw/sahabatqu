@@ -17,9 +17,9 @@ class QuranIndonesianModel {
     this.data,
   });
 
-  int code;
-  String status;
-  Data data;
+  int? code;
+  String? status;
+  Data? data;
 
   factory QuranIndonesianModel.fromJson(Map<String, dynamic> json) =>
       QuranIndonesianModel(
@@ -31,7 +31,7 @@ class QuranIndonesianModel {
   Map<String, dynamic> toJson() => {
         "code": code == null ? null : code,
         "status": status == null ? null : status,
-        "data": data == null ? null : data.toJson(),
+        "data": data == null ? null : data!.toJson(),
       };
 }
 
@@ -47,14 +47,14 @@ class Data {
     this.edition,
   });
 
-  int number;
-  String name;
-  String englishName;
-  String englishNameTranslation;
-  String revelationType;
-  int numberOfAyahs;
-  List<Ayah> ayahs;
-  Edition edition;
+  int? number;
+  String? name;
+  String? englishName;
+  String? englishNameTranslation;
+  String? revelationType;
+  int? numberOfAyahs;
+  List<Ayah>? ayahs;
+  Edition? edition;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         number: json["number"] == null ? null : json["number"],
@@ -84,8 +84,8 @@ class Data {
         "numberOfAyahs": numberOfAyahs == null ? null : numberOfAyahs,
         "ayahs": ayahs == null
             ? null
-            : List<dynamic>.from(ayahs.map((x) => x.toJson())),
-        "edition": edition == null ? null : edition.toJson(),
+            : List<dynamic>.from(ayahs!.map((x) => x.toJson())),
+        "edition": edition == null ? null : edition!.toJson(),
       };
 }
 
@@ -102,14 +102,14 @@ class Ayah {
     // this.sajda,
   });
 
-  int number;
-  String text;
-  int numberInSurah;
-  int juz;
-  int manzil;
-  int page;
-  int ruku;
-  int hizbQuarter;
+  int? number;
+  String? text;
+  int? numberInSurah;
+  int? juz;
+  int? manzil;
+  int? page;
+  int? ruku;
+  int? hizbQuarter;
   // bool sajda;
 
   factory Ayah.fromJson(Map<String, dynamic> json) => Ayah(
@@ -149,13 +149,13 @@ class Edition {
     this.direction,
   });
 
-  String identifier;
-  String language;
-  String name;
-  String englishName;
-  String format;
-  String type;
-  String direction;
+  String? identifier;
+  String? language;
+  String? name;
+  String? englishName;
+  String? format;
+  String? type;
+  String? direction;
 
   factory Edition.fromJson(Map<String, dynamic> json) => Edition(
         identifier: json["identifier"] == null ? null : json["identifier"],

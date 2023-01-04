@@ -14,7 +14,7 @@ class QuranInitial extends QuranState {
 class QuranLoading extends QuranState {
   const QuranLoading();
 
-  List<Object> get props => null;
+  List<Object>? get props => null;
 }
 
 class QuranLoaded extends QuranState {

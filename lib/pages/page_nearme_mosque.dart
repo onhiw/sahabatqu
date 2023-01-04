@@ -20,10 +20,10 @@ class NearmeMosquePage extends StatefulWidget {
 class _NearmeMosquePageState extends State<NearmeMosquePage> {
   final Geolocator geolocator = Geolocator();
   NearmeMosqueBloc mosqueBloc = NearmeMosqueBloc();
-  Position _currentPosition;
-  double _lat = 0;
-  double _long = 0;
-  String _currentAddress;
+  Position? _currentPosition;
+  double? _lat = 0;
+  double? _long = 0;
+  String? _currentAddress;
 
   @override
   void initState() {
@@ -47,8 +47,8 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
       setState(() {
         _currentPosition = value;
         if (_currentPosition != null) {
-          _lat = _currentPosition.latitude;
-          _long = _currentPosition.longitude;
+          _lat = _currentPosition!.latitude;
+          _long = _currentPosition!.longitude;
           print(_lat);
           print(_long);
         }
@@ -58,7 +58,7 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
   }
 
   _getAddressFromLatLng() async {
-    List<Placemark> p = await placemarkFromCoordinates(_lat, _long);
+    List<Placemark> p = await placemarkFromCoordinates(_lat!, _long!);
     Placemark place = p[0];
 
     setState(() {
@@ -153,7 +153,7 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
 
   Widget _buildList(BuildContext context, NearmeMosqueModel nearmeMosqueModel) {
     final ThemeData theme = Theme.of(context);
-    if (nearmeMosqueModel.response.groups.length == 0) {
+    if (nearmeMosqueModel.response!.groups!.length == 0) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -180,8 +180,8 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
         ),
       );
     } else {
-      for (int i = 0; i < nearmeMosqueModel.response.groups.length; i++) {
-        if (nearmeMosqueModel.response.groups[i].items.length == 0) {
+      for (int i = 0; i < nearmeMosqueModel.response!.groups!.length; i++) {
+        if (nearmeMosqueModel.response!.groups![i].items!.length == 0) {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -212,15 +212,17 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
     }
     return ListView.separated(
       physics: BouncingScrollPhysics(),
-      itemCount: nearmeMosqueModel.response.groups[0].items.length,
+      itemCount: nearmeMosqueModel.response!.groups![0].items!.length,
       shrinkWrap: true,
       itemBuilder: (context, i) {
         return InkWell(
           onTap: () {
             _launchMaps(
-                nearmeMosqueModel.response.groups[0].items[i].venue.location.lat
+                nearmeMosqueModel
+                    .response!.groups![0].items![i].venue!.location!.lat
                     .toString(),
-                nearmeMosqueModel.response.groups[0].items[i].venue.location.lng
+                nearmeMosqueModel
+                    .response!.groups![0].items![i].venue!.location!.lng
                     .toString());
           },
           child: Padding(
@@ -242,7 +244,7 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
                     children: [
                       Text(
                         nearmeMosqueModel
-                            .response.groups[0].items[i].venue.name,
+                            .response!.groups![0].items![i].venue!.name!,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -254,8 +256,8 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
                         height: 2,
                       ),
                       Text(
-                        nearmeMosqueModel.response.groups[0].items[i].venue
-                            .location.formattedAddress[0],
+                        nearmeMosqueModel.response!.groups![0].items![i].venue!
+                            .location!.formattedAddress![0],
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.grey[600],

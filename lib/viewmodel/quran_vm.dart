@@ -15,9 +15,9 @@ class QuranViewModel {
       print(_res);
       final QuranModel quranModel = QuranModel.fromJson(_res.data);
       return quranModel;
-    } catch (err) {
-      print(err);
-      return null;
+    } on DioError catch (error) {
+      print("Exception occured: $error");
+      return error.error;
     }
   }
 
@@ -31,9 +31,9 @@ class QuranViewModel {
       final QuranUthmaniModel quranUthmaniModel =
           QuranUthmaniModel.fromJson(_res.data);
       return quranUthmaniModel;
-    } catch (err) {
-      print(err);
-      return null;
+    } on DioError catch (error) {
+      print("Exception occured: $error");
+      return error.error;
     }
   }
 
@@ -47,9 +47,9 @@ class QuranViewModel {
       final QuranIndonesianModel quranIndonesianModel =
           QuranIndonesianModel.fromJson(_res.data);
       return quranIndonesianModel;
-    } catch (err) {
-      print(err);
-      return null;
+    } on DioError catch (error) {
+      print("Exception occured: $error");
+      return error.error;
     }
   }
 }

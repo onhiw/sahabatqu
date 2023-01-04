@@ -6,5 +6,5 @@ abstract class QuranEvent {
 }
 
 class GetQuranList extends QuranEvent {
-  List<Object> get props => null;
+  List<Object>? get props => null;
 }

@@ -24,7 +24,7 @@ class _QiblahMapsState extends State<QiblahMaps> {
   Completer<GoogleMapController> _controller = Completer();
   LatLng position = LatLng(36.800636, 10.180358);
 
-  Future<Position> _future;
+  late Future<Position?> _future;
   final _positionStream = StreamController<LatLng>.broadcast();
 
   @override
@@ -42,9 +42,9 @@ class _QiblahMapsState extends State<QiblahMaps> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: FutureBuilder(
+      child: FutureBuilder<Position?>(
         future: _future,
-        builder: (_, AsyncSnapshot<Position> snapshot) {
+        builder: (_, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting)
             return LoadingIndicator();
           if (snapshot.hasError)
@@ -53,7 +53,8 @@ class _QiblahMapsState extends State<QiblahMaps> {
             );
 
           if (snapshot.data != null) {
-            final loc = LatLng(snapshot.data.latitude, snapshot.data.longitude);
+            final loc =
+                LatLng(snapshot.data!.latitude, snapshot.data!.longitude);
             position = loc;
           } else
             _positionStream.sink.add(position);
@@ -118,10 +119,10 @@ class _QiblahMapsState extends State<QiblahMaps> {
     );
   }
 
-  Future<Position> _checkLocationStatus() async {
+  Future<Position?> _checkLocationStatus() async {
     final locationStatus = await FlutterQiblah.checkLocationStatus();
     if (locationStatus.enabled) {
-      return await getCurrentPosition();
+      return await Geolocator.getCurrentPosition();
     }
     return null;
   }

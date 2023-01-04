@@ -17,9 +17,9 @@ class QuranUthmaniModel {
     this.data,
   });
 
-  int code;
-  String status;
-  DataQuranUthmani data;
+  int? code;
+  String? status;
+  DataQuranUthmani? data;
 
   factory QuranUthmaniModel.fromJson(Map<String, dynamic> json) =>
       QuranUthmaniModel(
@@ -33,7 +33,7 @@ class QuranUthmaniModel {
   Map<String, dynamic> toJson() => {
         "code": code == null ? null : code,
         "status": status == null ? null : status,
-        "data": data == null ? null : data.toJson(),
+        "data": data == null ? null : data!.toJson(),
       };
 }
 
@@ -49,14 +49,14 @@ class DataQuranUthmani {
     this.edition,
   });
 
-  int number;
-  String name;
-  String englishName;
-  String englishNameTranslation;
-  String revelationType;
-  int numberOfAyahs;
-  List<AyahQuranUthmani> ayahs;
-  EditionQuranUthmani edition;
+  int? number;
+  String? name;
+  String? englishName;
+  String? englishNameTranslation;
+  String? revelationType;
+  int? numberOfAyahs;
+  List<AyahQuranUthmani>? ayahs;
+  EditionQuranUthmani? edition;
 
   factory DataQuranUthmani.fromJson(Map<String, dynamic> json) =>
       DataQuranUthmani(
@@ -89,8 +89,8 @@ class DataQuranUthmani {
         "numberOfAyahs": numberOfAyahs == null ? null : numberOfAyahs,
         "ayahs": ayahs == null
             ? null
-            : List<dynamic>.from(ayahs.map((x) => x.toJson())),
-        "edition": edition == null ? null : edition.toJson(),
+            : List<dynamic>.from(ayahs!.map((x) => x.toJson())),
+        "edition": edition == null ? null : edition!.toJson(),
       };
 }
 
@@ -107,14 +107,14 @@ class AyahQuranUthmani {
     // this.sajda,
   });
 
-  int number;
-  String text;
-  int numberInSurah;
-  int juz;
-  int manzil;
-  int page;
-  int ruku;
-  int hizbQuarter;
+  int? number;
+  String? text;
+  int? numberInSurah;
+  int? juz;
+  int? manzil;
+  int? page;
+  int? ruku;
+  int? hizbQuarter;
   // bool sajda;
 
   factory AyahQuranUthmani.fromJson(Map<String, dynamic> json) =>
@@ -155,13 +155,13 @@ class EditionQuranUthmani {
     this.direction,
   });
 
-  String identifier;
-  String language;
-  String name;
-  String englishName;
-  String format;
-  String type;
-  String direction;
+  String? identifier;
+  String? language;
+  String? name;
+  String? englishName;
+  String? format;
+  String? type;
+  String? direction;
 
   factory EditionQuranUthmani.fromJson(Map<String, dynamic> json) =>
       EditionQuranUthmani(

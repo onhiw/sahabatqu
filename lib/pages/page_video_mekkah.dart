@@ -9,7 +9,7 @@ class VideoMekkahPage extends StatefulWidget {
 }
 
 class _VideoMekkahPageState extends State<VideoMekkahPage> {
-  VoidCallback listener;
+  VoidCallback? listener;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _VideoMekkahPageState extends State<VideoMekkahPage> {
               ],
               onReady: () {
                 _controller.addListener(() {
-                  return listener;
+                  return listener!.call();
                 });
               },
               progressColors: ProgressBarColors(
@@ -111,7 +111,7 @@ class _VideoMekkahPageState extends State<VideoMekkahPage> {
               ],
               onReady: () {
                 _controller.addListener(() {
-                  return listener;
+                  return listener!.call();
                 });
               },
               progressColors: ProgressBarColors(

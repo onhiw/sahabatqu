@@ -16,8 +16,8 @@ class NearmeMosqueModel {
     this.response,
   });
 
-  Meta meta;
-  ResponseNearmeMosque response;
+  Meta? meta;
+  ResponseNearmeMosque? response;
 
   factory NearmeMosqueModel.fromJson(Map<String, dynamic> json) =>
       NearmeMosqueModel(
@@ -28,8 +28,8 @@ class NearmeMosqueModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "meta": meta == null ? null : meta.toJson(),
-        "response": response == null ? null : response.toJson(),
+        "meta": meta == null ? null : meta!.toJson(),
+        "response": response == null ? null : response!.toJson(),
       };
 }
 
@@ -39,8 +39,8 @@ class Meta {
     this.requestId,
   });
 
-  int code;
-  String requestId;
+  int? code;
+  String? requestId;
 
   factory Meta.fromJson(Map<String, dynamic> json) => Meta(
         code: json["code"] == null ? null : json["code"],
@@ -66,15 +66,15 @@ class ResponseNearmeMosque {
     this.groups,
   });
 
-  SuggestedFilters suggestedFilters;
-  int suggestedRadius;
-  String headerLocation;
-  String headerFullLocation;
-  String headerLocationGranularity;
-  String query;
-  int totalResults;
-  SuggestedBounds suggestedBounds;
-  List<Group> groups;
+  SuggestedFilters? suggestedFilters;
+  int? suggestedRadius;
+  String? headerLocation;
+  String? headerFullLocation;
+  String? headerLocationGranularity;
+  String? query;
+  int? totalResults;
+  SuggestedBounds? suggestedBounds;
+  List<Group>? groups;
 
   factory ResponseNearmeMosque.fromJson(Map<String, dynamic> json) =>
       ResponseNearmeMosque(
@@ -104,7 +104,7 @@ class ResponseNearmeMosque {
 
   Map<String, dynamic> toJson() => {
         "suggestedFilters":
-            suggestedFilters == null ? null : suggestedFilters.toJson(),
+            suggestedFilters == null ? null : suggestedFilters!.toJson(),
         "suggestedRadius": suggestedRadius == null ? null : suggestedRadius,
         "headerLocation": headerLocation == null ? null : headerLocation,
         "headerFullLocation":
@@ -115,10 +115,10 @@ class ResponseNearmeMosque {
         "query": query == null ? null : query,
         "totalResults": totalResults == null ? null : totalResults,
         "suggestedBounds":
-            suggestedBounds == null ? null : suggestedBounds.toJson(),
+            suggestedBounds == null ? null : suggestedBounds!.toJson(),
         "groups": groups == null
             ? null
-            : List<dynamic>.from(groups.map((x) => x.toJson())),
+            : List<dynamic>.from(groups!.map((x) => x.toJson())),
       };
 }
 
@@ -129,9 +129,9 @@ class Group {
     this.items,
   });
 
-  String type;
-  String name;
-  List<GroupItem> items;
+  String? type;
+  String? name;
+  List<GroupItem>? items;
 
   factory Group.fromJson(Map<String, dynamic> json) => Group(
         type: json["type"] == null ? null : json["type"],
@@ -147,7 +147,7 @@ class Group {
         "name": name == null ? null : name,
         "items": items == null
             ? null
-            : List<dynamic>.from(items.map((x) => x.toJson())),
+            : List<dynamic>.from(items!.map((x) => x.toJson())),
       };
 }
 
@@ -159,10 +159,10 @@ class GroupItem {
     this.flags,
   });
 
-  Reasons reasons;
-  Venue venue;
-  String referralId;
-  Flags flags;
+  Reasons? reasons;
+  Venue? venue;
+  String? referralId;
+  Flags? flags;
 
   factory GroupItem.fromJson(Map<String, dynamic> json) => GroupItem(
         reasons:
@@ -173,10 +173,10 @@ class GroupItem {
       );
 
   Map<String, dynamic> toJson() => {
-        "reasons": reasons == null ? null : reasons.toJson(),
-        "venue": venue == null ? null : venue.toJson(),
+        "reasons": reasons == null ? null : reasons!.toJson(),
+        "venue": venue == null ? null : venue!.toJson(),
         "referralId": referralId == null ? null : referralId,
-        "flags": flags == null ? null : flags.toJson(),
+        "flags": flags == null ? null : flags!.toJson(),
       };
 }
 
@@ -185,7 +185,7 @@ class Flags {
     this.outsideRadius,
   });
 
-  bool outsideRadius;
+  bool? outsideRadius;
 
   factory Flags.fromJson(Map<String, dynamic> json) => Flags(
         outsideRadius:
@@ -203,8 +203,8 @@ class Reasons {
     this.items,
   });
 
-  int count;
-  List<ReasonsItem> items;
+  int? count;
+  List<ReasonsItem>? items;
 
   factory Reasons.fromJson(Map<String, dynamic> json) => Reasons(
         count: json["count"] == null ? null : json["count"],
@@ -218,7 +218,7 @@ class Reasons {
         "count": count == null ? null : count,
         "items": items == null
             ? null
-            : List<dynamic>.from(items.map((x) => x.toJson())),
+            : List<dynamic>.from(items!.map((x) => x.toJson())),
       };
 }
 
@@ -229,9 +229,9 @@ class ReasonsItem {
     this.reasonName,
   });
 
-  String summary;
-  String type;
-  String reasonName;
+  String? summary;
+  String? type;
+  String? reasonName;
 
   factory ReasonsItem.fromJson(Map<String, dynamic> json) => ReasonsItem(
         summary: json["summary"] == null ? null : json["summary"],
@@ -255,11 +255,11 @@ class Venue {
     this.photos,
   });
 
-  String id;
-  String name;
-  Location location;
-  List<Category> categories;
-  Photos photos;
+  String? id;
+  String? name;
+  Location? location;
+  List<Category>? categories;
+  Photos? photos;
 
   factory Venue.fromJson(Map<String, dynamic> json) => Venue(
         id: json["id"] == null ? null : json["id"],
@@ -277,11 +277,11 @@ class Venue {
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
         "name": name == null ? null : name,
-        "location": location == null ? null : location.toJson(),
+        "location": location == null ? null : location!.toJson(),
         "categories": categories == null
             ? null
-            : List<dynamic>.from(categories.map((x) => x.toJson())),
-        "photos": photos == null ? null : photos.toJson(),
+            : List<dynamic>.from(categories!.map((x) => x.toJson())),
+        "photos": photos == null ? null : photos!.toJson(),
       };
 }
 
@@ -295,12 +295,12 @@ class Category {
     this.primary,
   });
 
-  String id;
-  String name;
-  String pluralName;
-  String shortName;
-  IconCategory icon;
-  bool primary;
+  String? id;
+  String? name;
+  String? pluralName;
+  String? shortName;
+  IconCategory? icon;
+  bool? primary;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"] == null ? null : json["id"],
@@ -316,7 +316,7 @@ class Category {
         "name": name == null ? null : name,
         "pluralName": pluralName == null ? null : pluralName,
         "shortName": shortName == null ? null : shortName,
-        "icon": icon == null ? null : icon.toJson(),
+        "icon": icon == null ? null : icon!.toJson(),
         "primary": primary == null ? null : primary,
       };
 }
@@ -327,8 +327,8 @@ class IconCategory {
     this.suffix,
   });
 
-  String prefix;
-  String suffix;
+  String? prefix;
+  String? suffix;
 
   factory IconCategory.fromJson(Map<String, dynamic> json) => IconCategory(
         prefix: json["prefix"] == null ? null : json["prefix"],
@@ -357,18 +357,18 @@ class Location {
     this.postalCode,
   });
 
-  String address;
-  double lat;
-  double lng;
-  List<LabeledLatLng> labeledLatLngs;
-  int distance;
-  String cc;
-  String city;
-  String state;
-  String country;
-  List<String> formattedAddress;
-  String crossStreet;
-  String postalCode;
+  String? address;
+  double? lat;
+  double? lng;
+  List<LabeledLatLng>? labeledLatLngs;
+  int? distance;
+  String? cc;
+  String? city;
+  String? state;
+  String? country;
+  List<String>? formattedAddress;
+  String? crossStreet;
+  String? postalCode;
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
         address: json["address"] == null ? null : json["address"],
@@ -396,7 +396,7 @@ class Location {
         "lng": lng == null ? null : lng,
         "labeledLatLngs": labeledLatLngs == null
             ? null
-            : List<dynamic>.from(labeledLatLngs.map((x) => x.toJson())),
+            : List<dynamic>.from(labeledLatLngs!.map((x) => x.toJson())),
         "distance": distance == null ? null : distance,
         "cc": cc == null ? null : cc,
         "city": city == null ? null : city,
@@ -404,7 +404,7 @@ class Location {
         "country": country == null ? null : country,
         "formattedAddress": formattedAddress == null
             ? null
-            : List<dynamic>.from(formattedAddress.map((x) => x)),
+            : List<dynamic>.from(formattedAddress!.map((x) => x)),
         "crossStreet": crossStreet == null ? null : crossStreet,
         "postalCode": postalCode == null ? null : postalCode,
       };
@@ -417,9 +417,9 @@ class LabeledLatLng {
     this.lng,
   });
 
-  String label;
-  double lat;
-  double lng;
+  String? label;
+  double? lat;
+  double? lng;
 
   factory LabeledLatLng.fromJson(Map<String, dynamic> json) => LabeledLatLng(
         label: json["label"] == null ? null : json["label"],
@@ -440,8 +440,8 @@ class Photos {
     this.groups,
   });
 
-  int count;
-  List<dynamic> groups;
+  int? count;
+  List<dynamic>? groups;
 
   factory Photos.fromJson(Map<String, dynamic> json) => Photos(
         count: json["count"] == null ? null : json["count"],
@@ -453,7 +453,7 @@ class Photos {
   Map<String, dynamic> toJson() => {
         "count": count == null ? null : count,
         "groups":
-            groups == null ? null : List<dynamic>.from(groups.map((x) => x)),
+            groups == null ? null : List<dynamic>.from(groups!.map((x) => x)),
       };
 }
 
@@ -463,8 +463,8 @@ class SuggestedBounds {
     this.sw,
   });
 
-  Ne ne;
-  Ne sw;
+  Ne? ne;
+  Ne? sw;
 
   factory SuggestedBounds.fromJson(Map<String, dynamic> json) =>
       SuggestedBounds(
@@ -473,8 +473,8 @@ class SuggestedBounds {
       );
 
   Map<String, dynamic> toJson() => {
-        "ne": ne == null ? null : ne.toJson(),
-        "sw": sw == null ? null : sw.toJson(),
+        "ne": ne == null ? null : ne!.toJson(),
+        "sw": sw == null ? null : sw!.toJson(),
       };
 }
 
@@ -484,8 +484,8 @@ class Ne {
     this.lng,
   });
 
-  double lat;
-  double lng;
+  double? lat;
+  double? lng;
 
   factory Ne.fromJson(Map<String, dynamic> json) => Ne(
         lat: json["lat"] == null ? null : json["lat"].toDouble(),
@@ -504,8 +504,8 @@ class SuggestedFilters {
     this.filters,
   });
 
-  String header;
-  List<Filter> filters;
+  String? header;
+  List<Filter>? filters;
 
   factory SuggestedFilters.fromJson(Map<String, dynamic> json) =>
       SuggestedFilters(
@@ -519,7 +519,7 @@ class SuggestedFilters {
         "header": header == null ? null : header,
         "filters": filters == null
             ? null
-            : List<dynamic>.from(filters.map((x) => x.toJson())),
+            : List<dynamic>.from(filters!.map((x) => x.toJson())),
       };
 }
 
@@ -529,8 +529,8 @@ class Filter {
     this.key,
   });
 
-  String name;
-  String key;
+  String? name;
+  String? key;
 
   factory Filter.fromJson(Map<String, dynamic> json) => Filter(
         name: json["name"] == null ? null : json["name"],

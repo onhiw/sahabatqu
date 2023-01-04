@@ -14,7 +14,7 @@ class NearmeHalalInitial extends NearmeHalalState {
 class NearmeHalalLoading extends NearmeHalalState {
   const NearmeHalalLoading();
 
-  List<Object> get props => null;
+  List<Object>? get props => null;
 }
 
 class NearmeHalalLoaded extends NearmeHalalState {

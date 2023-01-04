@@ -17,7 +17,6 @@ import 'package:sahabatqu/pages/page_nearme_halal.dart';
 import 'package:sahabatqu/pages/page_nearme_mosque.dart';
 import 'package:sahabatqu/pages/page_video_mekkah.dart';
 import 'package:sahabatqu/utils/helper.dart';
-import 'package:sahabatqu/widgets/push_notification_service.dart';
 import 'package:sahabatqu/widgets/widget_event.dart';
 import 'package:sahabatqu/widgets/widget_program.dart';
 import 'package:shimmer/shimmer.dart';
@@ -33,17 +32,15 @@ class _HomePageState extends State<HomePage> {
   final Geolocator geolocator = Geolocator();
   SchedulePrayBloc prayBloc = SchedulePrayBloc();
 
-  Position _currentPosition;
+  Position? _currentPosition;
   double _lat = 0;
   double _long = 0;
-  String _currentAddress;
+  String? _currentAddress;
 
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
-
-    PushNotificationHelper(this.context);
   }
 
   _getCurrentLocation() async {
@@ -53,11 +50,11 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _currentPosition = value;
         if (_currentPosition != null) {
-          _lat = _currentPosition.latitude;
-          _long = _currentPosition.longitude;
+          _lat = _currentPosition!.latitude;
+          _long = _currentPosition!.longitude;
           basket.addAll({
-            "latitude": _currentPosition.latitude.toString(),
-            "longitude": _currentPosition.longitude.toString(),
+            "latitude": _currentPosition!.latitude.toString(),
+            "longitude": _currentPosition!.longitude.toString(),
           });
         }
       });
@@ -152,19 +149,19 @@ class _HomePageState extends State<HomePage> {
     // bool isValid;
     var newDate = DateTime.parse("$formattedDate" +
         " " +
-        jadwalSholatModel.results.datetime[0].times.fajr);
+        jadwalSholatModel.results!.datetime![0].times!.fajr!);
     var newDate1 = DateTime.parse("$formattedDate" +
         " " +
-        jadwalSholatModel.results.datetime[0].times.dhuhr);
+        jadwalSholatModel.results!.datetime![0].times!.dhuhr!);
     var newDate2 = DateTime.parse("$formattedDate" +
         " " +
-        jadwalSholatModel.results.datetime[0].times.asr);
+        jadwalSholatModel.results!.datetime![0].times!.asr!);
     var newDate3 = DateTime.parse("$formattedDate" +
         " " +
-        jadwalSholatModel.results.datetime[0].times.maghrib);
+        jadwalSholatModel.results!.datetime![0].times!.maghrib!);
     var newDate4 = DateTime.parse("$formattedDate" +
         " " +
-        jadwalSholatModel.results.datetime[0].times.isha);
+        jadwalSholatModel.results!.datetime![0].times!.isha!);
     var dateT = now.difference(newDate).inSeconds;
     var dateT1 = now.difference(newDate1).inSeconds;
     var dateT2 = now.difference(newDate2).inSeconds;
@@ -188,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results.datetime[0].times.fajr,
+              jadwalSholatModel.results!.datetime![0].times!.fajr!,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -210,7 +207,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     _currentAddress == null
                         ? "Sedang mencari lokasi..."
-                        : _currentAddress,
+                        : _currentAddress!,
                     style: TextStyle(color: Colors.grey[600], fontSize: 14),
                   ),
                 ),
@@ -235,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results.datetime[0].times.dhuhr,
+              jadwalSholatModel.results!.datetime![0].times!.dhuhr!,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -257,7 +254,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     _currentAddress == null
                         ? "Sedang mencari lokasi..."
-                        : _currentAddress,
+                        : _currentAddress!,
                     style: TextStyle(color: Colors.grey[600], fontSize: 14),
                   ),
                 ),
@@ -282,7 +279,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results.datetime[0].times.asr,
+              jadwalSholatModel.results!.datetime![0].times!.asr!,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -304,7 +301,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     _currentAddress == null
                         ? "Sedang mencari lokasi..."
-                        : _currentAddress,
+                        : _currentAddress!,
                     style: TextStyle(color: Colors.grey[600], fontSize: 14),
                   ),
                 ),
@@ -329,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results.datetime[0].times.maghrib,
+              jadwalSholatModel.results!.datetime![0].times!.maghrib!,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -351,7 +348,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     _currentAddress == null
                         ? "Sedang mencari lokasi..."
-                        : _currentAddress,
+                        : _currentAddress!,
                     style: TextStyle(color: Colors.grey[600], fontSize: 14),
                   ),
                 ),
@@ -376,7 +373,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results.datetime[0].times.isha,
+              jadwalSholatModel.results!.datetime![0].times!.isha!,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -398,7 +395,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     _currentAddress == null
                         ? "Sedang mencari lokasi..."
-                        : _currentAddress,
+                        : _currentAddress!,
                     style: TextStyle(color: Colors.grey[600], fontSize: 14),
                   ),
                 ),
@@ -423,7 +420,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results.datetime[0].times.isha,
+              jadwalSholatModel.results!.datetime![0].times!.isha!,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -445,7 +442,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     _currentAddress == null
                         ? "Sedang mencari lokasi..."
-                        : _currentAddress,
+                        : _currentAddress!,
                     style: TextStyle(color: Colors.grey[600], fontSize: 14),
                   ),
                 ),
@@ -465,8 +462,8 @@ class _HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
@@ -480,8 +477,8 @@ class _HomePageState extends State<HomePage> {
           height: 5,
         ),
         Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),

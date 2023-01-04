@@ -17,9 +17,9 @@ class JadwalSholatModel {
     this.results,
   });
 
-  int code;
-  String status;
-  ResultsJadwalSholat results;
+  int? code;
+  String? status;
+  ResultsJadwalSholat? results;
 
   factory JadwalSholatModel.fromJson(Map<String, dynamic> json) =>
       JadwalSholatModel(
@@ -33,7 +33,7 @@ class JadwalSholatModel {
   Map<String, dynamic> toJson() => {
         "code": code == null ? null : code,
         "status": status == null ? null : status,
-        "results": results == null ? null : results.toJson(),
+        "results": results == null ? null : results!.toJson(),
       };
 }
 
@@ -44,9 +44,9 @@ class ResultsJadwalSholat {
     this.settings,
   });
 
-  List<DateTimeJadwalSholat> datetime;
-  LocationJadwalSholat location;
-  SettingsJadwalSholat settings;
+  List<DateTimeJadwalSholat>? datetime;
+  LocationJadwalSholat? location;
+  SettingsJadwalSholat? settings;
 
   factory ResultsJadwalSholat.fromJson(Map<String, dynamic> json) =>
       ResultsJadwalSholat(
@@ -65,9 +65,9 @@ class ResultsJadwalSholat {
   Map<String, dynamic> toJson() => {
         "datetime": datetime == null
             ? null
-            : List<dynamic>.from(datetime.map((x) => x.toJson())),
-        "location": location == null ? null : location.toJson(),
-        "settings": settings == null ? null : settings.toJson(),
+            : List<dynamic>.from(datetime!.map((x) => x.toJson())),
+        "location": location == null ? null : location!.toJson(),
+        "settings": settings == null ? null : settings!.toJson(),
       };
 }
 
@@ -77,8 +77,8 @@ class DateTimeJadwalSholat {
     this.date,
   });
 
-  TimesJadwalSholat times;
-  DateJadwalSholat date;
+  TimesJadwalSholat? times;
+  DateJadwalSholat? date;
 
   factory DateTimeJadwalSholat.fromJson(Map<String, dynamic> json) =>
       DateTimeJadwalSholat(
@@ -91,8 +91,8 @@ class DateTimeJadwalSholat {
       );
 
   Map<String, dynamic> toJson() => {
-        "times": times == null ? null : times.toJson(),
-        "date": date == null ? null : date.toJson(),
+        "times": times == null ? null : times!.toJson(),
+        "date": date == null ? null : date!.toJson(),
       };
 }
 
@@ -103,9 +103,9 @@ class DateJadwalSholat {
     this.hijri,
   });
 
-  int timestamp;
-  DateTime gregorian;
-  DateTime hijri;
+  int? timestamp;
+  DateTime? gregorian;
+  DateTime? hijri;
 
   factory DateJadwalSholat.fromJson(Map<String, dynamic> json) =>
       DateJadwalSholat(
@@ -120,10 +120,10 @@ class DateJadwalSholat {
         "timestamp": timestamp == null ? null : timestamp,
         "gregorian": gregorian == null
             ? null
-            : "${gregorian.year.toString().padLeft(4, '0')}-${gregorian.month.toString().padLeft(2, '0')}-${gregorian.day.toString().padLeft(2, '0')}",
+            : "${gregorian!.year.toString().padLeft(4, '0')}-${gregorian!.month.toString().padLeft(2, '0')}-${gregorian!.day.toString().padLeft(2, '0')}",
         "hijri": hijri == null
             ? null
-            : "${hijri.year.toString().padLeft(4, '0')}-${hijri.month.toString().padLeft(2, '0')}-${hijri.day.toString().padLeft(2, '0')}",
+            : "${hijri!.year.toString().padLeft(4, '0')}-${hijri!.month.toString().padLeft(2, '0')}-${hijri!.day.toString().padLeft(2, '0')}",
       };
 }
 
@@ -140,15 +140,15 @@ class TimesJadwalSholat {
     this.midnight,
   });
 
-  String imsak;
-  String sunrise;
-  String fajr;
-  String dhuhr;
-  String asr;
-  String sunset;
-  String maghrib;
-  String isha;
-  String midnight;
+  String? imsak;
+  String? sunrise;
+  String? fajr;
+  String? dhuhr;
+  String? asr;
+  String? sunset;
+  String? maghrib;
+  String? isha;
+  String? midnight;
 
   factory TimesJadwalSholat.fromJson(Map<String, dynamic> json) =>
       TimesJadwalSholat(
@@ -187,13 +187,13 @@ class LocationJadwalSholat {
     this.localOffset,
   });
 
-  double latitude;
-  double longitude;
-  double elevation;
-  String country;
-  String countryCode;
-  String timezone;
-  double localOffset;
+  double? latitude;
+  double? longitude;
+  double? elevation;
+  String? country;
+  String? countryCode;
+  String? timezone;
+  double? localOffset;
 
   factory LocationJadwalSholat.fromJson(Map<String, dynamic> json) =>
       LocationJadwalSholat(
@@ -228,12 +228,12 @@ class SettingsJadwalSholat {
     this.ishaAngle,
   });
 
-  String timeformat;
-  String school;
-  String juristic;
-  String highlat;
-  double fajrAngle;
-  double ishaAngle;
+  String? timeformat;
+  String? school;
+  String? juristic;
+  String? highlat;
+  double? fajrAngle;
+  double? ishaAngle;
 
   factory SettingsJadwalSholat.fromJson(Map<String, dynamic> json) =>
       SettingsJadwalSholat(

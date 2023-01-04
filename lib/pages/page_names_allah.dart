@@ -230,8 +230,8 @@ class _NamesAllahPageState extends State<NamesAllahPage> {
                       children: [
                         Text(
                           getAsmaInformation()[index].no == ""
-                              ? getAsmaInformation()[index].no + " "
-                              : getAsmaInformation()[index].no + ".",
+                              ? getAsmaInformation()[index].no! + " "
+                              : getAsmaInformation()[index].no! + ".",
                           style: TextStyle(
                               fontSize: 16,
                               color: theme.brightness == Brightness.dark
@@ -247,7 +247,7 @@ class _NamesAllahPageState extends State<NamesAllahPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                getAsmaInformation()[index].bacaan,
+                                getAsmaInformation()[index].bacaan!,
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: ColorPalette.themeColor,
@@ -257,7 +257,7 @@ class _NamesAllahPageState extends State<NamesAllahPage> {
                                 height: 2,
                               ),
                               Text(
-                                getAsmaInformation()[index].arti,
+                                getAsmaInformation()[index].arti!,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey[600],
@@ -272,7 +272,7 @@ class _NamesAllahPageState extends State<NamesAllahPage> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
-                      getAsmaInformation()[index].ayat,
+                      getAsmaInformation()[index].ayat!,
                       style: TextStyle(
                           fontSize: 20,
                           color: theme.brightness == Brightness.dark
