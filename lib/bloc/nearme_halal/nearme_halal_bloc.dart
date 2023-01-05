@@ -15,7 +15,6 @@ class NearmeHalalBloc extends Bloc<NearmeHalalEvent, NearmeHalalState> {
 
   NearmeHalalState get initialState => NearmeHalalInitial();
 
-  @override
   Stream<NearmeHalalState> mapEventToState(
     NearmeHalalEvent event,
   ) async* {
@@ -25,10 +24,6 @@ class NearmeHalalBloc extends Bloc<NearmeHalalEvent, NearmeHalalState> {
         final dataList = await _apiRespository.fetchNeameHalal(
             event.lat, event.long, event.date);
         yield NearmeHalalLoaded(dataList);
-        if (dataList == null) {
-          yield NearmeHalalError(
-              "Gagal mengambil data. apakah perangkatmu online?");
-        }
       } on NetworkError {
         yield NearmeHalalError(
             "Gagal mengambil data. apakah perangkatmu online?");

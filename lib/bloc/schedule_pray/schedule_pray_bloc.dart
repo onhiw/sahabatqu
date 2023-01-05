@@ -16,7 +16,6 @@ class SchedulePrayBloc extends Bloc<SchedulePrayEvent, SchedulePrayState> {
 
   SchedulePrayState get initialState => SchedulePrayInitial();
 
-  @override
   Stream<SchedulePrayState> mapEventToState(
     SchedulePrayEvent event,
   ) async* {
@@ -26,10 +25,6 @@ class SchedulePrayBloc extends Bloc<SchedulePrayEvent, SchedulePrayState> {
         final scheduleList =
             await _apiRespository.fetchJadwalSholat(event.lat, event.long);
         yield ScheduleLoaded(scheduleList);
-        if (scheduleList == null) {
-          yield ScheduleError(
-              "Gagal mengambil data. apakah perangkatmu online?");
-        }
       } on NetworkError {
         yield ScheduleError("Gagal mengambil data. apakah perangkatmu online?");
       }

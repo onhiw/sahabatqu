@@ -115,10 +115,11 @@ class _AboutPageState extends State<AboutPage> {
   }
 
   _launchBrowser(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch url';
+    if (!await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
     }
   }
 }

@@ -168,10 +168,6 @@ class _HomePageState extends State<HomePage> {
     var dateT3 = now.difference(newDate3).inSeconds;
     var dateT4 = now.difference(newDate4).inSeconds;
 
-    if (jadwalSholatModel == null) {
-      return Container();
-    }
-
     if (dateT <= 0) {
       return Expanded(
         child: Column(

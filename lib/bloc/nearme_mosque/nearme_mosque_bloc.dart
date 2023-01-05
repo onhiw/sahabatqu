@@ -15,7 +15,6 @@ class NearmeMosqueBloc extends Bloc<NearmeMosqueEvent, NearmeMosqueState> {
 
   NearmeMosqueState get initialState => NearmeMosqueInitial();
 
-  @override
   Stream<NearmeMosqueState> mapEventToState(
     NearmeMosqueEvent event,
   ) async* {
@@ -25,10 +24,6 @@ class NearmeMosqueBloc extends Bloc<NearmeMosqueEvent, NearmeMosqueState> {
         final mosqueList = await _apiRespository.fetchNeameMosque(
             event.lat, event.long, event.date);
         yield NearmeMosqueLoaded(mosqueList);
-        if (mosqueList == null) {
-          yield NearmeMosqueError(
-              "Gagal mengambil data. apakah perangkatmu online?");
-        }
       } on NetworkError {
         yield NearmeMosqueError(
             "Gagal mengambil data. apakah perangkatmu online?");

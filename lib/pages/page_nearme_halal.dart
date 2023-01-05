@@ -280,15 +280,14 @@ class _NearmeHalalPageState extends State<NearmeHalalPage> {
   }
 
   _launchMaps(String lat, String long) async {
-    print(lat);
-    print(long);
     String googleUrl =
         'https://www.google.com/maps/search/?api=1&query=$lat,$long';
     String appleUrl = 'https://maps.apple.com/?sll=$lat,$long';
-    if (await canLaunch(Platform.isIOS ? appleUrl : googleUrl)) {
-      await launch(Platform.isIOS ? appleUrl : googleUrl);
-    } else {
-      throw 'Could not launch url';
+    if (!await launchUrl(
+      Uri.parse(Platform.isIOS ? appleUrl : googleUrl),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch';
     }
   }
 }

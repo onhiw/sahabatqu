@@ -15,7 +15,6 @@ class QuranBloc extends Bloc<QuranEvent, QuranState> {
 
   QuranState get initialState => QuranInitial();
 
-  @override
   Stream<QuranState> mapEventToState(
     QuranEvent event,
   ) async* {
@@ -24,10 +23,6 @@ class QuranBloc extends Bloc<QuranEvent, QuranState> {
         yield QuranLoading();
         final quranList = await _apiRespository.fetchQuranList();
         yield QuranLoaded(quranList);
-        if (quranList == null) {
-          yield QuranLoadError(
-              "Gagal mengambil data. apakah perangkatmu online?");
-        }
       } on NetworkError {
         yield QuranLoadError(
             "Gagal mengambil data. apakah perangkatmu online?");

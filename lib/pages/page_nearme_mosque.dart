@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +22,7 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
   Position? _currentPosition;
   double? _lat = 0;
   double? _long = 0;
-  String? _currentAddress;
+  // String? _currentAddress;
 
   @override
   void initState() {
@@ -58,11 +57,11 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
   }
 
   _getAddressFromLatLng() async {
-    List<Placemark> p = await placemarkFromCoordinates(_lat!, _long!);
-    Placemark place = p[0];
+    // List<Placemark> p = await placemarkFromCoordinates(_lat!, _long!);
+    // Placemark place = p[0];
 
     setState(() {
-      _currentAddress = "${place.locality}";
+      // _currentAddress = "${place.locality}";
     });
   }
 
@@ -285,10 +284,11 @@ class _NearmeMosquePageState extends State<NearmeMosquePage> {
     String googleUrl =
         'https://www.google.com/maps/search/?api=1&query=$lat,$long';
     String appleUrl = 'https://maps.apple.com/?sll=$lat,$long';
-    if (await canLaunch(Platform.isIOS ? appleUrl : googleUrl)) {
-      await launch(Platform.isIOS ? appleUrl : googleUrl);
-    } else {
-      throw 'Could not launch url';
+    if (!await launchUrl(
+      Uri.parse(Platform.isIOS ? appleUrl : googleUrl),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch';
     }
   }
 }
