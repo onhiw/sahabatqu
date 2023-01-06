@@ -41,6 +41,16 @@ dependencies:
   expand_widget: ^3.1.0
   youtube_player_flutter: ^8.0.0
   another_flushbar: ^1.12.29
+  get_it: ^7.2.0
+
+  about:
+    path: about
+
+  core:
+    path: core
+
+  schedule:
+    path: schedule
 
 dev_dependencies:
   flutter_test:

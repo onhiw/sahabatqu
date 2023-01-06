@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:about/about.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
-import 'package:sahabatqu/pages/page-quran/page_quran.dart';
-import 'package:sahabatqu/pages/page_about.dart';
+import 'package:schedule/presentation/pages/prayer_schedule_page.dart';
 
 import '../constants/themes-color.dart';
-import '../pages/page_jadwal_sholat.dart';
-import '../pages/page-home/page_home.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -22,9 +20,9 @@ class _HomeWidgetState extends State<HomeWidget> {
   // int _index = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
   final List<Widget> _children = [
-    HomePage(),
-    JadwalSholatPage(),
-    QuranPage(),
+    Container(),
+    PrayerSchedulePage(),
+    Container(),
     AboutPage()
   ];
 

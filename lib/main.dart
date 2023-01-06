@@ -1,14 +1,18 @@
 import 'dart:io';
 
+import 'package:core/core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:sahabatqu/providers.dart';
-import 'package:sahabatqu/utils/routes.dart';
+import 'package:sahabatqu/widgets/widget_home.dart';
+import 'package:sahabatqu/injection.dart' as di;
+import 'package:schedule/presentation/bloc/city-bloc/city_bloc.dart';
+import 'package:schedule/presentation/bloc/prayer-daily-bloc/prayer_daily_bloc.dart';
+import 'package:schedule/presentation/bloc/prayer-monthly-bloc/prayer_monthly_bloc.dart';
 
 import 'pages/page_splash_screen.dart';
 
@@ -53,6 +57,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  di.init();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   Platform.isIOS
       ? messaging.subscribeToTopic('notification_ios')
@@ -188,21 +193,46 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: providers,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => di.locator<CityBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<PrayerDailyBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<PrayerMonthlyBloc>(),
+        ),
+      ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialRoute: '/',
-          theme: ThemeData(
-            brightness: Brightness.light,
-            primaryColor: Colors.white,
-            fontFamily: 'Poppins',
-          ),
-          darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            fontFamily: 'Poppins',
-          ),
-          routes: appRoutes),
+        debugShowCheckedModeBanner: false,
+        // initialRoute: '/',
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Colors.white,
+          fontFamily: 'Poppins',
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          fontFamily: 'Poppins',
+        ),
+        navigatorObservers: [routeObserver],
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/':
+              return MaterialPageRoute(builder: (_) => HomeWidget());
+            default:
+              return MaterialPageRoute(builder: (_) {
+                return Scaffold(
+                  body: Center(
+                    child: Text('Page not found :('),
+                  ),
+                );
+              });
+          }
+        },
+      ),
     );
   }
 }
