@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.1"
+  asma:
+    dependency: "direct main"
+    description:
+      path: asma
+      relative: true
+    source: path
+    version: "0.0.1"
   async:
     dependency: transitive
     description:
@@ -162,6 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
+  doa:
+    dependency: "direct main"
+    description:
+      path: doa
+      relative: true
+    source: path
+    version: "0.0.1"
   equatable:
     dependency: transitive
     description:
@@ -338,6 +352,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gallery:
+    dependency: "direct main"
+    description:
+      path: gallery
+      relative: true
+    source: path
+    version: "0.0.1"
   geocoding:
     dependency: "direct main"
     description:
@@ -653,6 +674,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.5"
+  qibla:
+    dependency: "direct main"
+    description:
+      path: qibla
+      relative: true
+    source: path
+    version: "0.0.1"
   rxdart:
     dependency: "direct main"
     description:

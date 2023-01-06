@@ -52,6 +52,18 @@ dependencies:
   schedule:
     path: schedule
 
+  asma:
+    path: asma
+
+  doa:
+    path: doa
+
+  qibla:
+    path: qibla
+
+  gallery:
+    path: gallery
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

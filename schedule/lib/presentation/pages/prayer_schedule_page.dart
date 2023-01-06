@@ -1,9 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core/domain/entities/prayer/prayer_daily_response_e.dart';
-import 'package:core/widgets/flushbar_widget.dart';
+import 'package:core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:schedule/presentation/bloc/city-bloc/city_bloc.dart';
 import 'package:schedule/presentation/bloc/prayer-daily-bloc/prayer_daily_bloc.dart';
@@ -19,61 +17,21 @@ class PrayerSchedulePage extends StatefulWidget {
 
 class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
   String? _currentAddress;
-  String? cityName;
+  String? cityId;
+  final searchCity = TextEditingController();
 
-  LocationPermission? permission;
-
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      Future.delayed(const Duration(seconds: 0)).then((value) {
-        flushbarMessage("Layanan lokasi dinonaktifkan.", Colors.red)
-            .show(context);
+  void _setCurrentAddress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('currentAddress') != null) {
+      setState(() {
+        _currentAddress = prefs.getString('currentAddress');
       });
     }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        Future.delayed(const Duration(seconds: 0)).then((value) {
-          flushbarMessage("Izin lokasi ditolak", Colors.red).show(context);
-        });
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      Future.delayed(const Duration(seconds: 0)).then((value) {
-        flushbarMessage(
-                "Izin lokasi ditolak secara permanen, kami tidak dapat meminta izin",
-                Colors.red)
-            .show(context);
-      });
-    }
-    return await Geolocator.getCurrentPosition();
-  }
-
-  _getCurrentLocation() async {
-    _determinePosition().then((value) {
-      _getAddressFromLatLng(value.latitude, value.longitude);
-    });
-  }
-
-  _getAddressFromLatLng(double lat, double long) async {
-    List<Placemark> p = await placemarkFromCoordinates(lat, long);
-    Placemark place = p[0];
-
-    setState(() {
-      _currentAddress = "${place.locality}";
-    });
   }
 
   @override
   void initState() {
-    _getCurrentLocation();
+    _setCurrentAddress();
     _getPrayerSchedule();
     super.initState();
   }
@@ -90,7 +48,7 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
       });
     } else {
       setState(() {
-        cityName = prefs.getString('cityId');
+        cityId = prefs.getString('cityId');
       });
       Future.microtask(() {
         context.read<PrayerDailyBloc>().add(GetPrayerDaily(
@@ -102,104 +60,168 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
 
   void _showChooseCity() {
     final citybloc = context.read<CityBloc>();
-
-    showDialog(
+    showModalBottomSheet(
       context: context,
-      barrierDismissible: false,
-      builder: (cn) {
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      builder: (context) {
         return StatefulBuilder(builder: (context, setState) {
-          return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            content: BlocProvider<CityBloc>.value(
-              value: citybloc,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  BlocBuilder<CityBloc, CityState>(builder: (context, state) {
-                    if (state is CityLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is CityLoaded) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            height: 60,
-                            padding: const EdgeInsets.only(right: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: textEditingGrey),
-                            child: DropdownButtonHideUnderline(
-                              child: ButtonTheme(
-                                alignedDropdown: true,
-                                child: DropdownButton<String>(
-                                  hint: const Text(
-                                    'Pilih Lokasi Anda',
-                                    style: TextStyle(
-                                        color: textColor, fontSize: 14),
-                                  ),
-                                  isExpanded: true,
-                                  underline: Container(),
-                                  value: cityName,
-                                  items: state.city
-                                      .map((value) => DropdownMenuItem(
-                                          value: value.id,
-                                          child: Text(value.lokasi,
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 14))))
-                                      .toList(),
-                                  onChanged: (_) {
-                                    setState(() {
-                                      cityName = _;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              setState(() {
-                                prefs.setString('cityId', cityName!);
-                              });
-                              _getPrayerSchedule();
-                              Navigator.pop(cn);
+          return WillPopScope(
+            onWillPop: () async {
+              setState(() {
+                searchCity.text = '';
+              });
+              return true;
+            },
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.90,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10))),
+              child: BlocProvider<CityBloc>.value(
+                value: citybloc,
+                child:
+                    BlocBuilder<CityBloc, CityState>(builder: (context, state) {
+                  if (state is CityLoading) {
+                    return const Center(child: LoadingIndicator());
+                  } else if (state is CityLoaded) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(
+                              left: 16, right: 16, top: 16),
+                          child: const Text("Pilih Kota",
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        const SizedBox(height: 8),
+                        const Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: TextFormField(
+                            cursorColor: Colors.black,
+                            controller: searchCity,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 14),
+                            onChanged: (value) {
+                              setState(() {});
                             },
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  color: themeColor,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: const Center(
-                                child: Text(
-                                  'Pilih Lokasi',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500),
-                                ),
+                            onTap: () {},
+                            decoration: InputDecoration(
+                              hintStyle: const TextStyle(
+                                  color: Colors.grey, fontSize: 14),
+                              filled: true,
+                              fillColor: textEditingGrey,
+                              hintText: 'Cari Kota...',
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide.none),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
-                          )
-                        ],
-                      );
-                    } else if (state is CityError) {
-                      return Center(
-                          child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(state.message),
-                      ));
-                    } else {
-                      return Container();
-                    }
-                  }),
-                ],
+                            keyboardType: TextInputType.text,
+                          ),
+                        ),
+                        Expanded(
+                            child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ...state.city
+                                  .where((element) => element.lokasi
+                                      .toLowerCase()
+                                      .contains(searchCity.text))
+                                  .map((kota) => Column(
+                                        children: [
+                                          InkWell(
+                                            onTap: () async {
+                                              SharedPreferences prefs =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              setState(() {
+                                                prefs.setString(
+                                                    'cityId', kota.id);
+                                                searchCity.text = '';
+                                              });
+                                              _getPrayerSchedule();
+                                              Navigator.pop(context);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  bottom: 8,
+                                                  left: 16,
+                                                  right: 16),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  cityId == kota.id
+                                                      ? Text(
+                                                          kota.lokasi,
+                                                          style: const TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )
+                                                      : Text(
+                                                          kota.lokasi,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .black),
+                                                        ),
+                                                  cityId == kota.id
+                                                      ? const Icon(
+                                                          Icons.check_circle,
+                                                          color: Colors.green,
+                                                        )
+                                                      : const Icon(
+                                                          Icons.lens_outlined,
+                                                          color: Colors.black,
+                                                        )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          const Divider(
+                                            thickness: 1,
+                                            color: Colors.grey,
+                                          )
+                                        ],
+                                      ))
+                                  .toList()
+                            ],
+                          ),
+                        )),
+                      ],
+                    );
+                  } else if (state is CityError) {
+                    return Center(
+                        child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(state.message),
+                    ));
+                  } else {
+                    return Container();
+                  }
+                }),
               ),
             ),
           );
@@ -216,6 +238,8 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
           theme.brightness == Brightness.dark ? bgDarkColor : Colors.grey[100],
       appBar: AppBar(
         elevation: 0,
+        backgroundColor:
+            theme.brightness == Brightness.dark ? bgDarkColor : Colors.white,
         title: Text(
           _currentAddress == null
               ? "Sedang mencari lokasi..."
@@ -244,7 +268,7 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
           )
         ],
       ),
-      body: cityName == null
+      body: cityId == null
           ? Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -293,7 +317,7 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
           : BlocBuilder<PrayerDailyBloc, PrayerDailyState>(
               builder: (context, state) {
               if (state is PrayerDailyLoading) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: LoadingIndicator());
               } else if (state is PrayerDailyLoaded) {
                 return _buildList(context, state.prayerDailyResponseE);
               } else if (state is PrayerDailyError) {

@@ -1,24 +1,22 @@
+import 'package:core/core.dart';
+import 'package:core/domain/entities/prayer/prayer_daily_response_e.dart';
+import 'package:core/widgets/flushbar_widget.dart';
+import 'package:core/widgets/loading_indicator.dart';
 import 'package:expand_widget/expand_widget.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:sahabatqu/bloc/schedule_pray/schedule_pray_bloc.dart';
-import 'package:sahabatqu/models/jadwal_sholat_model.dart';
-import 'package:sahabatqu/pages/page-qiblah/page_qiblah.dart';
-import 'package:sahabatqu/pages/page-doa/page_doa.dart';
-import 'package:sahabatqu/pages/page-media/page_gallery.dart';
-import 'package:sahabatqu/pages/page_names_allah.dart';
 import 'package:sahabatqu/pages/page_nearme_halal.dart';
 import 'package:sahabatqu/pages/page_nearme_mosque.dart';
 import 'package:sahabatqu/pages/page_video_mekkah.dart';
-import 'package:sahabatqu/utils/helper.dart';
 import 'package:sahabatqu/widgets/widget_event.dart';
 import 'package:sahabatqu/widgets/widget_program.dart';
+import 'package:schedule/presentation/bloc/city-bloc/city_bloc.dart';
+import 'package:schedule/presentation/bloc/prayer-daily-bloc/prayer_daily_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../constants/themes-color.dart';
@@ -29,119 +27,295 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final Geolocator geolocator = Geolocator();
-  SchedulePrayBloc prayBloc = SchedulePrayBloc();
-
-  Position? _currentPosition;
-  double _lat = 0;
-  double _long = 0;
   String? _currentAddress;
+  String? cityId;
+  final searchCity = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    _getCurrentLocation();
+  LocationPermission? permission;
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      Future.delayed(const Duration(seconds: 0)).then((value) {
+        flushbarMessage("Layanan lokasi dinonaktifkan.", Colors.red)
+            .show(context);
+      });
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        Future.delayed(const Duration(seconds: 0)).then((value) {
+          flushbarMessage("Izin lokasi ditolak", Colors.red).show(context);
+        });
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      Future.delayed(const Duration(seconds: 0)).then((value) {
+        flushbarMessage(
+                "Izin lokasi ditolak secara permanen, kami tidak dapat meminta izin",
+                Colors.red)
+            .show(context);
+      });
+    }
+    return await Geolocator.getCurrentPosition();
   }
 
   _getCurrentLocation() async {
-    Map<String, dynamic> basket = Provider.of(context, listen: false);
-    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium)
-        .then((value) {
-      setState(() {
-        _currentPosition = value;
-        if (_currentPosition != null) {
-          _lat = _currentPosition!.latitude;
-          _long = _currentPosition!.longitude;
-          basket.addAll({
-            "latitude": _currentPosition!.latitude.toString(),
-            "longitude": _currentPosition!.longitude.toString(),
-          });
-        }
-      });
-      _getAddressFromLatLng();
-      print("object");
-      print(basket['latitude']);
-      prayBloc.add(GetScheduleList(
-          basket['latitude'] == null ? _lat.toString() : basket['latitude'],
-          basket['longitude'] == null
-              ? _long.toString()
-              : basket['longitude']));
+    _determinePosition().then((value) {
+      _getAddressFromLatLng(value.latitude, value.longitude);
     });
   }
 
-  _getAddressFromLatLng() async {
-    List<Placemark> p = await placemarkFromCoordinates(_lat, _long);
+  _getAddressFromLatLng(double lat, double long) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<Placemark> p = await placemarkFromCoordinates(lat, long);
     Placemark place = p[0];
 
     setState(() {
-      _currentAddress = "${place.locality}";
+      prefs.setString('currentAddress', "${place.locality}");
     });
   }
 
-  void showFloatingFlushbar(String msg) {
-    Flushbar(
-      // aroundPadding: EdgeInsets.all(10),
-      margin: EdgeInsets.all(10.0),
-      borderRadius: BorderRadius.circular(8),
-      backgroundGradient: LinearGradient(
-        colors: [Colors.red, Colors.redAccent],
-        stops: [0.6, 1],
-      ),
-      boxShadows: [
-        BoxShadow(
-          color: Colors.black45,
-          offset: Offset(3, 3),
-          blurRadius: 3,
-        ),
-      ],
-
-      dismissDirection: FlushbarDismissDirection.HORIZONTAL,
-      forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
-      flushbarPosition: FlushbarPosition.TOP,
-      message: msg,
-      icon: Icon(
-        Icons.info,
-        color: Colors.white,
-      ),
-      duration: Duration(seconds: 2),
-    )..show(context);
+  void _setCurrentAddress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('currentAddress') != null) {
+      setState(() {
+        _currentAddress = prefs.getString('currentAddress');
+      });
+    } else {
+      _getCurrentLocation();
+    }
   }
 
-  Widget _buildListSchedule() {
-    return BlocProvider(
-      create: (context) => prayBloc,
-      child: BlocListener<SchedulePrayBloc, SchedulePrayState>(
-        listener: (context, state) {
-          if (state is ScheduleError) {
-            return showFloatingFlushbar(state.message);
-          }
-        },
-        child: BlocBuilder<SchedulePrayBloc, SchedulePrayState>(
-          builder: (context, state) {
-            if (state is SchedulePrayInitial) {
-              return loadingSholat();
-            } else if (state is ScheduleLoading) {
-              return loadingSholat();
-            } else if (state is ScheduleLoaded) {
-              return _buildList(context, state.jadwalSholatModel);
-            } else if (state is ScheduleError) {
-              return Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Center(
-                    child: Text(state.message),
-                  ),
-                ),
-              );
-            }
-            return Container();
-          },
-        ),
-      ),
+  @override
+  void initState() {
+    _setCurrentAddress();
+    _getPrayerSchedule();
+    super.initState();
+  }
+
+  void _getPrayerSchedule() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('cityId') == null) {
+      Future.microtask(() {
+        context.read<CityBloc>().add(FetchAllCity());
+      });
+
+      Future.delayed(const Duration(milliseconds: 500)).then((value) {
+        _showChooseCity();
+      });
+    } else {
+      setState(() {
+        cityId = prefs.getString('cityId');
+      });
+      Future.microtask(() {
+        context.read<PrayerDailyBloc>().add(GetPrayerDaily(
+            prefs.getString('cityId') == null ? "" : prefs.getString('cityId')!,
+            DateFormat('yyyy/MM/dd').format(DateTime.now())));
+      });
+    }
+  }
+
+  void _showChooseCity() {
+    final citybloc = context.read<CityBloc>();
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      builder: (context) {
+        return StatefulBuilder(builder: (context, setState) {
+          return WillPopScope(
+            onWillPop: () async {
+              setState(() {
+                searchCity.text = '';
+              });
+              return true;
+            },
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.90,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10))),
+              child: BlocProvider<CityBloc>.value(
+                value: citybloc,
+                child:
+                    BlocBuilder<CityBloc, CityState>(builder: (context, state) {
+                  if (state is CityLoading) {
+                    return const Center(child: LoadingIndicator());
+                  } else if (state is CityLoaded) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(
+                              left: 16, right: 16, top: 16),
+                          child: const Text("Pilih Kota",
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        const SizedBox(height: 8),
+                        const Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: TextFormField(
+                            cursorColor: Colors.black,
+                            controller: searchCity,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 14),
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                            onTap: () {},
+                            decoration: InputDecoration(
+                              hintStyle: const TextStyle(
+                                  color: Colors.grey, fontSize: 14),
+                              filled: true,
+                              fillColor: textEditingGrey,
+                              hintText: 'Cari Kota...',
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide.none),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                            keyboardType: TextInputType.text,
+                          ),
+                        ),
+                        Expanded(
+                            child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ...state.city
+                                  .where((element) => element.lokasi
+                                      .toLowerCase()
+                                      .contains(searchCity.text))
+                                  .map((kota) => Column(
+                                        children: [
+                                          InkWell(
+                                            onTap: () async {
+                                              SharedPreferences prefs =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              setState(() {
+                                                prefs.setString(
+                                                    'cityId', kota.id);
+                                                searchCity.text = '';
+                                              });
+                                              _setCurrentAddress();
+                                              _getPrayerSchedule();
+                                              Navigator.pop(context);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  bottom: 8,
+                                                  left: 16,
+                                                  right: 16),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  cityId == kota.id
+                                                      ? Text(
+                                                          kota.lokasi,
+                                                          style: const TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )
+                                                      : Text(
+                                                          kota.lokasi,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .black),
+                                                        ),
+                                                  cityId == kota.id
+                                                      ? const Icon(
+                                                          Icons.check_circle,
+                                                          color: Colors.green,
+                                                        )
+                                                      : const Icon(
+                                                          Icons.lens_outlined,
+                                                          color: Colors.black,
+                                                        )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          const Divider(
+                                            thickness: 1,
+                                            color: Colors.grey,
+                                          )
+                                        ],
+                                      ))
+                                  .toList()
+                            ],
+                          ),
+                        )),
+                      ],
+                    );
+                  } else if (state is CityError) {
+                    return Center(
+                        child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(state.message),
+                    ));
+                  } else {
+                    return Container();
+                  }
+                }),
+              ),
+            ),
+          );
+        });
+      },
     );
   }
 
-  Widget _buildList(BuildContext context, JadwalSholatModel jadwalSholatModel) {
+  Widget _buildListSchedule() {
+    return BlocBuilder<PrayerDailyBloc, PrayerDailyState>(
+        builder: (context, state) {
+      if (state is PrayerDailyLoading) {
+        return Center(child: loadingSholat());
+      } else if (state is PrayerDailyLoaded) {
+        return _buildList(context, state.prayerDailyResponseE);
+      } else if (state is PrayerDailyError) {
+        return Center(
+            child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(state.message),
+        ));
+      } else {
+        return Container();
+      }
+    });
+  }
+
+  Widget _buildList(
+      BuildContext context, PrayerDailyResponseE prayerDailyResponseE) {
     final ThemeData theme = Theme.of(context);
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
@@ -149,19 +323,19 @@ class _HomePageState extends State<HomePage> {
     // bool isValid;
     var newDate = DateTime.parse("$formattedDate" +
         " " +
-        jadwalSholatModel.results!.datetime![0].times!.fajr!);
+        prayerDailyResponseE.prayerDaily!.schedule.subuh);
     var newDate1 = DateTime.parse("$formattedDate" +
         " " +
-        jadwalSholatModel.results!.datetime![0].times!.dhuhr!);
+        prayerDailyResponseE.prayerDaily!.schedule.dzuhur);
     var newDate2 = DateTime.parse("$formattedDate" +
         " " +
-        jadwalSholatModel.results!.datetime![0].times!.asr!);
+        prayerDailyResponseE.prayerDaily!.schedule.ashar);
     var newDate3 = DateTime.parse("$formattedDate" +
         " " +
-        jadwalSholatModel.results!.datetime![0].times!.maghrib!);
+        prayerDailyResponseE.prayerDaily!.schedule.maghrib);
     var newDate4 = DateTime.parse("$formattedDate" +
         " " +
-        jadwalSholatModel.results!.datetime![0].times!.isha!);
+        prayerDailyResponseE.prayerDaily!.schedule.isya);
     var dateT = now.difference(newDate).inSeconds;
     var dateT1 = now.difference(newDate1).inSeconds;
     var dateT2 = now.difference(newDate2).inSeconds;
@@ -181,7 +355,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results!.datetime![0].times!.fajr!,
+              prayerDailyResponseE.prayerDaily!.schedule.subuh,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -228,7 +402,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results!.datetime![0].times!.dhuhr!,
+              prayerDailyResponseE.prayerDaily!.schedule.dzuhur,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -275,7 +449,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results!.datetime![0].times!.asr!,
+              prayerDailyResponseE.prayerDaily!.schedule.ashar,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -322,7 +496,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results!.datetime![0].times!.maghrib!,
+              prayerDailyResponseE.prayerDaily!.schedule.maghrib,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -369,7 +543,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results!.datetime![0].times!.isha!,
+              prayerDailyResponseE.prayerDaily!.schedule.isya,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -416,7 +590,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16),
             ),
             Text(
-              jadwalSholatModel.results!.datetime![0].times!.isha!,
+              prayerDailyResponseE.prayerDaily!.schedule.isya,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
@@ -499,6 +673,9 @@ class _HomePageState extends State<HomePage> {
           : Colors.grey[100],
       appBar: AppBar(
           elevation: 0,
+          backgroundColor: theme.brightness == Brightness.dark
+              ? ColorPalette.bgDarkColor
+              : Colors.white,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -532,7 +709,53 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _buildListSchedule(),
+                  cityId == null
+                      ? Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  "Anda belum memilih lokasi,\nsilahkan pilih lokasi Anda.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: theme.brightness == Brightness.dark
+                                          ? Colors.white
+                                          : textColor,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Center(
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    _showChooseCity();
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 16, right: 16, bottom: 8, top: 8),
+                                    decoration: BoxDecoration(
+                                        color: themeColor,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: const Text(
+                                      'Pilih Lokasi',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      : _buildListSchedule(),
                   Image.asset(
                     "assets/mosque2.png",
                     width: 120,
@@ -561,10 +784,7 @@ class _HomePageState extends State<HomePage> {
                             InkWell(
                               borderRadius: BorderRadius.circular(50),
                               onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return DoaPage();
-                                }));
+                                Navigator.pushNamed(context, doaRoute);
                               },
                               child: Container(
                                 height: 40,
@@ -574,8 +794,6 @@ class _HomePageState extends State<HomePage> {
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      // Icon(Icons.self_improvement_outlined,
-                                      //     size: 40, color: ColorPalette.themeColor),
                                       Image.asset(
                                         "assets/ic_doa.png",
                                         color: ColorPalette.themeColor,
@@ -603,10 +821,7 @@ class _HomePageState extends State<HomePage> {
                             InkWell(
                               borderRadius: BorderRadius.circular(50),
                               onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return NamesAllahPage();
-                                }));
+                                Navigator.pushNamed(context, asmaRoute);
                               },
                               child: Container(
                                 height: 40,
@@ -643,10 +858,7 @@ class _HomePageState extends State<HomePage> {
                             InkWell(
                               borderRadius: BorderRadius.circular(40),
                               onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return QiblahPage();
-                                }));
+                                Navigator.pushNamed(context, qiblaRoute);
                               },
                               child: Container(
                                 // padding: EdgeInsets.all(18),
@@ -685,10 +897,7 @@ class _HomePageState extends State<HomePage> {
                             InkWell(
                               borderRadius: BorderRadius.circular(40),
                               onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return GalleryPage();
-                                }));
+                                Navigator.pushNamed(context, galleryRoute);
                               },
                               child: Container(
                                 height: 40,

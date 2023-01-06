@@ -1,12 +1,16 @@
 import 'dart:io';
 
+import 'package:asma/asma.dart';
 import 'package:core/core.dart';
+import 'package:doa/doa.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:gallery/gallery_page.dart';
+import 'package:qibla/qibla.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sahabatqu/widgets/widget_home.dart';
 import 'package:sahabatqu/injection.dart' as di;
@@ -222,6 +226,14 @@ class _MyAppState extends State<MyApp> {
           switch (settings.name) {
             case '/':
               return MaterialPageRoute(builder: (_) => HomeWidget());
+            case asmaRoute:
+              return MaterialPageRoute(builder: (_) => AsmaPage());
+            case doaRoute:
+              return MaterialPageRoute(builder: (_) => DoaPage());
+            case qiblaRoute:
+              return MaterialPageRoute(builder: (_) => QiblaPage());
+            case galleryRoute:
+              return MaterialPageRoute(builder: (_) => GalleryPage());
             default:
               return MaterialPageRoute(builder: (_) {
                 return Scaffold(

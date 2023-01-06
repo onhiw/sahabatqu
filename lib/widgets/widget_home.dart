@@ -6,6 +6,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
+import 'package:sahabatqu/pages/page-home/page_home.dart';
 import 'package:schedule/presentation/pages/prayer_schedule_page.dart';
 
 import '../constants/themes-color.dart';
@@ -20,7 +21,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   // int _index = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
   final List<Widget> _children = [
-    Container(),
+    HomePage(),
     PrayerSchedulePage(),
     Container(),
     AboutPage()
@@ -297,7 +298,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ? ColorPalette.bgDarkColor
                 : Colors.grey[100]!,
             animationCurve: Curves.easeInOut,
-            animationDuration: Duration(milliseconds: 600),
+            animationDuration: Duration(milliseconds: 300),
             onTap: (index) {
               setState(() {
                 _page = index;

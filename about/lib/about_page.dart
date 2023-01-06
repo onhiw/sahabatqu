@@ -18,7 +18,8 @@ class AboutPage extends StatelessWidget {
             color:
                 theme.brightness == Brightness.dark ? Colors.white : textColor,
           ),
-          // backgroundColor: Colors.white,
+          backgroundColor:
+              theme.brightness == Brightness.dark ? bgDarkColor : Colors.white,
           elevation: 0,
           title: Text(
             "Tentang Kami",
