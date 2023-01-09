@@ -64,6 +64,9 @@ dependencies:
   gallery:
     path: gallery
 
+  quran:
+    path: quran
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

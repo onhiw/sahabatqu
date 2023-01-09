@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gallery/gallery_page.dart';
 import 'package:qibla/qibla.dart';
+import 'package:quran/presentation/bloc/surah-bloc/surah_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sahabatqu/widgets/widget_home.dart';
 import 'package:sahabatqu/injection.dart' as di;
@@ -207,6 +208,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (_) => di.locator<PrayerMonthlyBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<SurahBloc>(),
         ),
       ],
       child: MaterialApp(

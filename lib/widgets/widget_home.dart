@@ -6,6 +6,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
+import 'package:quran/presentation/pages/quran_page.dart';
 import 'package:sahabatqu/pages/page-home/page_home.dart';
 import 'package:schedule/presentation/pages/prayer_schedule_page.dart';
 
@@ -23,7 +24,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   final List<Widget> _children = [
     HomePage(),
     PrayerSchedulePage(),
-    Container(),
+    QuranPage(),
     AboutPage()
   ];
 
