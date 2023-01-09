@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:core/core.dart';
+import 'package:core/data/models/quran/ayah_response_a_model.dart';
 import 'package:core/data/models/quran/surah_model.dart';
 import 'package:core/data/models/quran/surah_response.dart';
 import 'package:http/http.dart' as http;
 
 abstract class QuranRemoteDataSource {
   Future<List<SurahModel>> getAllSurah();
+  Future<AyahResponseAModel> getAyahBySurahNo(String nomor);
 }
 
 class QuranRemoteDataSourceImpl extends QuranRemoteDataSource {
@@ -23,6 +25,19 @@ class QuranRemoteDataSourceImpl extends QuranRemoteDataSource {
       return SurahResponse.fromJson(
               json.decode(utf8.decode(response.bodyBytes)))
           .surahList;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<AyahResponseAModel> getAyahBySurahNo(String nomor) async {
+    final response = await client.get(Uri.parse(
+        'https://api.banghasan.com/quran/format/json/surat/$nomor/ayat/1-10'));
+
+    if (response.statusCode == 200) {
+      return AyahResponseAModel.fromJson(
+          json.decode(utf8.decode(response.bodyBytes)));
     } else {
       throw ServerException();
     }

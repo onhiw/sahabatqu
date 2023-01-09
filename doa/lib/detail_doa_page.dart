@@ -24,9 +24,9 @@ class _DetailDoaPageState extends State<DetailDoaPage> {
     return Scaffold(
       appBar: AppBar(
           iconTheme: IconThemeData(
-            color:
-                theme.brightness == Brightness.dark ? Colors.white : textColor,
-          ),
+              color: theme.brightness == Brightness.dark
+                  ? Colors.white
+                  : textColor),
           backgroundColor:
               theme.brightness == Brightness.dark ? bgDarkColor : Colors.white,
           elevation: 0,

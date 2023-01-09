@@ -4,6 +4,7 @@ import 'package:core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran/presentation/bloc/surah-bloc/surah_bloc.dart';
+import 'package:quran/presentation/pages/quran_by_surah_detail.dart';
 
 class QuranPage extends StatefulWidget {
   const QuranPage({super.key});
@@ -67,12 +68,11 @@ class _QuranPageState extends State<QuranPage> {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //   return DetailQuranPage(
-            //       idNumber: surah[index].nomor,
-            //       name: surah[index].nama,
-            //       type: surah[index].type);
-            // }));
+            Navigator.pushNamed(context, detailSurahRoute,
+                arguments: QuranBySurahDetail(
+                  nomor: surah[index].nomor,
+                  nama: surah[index].nama,
+                ));
           },
           child: Padding(
             padding: const EdgeInsets.all(16),

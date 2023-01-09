@@ -12,6 +12,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gallery/gallery_page.dart';
 import 'package:qibla/qibla.dart';
 import 'package:quran/presentation/bloc/surah-bloc/surah_bloc.dart';
+import 'package:quran/presentation/bloc/surah-detail-bloc/surah_detail_bloc.dart';
+import 'package:quran/presentation/pages/quran_by_surah_detail.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sahabatqu/widgets/widget_home.dart';
 import 'package:sahabatqu/injection.dart' as di;
@@ -212,6 +214,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (_) => di.locator<SurahBloc>(),
         ),
+        BlocProvider(
+          create: (_) => di.locator<SurahDetailBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -238,6 +243,13 @@ class _MyAppState extends State<MyApp> {
               return MaterialPageRoute(builder: (_) => QiblaPage());
             case galleryRoute:
               return MaterialPageRoute(builder: (_) => GalleryPage());
+            case detailSurahRoute:
+              final args = settings.arguments as QuranBySurahDetail;
+              return MaterialPageRoute(
+                  builder: (_) => QuranBySurahDetail(
+                        nomor: args.nomor,
+                        nama: args.nama,
+                      ));
             default:
               return MaterialPageRoute(builder: (_) {
                 return Scaffold(
