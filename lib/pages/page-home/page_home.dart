@@ -1,17 +1,11 @@
 import 'package:core/core.dart';
 import 'package:core/domain/entities/prayer/prayer_daily_response_e.dart';
-import 'package:core/widgets/flushbar_widget.dart';
 import 'package:core/widgets/loading_indicator.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
-import 'package:sahabatqu/pages/page_nearme_halal.dart';
-import 'package:sahabatqu/pages/page_nearme_mosque.dart';
-import 'package:sahabatqu/pages/page_video_mekkah.dart';
 import 'package:sahabatqu/widgets/widget_event.dart';
 import 'package:sahabatqu/widgets/widget_program.dart';
 import 'package:schedule/presentation/bloc/city-bloc/city_bloc.dart';
@@ -31,65 +25,12 @@ class _HomePageState extends State<HomePage> {
   String? cityId;
   final searchCity = TextEditingController();
 
-  LocationPermission? permission;
-
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      Future.delayed(const Duration(seconds: 0)).then((value) {
-        flushbarMessage("Layanan lokasi dinonaktifkan.", Colors.red)
-            .show(context);
-      });
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        Future.delayed(const Duration(seconds: 0)).then((value) {
-          flushbarMessage("Izin lokasi ditolak", Colors.red).show(context);
-        });
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      Future.delayed(const Duration(seconds: 0)).then((value) {
-        flushbarMessage(
-                "Izin lokasi ditolak secara permanen, kami tidak dapat meminta izin",
-                Colors.red)
-            .show(context);
-      });
-    }
-    return await Geolocator.getCurrentPosition();
-  }
-
-  _getCurrentLocation() async {
-    _determinePosition().then((value) {
-      _getAddressFromLatLng(value.latitude, value.longitude);
-    });
-  }
-
-  _getAddressFromLatLng(double lat, double long) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<Placemark> p = await placemarkFromCoordinates(lat, long);
-    Placemark place = p[0];
-
-    setState(() {
-      prefs.setString('currentAddress', "${place.locality}");
-    });
-  }
-
   void _setCurrentAddress() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString('currentAddress') != null) {
       setState(() {
         _currentAddress = prefs.getString('currentAddress');
       });
-    } else {
-      _getCurrentLocation();
     }
   }
 
@@ -216,6 +157,9 @@ class _HomePageState extends State<HomePage> {
                                               setState(() {
                                                 prefs.setString(
                                                     'cityId', kota.id);
+                                                prefs.setString(
+                                                    'currentAddress',
+                                                    "${kota.lokasi}");
                                                 searchCity.text = '';
                                               });
                                               _setCurrentAddress();
@@ -374,11 +318,14 @@ class _HomePageState extends State<HomePage> {
                   width: 2,
                 ),
                 Expanded(
-                  child: Text(
-                    _currentAddress == null
-                        ? "Sedang mencari lokasi..."
-                        : _currentAddress!,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showChooseCity();
+                    },
+                    child: Text(
+                      _currentAddress == null ? "Pilih Kota" : _currentAddress!,
+                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                    ),
                   ),
                 ),
               ],
@@ -942,10 +889,7 @@ class _HomePageState extends State<HomePage> {
                               InkWell(
                                 borderRadius: BorderRadius.circular(50),
                                 onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return NearmeHalalPage();
-                                  }));
+                                  Navigator.pushNamed(context, halalRoute);
                                 },
                                 child: Container(
                                   height: 40,
@@ -985,10 +929,7 @@ class _HomePageState extends State<HomePage> {
                               InkWell(
                                 borderRadius: BorderRadius.circular(50),
                                 onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return NearmeMosquePage();
-                                  }));
+                                  Navigator.pushNamed(context, mosqueRoute);
                                 },
                                 child: Container(
                                   height: 40,
@@ -1026,10 +967,7 @@ class _HomePageState extends State<HomePage> {
                               InkWell(
                                 borderRadius: BorderRadius.circular(40),
                                 onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return VideoMekkahPage();
-                                  }));
+                                  Navigator.pushNamed(context, makkahRoute);
                                 },
                                 child: Container(
                                   // padding: EdgeInsets.all(18),

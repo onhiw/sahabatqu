@@ -4,3 +4,6 @@ const doaRoute = '/doa';
 const qiblaRoute = '/qibla';
 const galleryRoute = '/gallery';
 const detailSurahRoute = '/detail-surah';
+const makkahRoute = '/makkah';
+const halalRoute = '/halal';
+const mosqueRoute = '/mosque';

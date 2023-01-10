@@ -3,7 +3,6 @@ import 'package:core/domain/entities/quran/ayah_response_a.dart';
 import 'package:core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:quran/presentation/bloc/surah-detail-bloc/surah_detail_bloc.dart';
 
 class QuranBySurahDetail extends StatefulWidget {
@@ -114,33 +113,33 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                     const SizedBox(
                       height: 5,
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${i + 1}.",
-                            style: TextStyle(
-                                color: theme.brightness == Brightness.dark
-                                    ? Colors.white
-                                    : textColor,
-                                fontSize: 16),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: Html(
-                                data: ayahResponseA
-                                    .ayahResponseE.ayahData.idt[i].teks),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   child: Row(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    //       Text(
+                    //         "${i + 1}.",
+                    //         style: TextStyle(
+                    //             color: theme.brightness == Brightness.dark
+                    //                 ? Colors.white
+                    //                 : textColor,
+                    //             fontSize: 16),
+                    //       ),
+                    //       const SizedBox(
+                    //         width: 15,
+                    //       ),
+                    //       Expanded(
+                    //         child: Html(
+                    //             data: ayahResponseA
+                    //                 .ayahResponseE.ayahData.idt[i].teks),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
                     SizedBox(
                       width: double.infinity,
                       child: Row(

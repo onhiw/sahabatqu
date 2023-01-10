@@ -10,6 +10,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gallery/gallery_page.dart';
+import 'package:makkah/makkah_page.dart';
+import 'package:nearme/presentation/bloc/nearme-bloc/nearme_bloc.dart';
+import 'package:nearme/presentation/pages/halal_page.dart';
+import 'package:nearme/presentation/pages/mosque_page.dart';
 import 'package:qibla/qibla.dart';
 import 'package:quran/presentation/bloc/surah-bloc/surah_bloc.dart';
 import 'package:quran/presentation/bloc/surah-detail-bloc/surah_detail_bloc.dart';
@@ -217,6 +221,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (_) => di.locator<SurahDetailBloc>(),
         ),
+        BlocProvider(
+          create: (_) => di.locator<NearmeBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -243,6 +250,12 @@ class _MyAppState extends State<MyApp> {
               return MaterialPageRoute(builder: (_) => QiblaPage());
             case galleryRoute:
               return MaterialPageRoute(builder: (_) => GalleryPage());
+            case makkahRoute:
+              return MaterialPageRoute(builder: (_) => MakkahPage());
+            case halalRoute:
+              return MaterialPageRoute(builder: (_) => HalalPage());
+            case mosqueRoute:
+              return MaterialPageRoute(builder: (_) => MosquePage());
             case detailSurahRoute:
               final args = settings.arguments as QuranBySurahDetail;
               return MaterialPageRoute(

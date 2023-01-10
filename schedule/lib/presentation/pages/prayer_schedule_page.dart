@@ -153,6 +153,9 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
                                                 prefs.setString(
                                                     'cityId', kota.id);
                                                 searchCity.text = '';
+                                                prefs.setString(
+                                                    'currentAddress',
+                                                    kota.lokasi);
                                               });
                                               _getPrayerSchedule();
                                               Navigator.pop(context);
@@ -240,16 +243,33 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
         elevation: 0,
         backgroundColor:
             theme.brightness == Brightness.dark ? bgDarkColor : Colors.white,
-        title: Text(
-          _currentAddress == null
-              ? "Sedang mencari lokasi..."
-              : _currentAddress!,
-          style: TextStyle(
-              color: theme.brightness == Brightness.dark
-                  ? Colors.white
-                  : textColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 16),
+        title: GestureDetector(
+          onTap: () {
+            _showChooseCity();
+          },
+          child: Row(
+            children: [
+              Text(
+                _currentAddress == null ? "Pilih Kota" : _currentAddress!,
+                maxLines: 1,
+                style: TextStyle(
+                    color: theme.brightness == Brightness.dark
+                        ? Colors.white
+                        : textColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Icon(
+                Icons.keyboard_arrow_down,
+                color: theme.brightness == Brightness.dark
+                    ? Colors.white
+                    : textColor,
+              )
+            ],
+          ),
         ),
         actions: [
           Padding(
