@@ -25,7 +25,6 @@ import 'package:sahabatqu/injection.dart' as di;
 import 'package:schedule/presentation/bloc/city-bloc/city_bloc.dart';
 import 'package:schedule/presentation/bloc/prayer-daily-bloc/prayer_daily_bloc.dart';
 import 'package:schedule/presentation/bloc/prayer-monthly-bloc/prayer_monthly_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'pages/page_splash_screen.dart';
 
@@ -240,11 +239,6 @@ class _MyAppState extends State<MyApp> {
           fontFamily: 'Poppins',
         ),
         navigatorObservers: [routeObserver],
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: const [Locale('id', 'IN')],
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/':

@@ -108,6 +108,8 @@ class _MosquePageState extends State<MosquePage> {
       body: BlocBuilder<NearmeBloc, NearmeState>(builder: (context, state) {
         if (state is NearmeLoading) {
           return const Center(child: LoadingIndicator());
+        } else if (state is NearmeInitial) {
+          return const Center(child: LoadingIndicator());
         } else if (state is NearmeLoaded) {
           return _buildList(context, state.nearmeList);
         } else if (state is NearmeEmpty) {

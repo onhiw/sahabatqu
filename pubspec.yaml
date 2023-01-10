@@ -10,8 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
 
   cupertino_icons: ^1.0.0
   flutter_bloc: ^8.0.1

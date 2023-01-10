@@ -7,6 +7,13 @@ abstract class NearmeState extends Equatable {
   List<Object?> get props => [];
 }
 
+class NearmeInitial extends NearmeState {
+  const NearmeInitial();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class NearmeEmpty extends NearmeState {
   const NearmeEmpty();
 

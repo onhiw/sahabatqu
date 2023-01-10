@@ -108,6 +108,8 @@ class _HalalPageState extends State<HalalPage> {
       body: BlocBuilder<NearmeBloc, NearmeState>(builder: (context, state) {
         if (state is NearmeLoading) {
           return const Center(child: LoadingIndicator());
+        } else if (state is NearmeInitial) {
+          return const Center(child: LoadingIndicator());
         } else if (state is NearmeLoaded) {
           return _buildList(context, state.nearmeList);
         } else if (state is NearmeEmpty) {

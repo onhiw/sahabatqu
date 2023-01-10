@@ -9,7 +9,7 @@ part 'nearme_state.dart';
 class NearmeBloc extends Bloc<NearmeEvent, NearmeState> {
   final GetNearme getNearme;
 
-  NearmeBloc(this.getNearme) : super(const NearmeEmpty()) {
+  NearmeBloc(this.getNearme) : super(const NearmeInitial()) {
     on<FetchNearme>(_fetchNearme);
   }
 
