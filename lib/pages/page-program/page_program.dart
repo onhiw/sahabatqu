@@ -52,7 +52,9 @@ class _ProgramPageState extends State<ProgramPage> {
                 ? Colors.white
                 : ColorPalette.textColor,
           ),
-          // backgroundColor: Colors.white,
+          backgroundColor: theme.brightness == Brightness.dark
+              ? ColorPalette.bgDarkColor
+              : Colors.white,
           elevation: 0,
           title: Text(
             "Program Kami",

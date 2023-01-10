@@ -276,9 +276,7 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: GestureDetector(
               onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                //   return CalenderPage();
-                // }));
+                Navigator.pushNamed(context, calendarRoute);
               },
               child: const Icon(
                 Icons.event,

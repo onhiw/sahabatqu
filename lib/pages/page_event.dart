@@ -10,6 +10,7 @@ class EventPage extends StatefulWidget {
 
 class _EventPageState extends State<EventPage> {
   List<String> imgList = [
+    "assets/acara5.jpg",
     "assets/acara4.jpeg",
     "assets/acara3.jpg",
     "assets/acara2.jpg",
@@ -17,16 +18,18 @@ class _EventPageState extends State<EventPage> {
   ];
 
   List<String> dateList = [
+    "2022-04-23",
     "2021-05-01",
     "2020-05-10",
     "2019-05-19",
     "2018-06-03"
   ];
   List<String> urlList = [
-    "https://www.instagram.com/p/CNmf4X0Hhjk/?igshid=62aj8dk2fvlf",
-    "https://www.instagram.com/p/B_erVfTHo1N/?igshid=abe36a3so2zb",
-    "https://www.instagram.com/p/BxhNBH1J0lr/?igshid=rp7s57rsnz8j",
-    "https://www.instagram.com/p/BjUVKdgH_Ef/?igshid=1ou83v5kn6q0e",
+    "https://www.instagram.com/p/CcJ1xnRJglO",
+    "https://www.instagram.com/p/CNmf4X0Hhjk",
+    "https://www.instagram.com/p/B_erVfTHo1N",
+    "https://www.instagram.com/p/BxhNBH1J0lr",
+    "https://www.instagram.com/p/BjUVKdgH_Ef",
   ];
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,9 @@ class _EventPageState extends State<EventPage> {
                 ? Colors.white
                 : ColorPalette.textColor,
           ),
-          // backgroundColor: Colors.white,
+          backgroundColor: theme.brightness == Brightness.dark
+              ? ColorPalette.bgDarkColor
+              : Colors.white,
           elevation: 0,
           title: Text(
             "Kegiatan",

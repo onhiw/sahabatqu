@@ -44,10 +44,18 @@ class _MyWebviewState extends State<MyWebview> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: new AppBar(
         elevation: 2,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(
+          color: theme.brightness == Brightness.dark
+              ? Colors.white
+              : ColorPalette.textColor,
+        ),
+        backgroundColor: theme.brightness == Brightness.dark
+            ? ColorPalette.bgDarkColor
+            : Colors.white,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -57,7 +65,9 @@ class _MyWebviewState extends State<MyWebview> {
         title: Text(
           widget.title!,
           style: TextStyle(
-            color: widget.title == "Baca E-Book" ? Colors.white : Colors.black,
+            color: theme.brightness == Brightness.dark
+                ? Colors.white
+                : ColorPalette.textColor,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -74,7 +84,6 @@ class _MyWebviewState extends State<MyWebview> {
                     ))
                 : Container(),
             preferredSize: Size.fromHeight(0.0)),
-        backgroundColor: Colors.white,
       ),
       body: InAppWebView(
         key: webViewKey,

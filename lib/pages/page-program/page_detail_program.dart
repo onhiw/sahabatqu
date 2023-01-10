@@ -25,7 +25,9 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                 ? Colors.white
                 : ColorPalette.textColor,
           ),
-          // backgroundColor: Colors.white,
+          backgroundColor: theme.brightness == Brightness.dark
+              ? ColorPalette.bgDarkColor
+              : Colors.white,
           elevation: 0,
           title: Text(
             "Informasi Program",
