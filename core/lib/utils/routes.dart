@@ -8,3 +8,5 @@ const makkahRoute = '/makkah';
 const halalRoute = '/halal';
 const mosqueRoute = '/mosque';
 const calendarRoute = '/calendar';
+const programRoute = '/program';
+const programDetailRoute = '/program-detail';

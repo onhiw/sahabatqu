@@ -1,20 +1,20 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
-class ProgramDetailPage extends StatefulWidget {
+class DetailProgramPage extends StatefulWidget {
   final String? image;
   final String? content;
-
-  ProgramDetailPage({
-    Key? key,
+  const DetailProgramPage({
+    super.key,
     @required this.image,
     @required this.content,
-  }) : super(key: key);
+  });
+
   @override
-  _ProgramDetailPageState createState() => _ProgramDetailPageState();
+  State<DetailProgramPage> createState() => _DetailProgramPageState();
 }
 
-class _ProgramDetailPageState extends State<ProgramDetailPage> {
+class _DetailProgramPageState extends State<DetailProgramPage> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -38,10 +38,10 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
                 fontWeight: FontWeight.bold),
           )),
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           Image.asset(widget.image!),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Padding(

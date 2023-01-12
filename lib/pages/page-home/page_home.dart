@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:sahabatqu/widgets/widget_event.dart';
-import 'package:sahabatqu/widgets/widget_program.dart';
 import 'package:schedule/presentation/bloc/city-bloc/city_bloc.dart';
 import 'package:schedule/presentation/bloc/prayer-daily-bloc/prayer_daily_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -985,40 +984,39 @@ class _HomePageState extends State<HomePage> {
                         Expanded(
                           child: Column(
                             children: <Widget>[
-                              // InkWell(
-                              //   borderRadius: BorderRadius.circular(40),
-                              //   onTap: () {
-                              //     Navigator.push(context,
-                              //         MaterialPageRoute(builder: (context) {
-                              //       return GalleryPage();
-                              //     }));
-                              //   },
-                              //   child: Container(
-                              //     height: 40,
-                              //     width: 40,
-                              //     child: Column(
-                              //         crossAxisAlignment:
-                              //             CrossAxisAlignment.center,
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.center,
-                              //         children: <Widget>[
-                              //           Icon(Icons.image_outlined,
-                              //               size: 40,
-                              //               color: themeColor),
-                              //         ]),
-                              //   ),
-                              // ),
-                              // Container(
-                              //   margin: EdgeInsets.only(top: 5),
-                              //   child: Text("Gallery",
-                              //       style: TextStyle(
-                              //         fontSize: 12,
-                              //         fontWeight: FontWeight.bold,
-                              //         color: theme.brightness == Brightness.dark
-                              //             ? Colors.white
-                              //             : textColor,
-                              //       )),
-                              // )
+                              InkWell(
+                                borderRadius: BorderRadius.circular(40),
+                                onTap: () {
+                                  Navigator.pushNamed(context, programRoute);
+                                },
+                                child: Container(
+                                  // padding: EdgeInsets.all(18),
+                                  height: 40,
+                                  width: 40,
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Image.asset(
+                                          "assets/ic_program.png",
+                                          color: themeColor,
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Text("Program",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: theme.brightness == Brightness.dark
+                                          ? Colors.white
+                                          : textColor,
+                                    )),
+                              )
                             ],
                           ),
                         ),
@@ -1033,10 +1031,6 @@ class _HomePageState extends State<HomePage> {
             height: 10,
           ),
           EventWidget(),
-          SizedBox(
-            height: 10,
-          ),
-          ProgramWidget(),
           SizedBox(
             height: 10,
           ),

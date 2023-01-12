@@ -84,6 +84,9 @@ dependencies:
   calendar:
     path: calendar
 
+  program:
+    path: program
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

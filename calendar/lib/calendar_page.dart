@@ -46,40 +46,64 @@ class CalendarPageState extends State<CalendarPage> {
               ),
             ],
           )),
-      body: SfHijriDateRangePicker(
-        view: HijriDatePickerView.month,
-        selectionColor: themeColor,
-        todayHighlightColor: themeColor,
-        showNavigationArrow: true,
-        selectionTextStyle: const TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 14,
-            color: Colors.white,
-            fontWeight: FontWeight.w700),
-        headerHeight: 55,
-        headerStyle: DateRangePickerHeaderStyle(
-            textStyle: TextStyle(
-          fontFamily: 'Poppins',
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
-          color: theme.brightness == Brightness.dark ? Colors.white : textColor,
-        )),
-        monthCellStyle: HijriDatePickerMonthCellStyle(
-            textStyle: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: theme.brightness == Brightness.dark
-                  ? Colors.white
-                  : textColor,
+      body: Column(
+        children: [
+          Card(
+            elevation: 4,
+            margin: const EdgeInsets.all(16),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  SfHijriDateRangePicker(
+                    view: HijriDatePickerView.month,
+                    selectionColor: themeColor,
+                    todayHighlightColor: themeColor,
+                    showNavigationArrow: true,
+                    selectionTextStyle: const TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
+                    headerHeight: 55,
+                    headerStyle: DateRangePickerHeaderStyle(
+                        textStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: theme.brightness == Brightness.dark
+                          ? Colors.white
+                          : textColor,
+                    )),
+                    monthCellStyle: HijriDatePickerMonthCellStyle(
+                        textStyle: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: theme.brightness == Brightness.dark
+                              ? Colors.white
+                              : textColor,
+                        ),
+                        weekendTextStyle: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 14,
+                            color: Colors.grey[700],
+                            fontWeight: FontWeight.w600),
+                        todayTextStyle: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 14,
+                            color: theme.brightness == Brightness.dark
+                                ? Colors.white
+                                : textColor,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                ],
+              ),
             ),
-            todayTextStyle: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 14,
-                color: theme.brightness == Brightness.dark
-                    ? Colors.white
-                    : textColor,
-                fontWeight: FontWeight.w700)),
+          ),
+        ],
       ),
     );
   }
