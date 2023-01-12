@@ -8,7 +8,8 @@ import 'package:http/http.dart' as http;
 
 abstract class QuranRemoteDataSource {
   Future<List<SurahModel>> getAllSurah();
-  Future<AyahResponseAModel> getAyahBySurahNo(String nomor);
+  Future<AyahResponseAModel> getAyahBySurahNo(
+      String nomor, int firstCount, int lastCount);
 }
 
 class QuranRemoteDataSourceImpl extends QuranRemoteDataSource {
@@ -31,9 +32,10 @@ class QuranRemoteDataSourceImpl extends QuranRemoteDataSource {
   }
 
   @override
-  Future<AyahResponseAModel> getAyahBySurahNo(String nomor) async {
+  Future<AyahResponseAModel> getAyahBySurahNo(
+      String nomor, int firstCount, int lastCount) async {
     final response = await client.get(Uri.parse(
-        'https://api.banghasan.com/quran/format/json/surat/$nomor/ayat/1-10'));
+        'https://api.banghasan.com/quran/format/json/surat/$nomor/ayat/$firstCount-$lastCount'));
 
     if (response.statusCode == 200) {
       return AyahResponseAModel.fromJson(

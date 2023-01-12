@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:sahabatqu/constants/themes-color.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       "assets/logowhite.png",
                       width: 248,
                       height: 218,
-                      color: ColorPalette.themeColor,
+                      color: themeColor,
                     ),
                   ],
                 ),

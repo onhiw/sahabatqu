@@ -1,8 +1,8 @@
 import 'dart:io';
 
+import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sahabatqu/constants/themes-color.dart';
 
 class LoadingIndicator extends StatelessWidget {
   @override
@@ -10,7 +10,7 @@ class LoadingIndicator extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final widget = (Platform.isAndroid)
         ? CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(ColorPalette.themeColor),
+            valueColor: AlwaysStoppedAnimation<Color>(themeColor),
           )
         : CupertinoActivityIndicator();
     return Padding(
@@ -29,7 +29,7 @@ class LoadingIndicator extends StatelessWidget {
             style: TextStyle(
                 color: theme.brightness == Brightness.dark
                     ? Colors.white
-                    : ColorPalette.textColor),
+                    : textColor),
           )
         ],
       )),

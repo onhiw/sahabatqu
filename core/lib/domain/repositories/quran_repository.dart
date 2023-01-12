@@ -5,5 +5,6 @@ import 'package:dartz/dartz.dart';
 
 abstract class QuranRepository {
   Future<Either<Failure, List<Surah>>> getAllSurah();
-  Future<Either<Failure, AyahResponseA>> getAyahBySurahNo(String nomor);
+  Future<Either<Failure, AyahResponseA>> getAyahBySurahNo(
+      String nomor, int firstCount, int lastCount);
 }

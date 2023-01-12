@@ -19,7 +19,8 @@ class _QiblaPageState extends State<QiblaPage> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor:
+          theme.brightness == Brightness.dark ? bgDarkColor : Colors.grey[100],
       appBar: AppBar(
           iconTheme: IconThemeData(
             color:

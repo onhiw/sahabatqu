@@ -13,8 +13,6 @@ import 'package:schedule/presentation/bloc/prayer-daily-bloc/prayer_daily_bloc.d
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../constants/themes-color.dart';
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -294,16 +292,14 @@ class _HomePageState extends State<HomePage> {
             Text(
               "Subuh",
               style: TextStyle(
-                  color: ColorPalette.themeColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16),
+                  color: themeColor, fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Text(
               prayerDailyResponseE.prayerDaily!.schedule.subuh,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
-                      : ColorPalette.textColor,
+                      : textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -344,16 +340,14 @@ class _HomePageState extends State<HomePage> {
             Text(
               "Dzuhur",
               style: TextStyle(
-                  color: ColorPalette.themeColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16),
+                  color: themeColor, fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Text(
               prayerDailyResponseE.prayerDaily!.schedule.dzuhur,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
-                      : ColorPalette.textColor,
+                      : textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -391,16 +385,14 @@ class _HomePageState extends State<HomePage> {
             Text(
               "Ashar",
               style: TextStyle(
-                  color: ColorPalette.themeColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16),
+                  color: themeColor, fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Text(
               prayerDailyResponseE.prayerDaily!.schedule.ashar,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
-                      : ColorPalette.textColor,
+                      : textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -438,16 +430,14 @@ class _HomePageState extends State<HomePage> {
             Text(
               "Magrib",
               style: TextStyle(
-                  color: ColorPalette.themeColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16),
+                  color: themeColor, fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Text(
               prayerDailyResponseE.prayerDaily!.schedule.maghrib,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
-                      : ColorPalette.textColor,
+                      : textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -485,16 +475,14 @@ class _HomePageState extends State<HomePage> {
             Text(
               "Isya",
               style: TextStyle(
-                  color: ColorPalette.themeColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16),
+                  color: themeColor, fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Text(
               prayerDailyResponseE.prayerDaily!.schedule.isya,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
-                      : ColorPalette.textColor,
+                      : textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -532,16 +520,14 @@ class _HomePageState extends State<HomePage> {
             Text(
               "Isya",
               style: TextStyle(
-                  color: ColorPalette.themeColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16),
+                  color: themeColor, fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Text(
               prayerDailyResponseE.prayerDaily!.schedule.isya,
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
-                      : ColorPalette.textColor,
+                      : textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 25),
             ),
@@ -615,14 +601,12 @@ class _HomePageState extends State<HomePage> {
     var today = new HijriCalendar.now();
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.brightness == Brightness.dark
-          ? ColorPalette.bgDarkColor
-          : Colors.grey[100],
+      backgroundColor:
+          theme.brightness == Brightness.dark ? bgDarkColor : Colors.grey[100],
       appBar: AppBar(
           elevation: 0,
-          backgroundColor: theme.brightness == Brightness.dark
-              ? ColorPalette.bgDarkColor
-              : Colors.white,
+          backgroundColor:
+              theme.brightness == Brightness.dark ? bgDarkColor : Colors.white,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -631,7 +615,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                     color: theme.brightness == Brightness.dark
                         ? Colors.white
-                        : ColorPalette.textColor,
+                        : textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
               ),
@@ -743,7 +727,7 @@ class _HomePageState extends State<HomePage> {
                                     children: <Widget>[
                                       Image.asset(
                                         "assets/ic_doa.png",
-                                        color: ColorPalette.themeColor,
+                                        color: themeColor,
                                       ),
                                     ]),
                               ),
@@ -756,7 +740,7 @@ class _HomePageState extends State<HomePage> {
                                     fontWeight: FontWeight.bold,
                                     color: theme.brightness == Brightness.dark
                                         ? Colors.white
-                                        : ColorPalette.textColor,
+                                        : textColor,
                                   )),
                             )
                           ],
@@ -780,7 +764,7 @@ class _HomePageState extends State<HomePage> {
                                     children: <Widget>[
                                       Image.asset(
                                         "assets/ic_allah.png",
-                                        color: ColorPalette.themeColor,
+                                        color: themeColor,
                                       ),
                                     ]),
                               ),
@@ -793,7 +777,7 @@ class _HomePageState extends State<HomePage> {
                                     fontWeight: FontWeight.bold,
                                     color: theme.brightness == Brightness.dark
                                         ? Colors.white
-                                        : ColorPalette.textColor,
+                                        : textColor,
                                   )),
                             )
                           ],
@@ -817,10 +801,9 @@ class _HomePageState extends State<HomePage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Icon(Icons.explore_outlined,
-                                          size: 40,
-                                          color: ColorPalette.themeColor),
+                                          size: 40, color: themeColor),
                                       // Image.asset("assets/ic_qiblah.png",
-                                      //     color: ColorPalette.themeColor),
+                                      //     color: themeColor),
                                     ]),
                               ),
                             ),
@@ -832,7 +815,7 @@ class _HomePageState extends State<HomePage> {
                                     fontWeight: FontWeight.bold,
                                     color: theme.brightness == Brightness.dark
                                         ? Colors.white
-                                        : ColorPalette.textColor,
+                                        : textColor,
                                   )),
                             )
                           ],
@@ -855,8 +838,7 @@ class _HomePageState extends State<HomePage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Icon(Icons.image_outlined,
-                                          size: 40,
-                                          color: ColorPalette.themeColor),
+                                          size: 40, color: themeColor),
                                     ]),
                               ),
                             ),
@@ -868,7 +850,7 @@ class _HomePageState extends State<HomePage> {
                                     fontWeight: FontWeight.bold,
                                     color: theme.brightness == Brightness.dark
                                         ? Colors.white
-                                        : ColorPalette.textColor,
+                                        : textColor,
                                   )),
                             )
                           ],
@@ -901,10 +883,10 @@ class _HomePageState extends State<HomePage> {
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         // Icon(Icons.self_improvement_outlined,
-                                        //     size: 40, color: ColorPalette.themeColor),
+                                        //     size: 40, color: themeColor),
                                         Image.asset(
                                           "assets/ic_halal.png",
-                                          color: ColorPalette.themeColor,
+                                          color: themeColor,
                                         ),
                                       ]),
                                 ),
@@ -917,7 +899,7 @@ class _HomePageState extends State<HomePage> {
                                       fontWeight: FontWeight.bold,
                                       color: theme.brightness == Brightness.dark
                                           ? Colors.white
-                                          : ColorPalette.textColor,
+                                          : textColor,
                                     )),
                               )
                             ],
@@ -942,7 +924,7 @@ class _HomePageState extends State<HomePage> {
                                       children: <Widget>[
                                         Image.asset(
                                           "assets/ic_masjid.png",
-                                          color: ColorPalette.themeColor,
+                                          color: themeColor,
                                         ),
                                       ]),
                                 ),
@@ -955,7 +937,7 @@ class _HomePageState extends State<HomePage> {
                                       fontWeight: FontWeight.bold,
                                       color: theme.brightness == Brightness.dark
                                           ? Colors.white
-                                          : ColorPalette.textColor,
+                                          : textColor,
                                     )),
                               )
                             ],
@@ -981,7 +963,7 @@ class _HomePageState extends State<HomePage> {
                                       children: <Widget>[
                                         Image.asset(
                                           "assets/ic_kaaba.png",
-                                          color: ColorPalette.themeColor,
+                                          color: themeColor,
                                         ),
                                       ]),
                                 ),
@@ -994,7 +976,7 @@ class _HomePageState extends State<HomePage> {
                                       fontWeight: FontWeight.bold,
                                       color: theme.brightness == Brightness.dark
                                           ? Colors.white
-                                          : ColorPalette.textColor,
+                                          : textColor,
                                     )),
                               )
                             ],
@@ -1022,7 +1004,7 @@ class _HomePageState extends State<HomePage> {
                               //         children: <Widget>[
                               //           Icon(Icons.image_outlined,
                               //               size: 40,
-                              //               color: ColorPalette.themeColor),
+                              //               color: themeColor),
                               //         ]),
                               //   ),
                               // ),
@@ -1034,7 +1016,7 @@ class _HomePageState extends State<HomePage> {
                               //         fontWeight: FontWeight.bold,
                               //         color: theme.brightness == Brightness.dark
                               //             ? Colors.white
-                              //             : ColorPalette.textColor,
+                              //             : textColor,
                               //       )),
                               // )
                             ],

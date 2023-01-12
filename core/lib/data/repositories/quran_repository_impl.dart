@@ -25,9 +25,11 @@ class QuranRepositoryImpl implements QuranRepository {
   }
 
   @override
-  Future<Either<Failure, AyahResponseA>> getAyahBySurahNo(String nomor) async {
+  Future<Either<Failure, AyahResponseA>> getAyahBySurahNo(
+      String nomor, int firstCount, int lastCount) async {
     try {
-      final result = await quranRemoteDataSource.getAyahBySurahNo(nomor);
+      final result = await quranRemoteDataSource.getAyahBySurahNo(
+          nomor, firstCount, lastCount);
       return Right(result.toEntity());
     } on ServerException {
       return const Left(ServerFailure(''));

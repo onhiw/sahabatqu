@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:sahabatqu/constants/themes-color.dart';
 
 class ProgramDetailPage extends StatefulWidget {
   final String? image;
@@ -19,22 +19,22 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
+      backgroundColor:
+          theme.brightness == Brightness.dark ? bgDarkColor : Colors.grey[100],
       appBar: AppBar(
           iconTheme: IconThemeData(
-            color: theme.brightness == Brightness.dark
-                ? Colors.white
-                : ColorPalette.textColor,
+            color:
+                theme.brightness == Brightness.dark ? Colors.white : textColor,
           ),
-          backgroundColor: theme.brightness == Brightness.dark
-              ? ColorPalette.bgDarkColor
-              : Colors.white,
+          backgroundColor:
+              theme.brightness == Brightness.dark ? bgDarkColor : Colors.white,
           elevation: 0,
           title: Text(
             "Informasi Program",
             style: TextStyle(
                 color: theme.brightness == Brightness.dark
                     ? Colors.white
-                    : ColorPalette.textColor,
+                    : textColor,
                 fontWeight: FontWeight.bold),
           )),
       body: ListView(
@@ -51,7 +51,7 @@ class _ProgramDetailPageState extends State<ProgramDetailPage> {
               style: TextStyle(
                   color: theme.brightness == Brightness.dark
                       ? Colors.white
-                      : ColorPalette.textColor,
+                      : textColor,
                   fontSize: 16),
               textAlign: TextAlign.center,
             ),

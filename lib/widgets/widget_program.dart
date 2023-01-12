@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:sahabatqu/constants/themes-color.dart';
 import 'package:sahabatqu/pages/page-program/page_detail_program.dart';
 import 'package:sahabatqu/pages/page-program/page_program.dart';
 
@@ -61,7 +61,7 @@ class _ProgramWidgetState extends State<ProgramWidget> {
                     fontWeight: FontWeight.bold,
                     color: theme.brightness == Brightness.dark
                         ? Colors.white
-                        : ColorPalette.textColor),
+                        : textColor),
               ),
               GestureDetector(
                 onTap: () {
@@ -72,7 +72,7 @@ class _ProgramWidgetState extends State<ProgramWidget> {
                 child: Text(
                   "Lihat Semua",
                   style: TextStyle(
-                    color: ColorPalette.themeColor,
+                    color: themeColor,
                     fontSize: 14,
                   ),
                 ),
@@ -127,7 +127,7 @@ class _ProgramWidgetState extends State<ProgramWidget> {
                             style: TextStyle(
                                 color: theme.brightness == Brightness.dark
                                     ? Colors.white
-                                    : ColorPalette.textColor,
+                                    : textColor,
                                 fontWeight: FontWeight.bold),
                           ),
                         ],

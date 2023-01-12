@@ -120,6 +120,8 @@ class DoaPageState extends State<DoaPage> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
+      backgroundColor:
+          theme.brightness == Brightness.dark ? bgDarkColor : Colors.grey[100],
       appBar: AppBar(
           iconTheme: IconThemeData(
             color:

@@ -3,14 +3,13 @@ import 'dart:io';
 
 import 'package:about/about.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:quran/presentation/pages/quran_page.dart';
 import 'package:sahabatqu/pages/page-home/page_home.dart';
 import 'package:schedule/presentation/pages/prayer_schedule_page.dart';
-
-import '../constants/themes-color.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -60,7 +59,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     color: theme.brightness == Brightness.dark
-                        ? ColorPalette.bgDarkColor
+                        ? bgDarkColor
                         : Colors.white,
                     borderRadius: BorderRadius.circular(Constants.padding),
                   ),
@@ -110,8 +109,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   child: Center(
                                     child: Text(
                                       "Tidak",
-                                      style: TextStyle(
-                                          color: ColorPalette.themeColor),
+                                      style: TextStyle(color: themeColor),
                                     ),
                                   ),
                                 ),
@@ -129,7 +127,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   height: 45,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: ColorPalette.themeColor),
+                                      color: themeColor),
                                   child: Center(
                                     child: Text(
                                       "Ya",
@@ -292,11 +290,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                         ]),
             ],
             color: theme.brightness == Brightness.dark
-                ? ColorPalette.appBarDarkColor
+                ? appBarDarkColor
                 : Colors.white,
-            buttonBackgroundColor: ColorPalette.themeColor,
+            buttonBackgroundColor: themeColor,
             backgroundColor: theme.brightness == Brightness.dark
-                ? ColorPalette.bgDarkColor
+                ? bgDarkColor
                 : Colors.grey[100]!,
             animationCurve: Curves.easeInOut,
             animationDuration: Duration(milliseconds: 300),

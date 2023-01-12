@@ -18,10 +18,12 @@ class SurahDetailLoading extends SurahDetailState {}
 
 class SurahDetailLoaded extends SurahDetailState {
   final AyahResponseA ayahResponseA;
-  const SurahDetailLoaded(this.ayahResponseA);
+  final List<Ayah> ar;
+  final List<Ayah> id;
+  const SurahDetailLoaded(this.ayahResponseA, this.ar, this.id);
 
   @override
-  List<Object?> get props => [ayahResponseA];
+  List<Object?> get props => [ayahResponseA, ar, id];
 }
 
 class SurahDetailError extends SurahDetailState {

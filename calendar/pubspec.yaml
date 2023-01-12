@@ -11,9 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   hijri: ^3.0.0
-  hijri_picker: ^3.0.0
+  # hijri_picker: ^3.0.0
+  syncfusion_flutter_datepicker: ^20.4.43
 
   core:
     path: ../core

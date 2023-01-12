@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   cupertino_icons: ^1.0.0
   flutter_bloc: ^8.0.1
@@ -33,7 +35,7 @@ dependencies:
   flutter_svg: ^1.0.3
   hijri: ^3.0.0
   url_launcher: ^6.0.20
-  hijri_picker: ^3.0.0
+  # hijri_picker: ^3.0.0
   rxdart: ^0.27.3
   flutter_staggered_grid_view: ^0.6.1
   flutter_inappwebview: ^5.5.0+2
@@ -43,6 +45,7 @@ dependencies:
   youtube_player_iframe: ^3.0.4
   another_flushbar: ^1.12.29
   get_it: ^7.2.0
+  syncfusion_flutter_datepicker: ^20.4.43
   flutter_html:
     git:
       url: https://github.com/onhiw/flutter_html.git

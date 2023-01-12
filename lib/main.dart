@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gallery/gallery_page.dart';
 import 'package:makkah/makkah_page.dart';
 import 'package:nearme/presentation/bloc/nearme-bloc/nearme_bloc.dart';
@@ -228,7 +229,6 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        // initialRoute: '/',
         theme: ThemeData(
           brightness: Brightness.light,
           primaryColor: Colors.white,
@@ -239,6 +239,12 @@ class _MyAppState extends State<MyApp> {
           fontFamily: 'Poppins',
         ),
         navigatorObservers: [routeObserver],
+        locale: Locale('id'),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('en'), Locale('id')],
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/':

@@ -110,12 +110,15 @@ class _GalleryPageState extends State<GalleryPage> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
+      backgroundColor:
+          theme.brightness == Brightness.dark ? bgDarkColor : Colors.grey[100],
       appBar: AppBar(
           iconTheme: IconThemeData(
             color:
                 theme.brightness == Brightness.dark ? Colors.white : textColor,
           ),
-          // backgroundColor: Colors.white,
+          backgroundColor:
+              theme.brightness == Brightness.dark ? bgDarkColor : Colors.white,
           elevation: 0,
           title: Text(
             "Gallery",

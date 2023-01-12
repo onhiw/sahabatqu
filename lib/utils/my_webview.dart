@@ -1,6 +1,6 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:sahabatqu/constants/themes-color.dart';
 
 class MyWebview extends StatefulWidget {
   MyWebview({
@@ -46,16 +46,15 @@ class _MyWebviewState extends State<MyWebview> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
+      backgroundColor:
+          theme.brightness == Brightness.dark ? bgDarkColor : Colors.grey[100],
       appBar: new AppBar(
         elevation: 2,
         iconTheme: IconThemeData(
-          color: theme.brightness == Brightness.dark
-              ? Colors.white
-              : ColorPalette.textColor,
+          color: theme.brightness == Brightness.dark ? Colors.white : textColor,
         ),
-        backgroundColor: theme.brightness == Brightness.dark
-            ? ColorPalette.bgDarkColor
-            : Colors.white,
+        backgroundColor:
+            theme.brightness == Brightness.dark ? bgDarkColor : Colors.white,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -65,9 +64,8 @@ class _MyWebviewState extends State<MyWebview> {
         title: Text(
           widget.title!,
           style: TextStyle(
-            color: theme.brightness == Brightness.dark
-                ? Colors.white
-                : ColorPalette.textColor,
+            color:
+                theme.brightness == Brightness.dark ? Colors.white : textColor,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -78,9 +76,8 @@ class _MyWebviewState extends State<MyWebview> {
                 ? Align(
                     alignment: Alignment.topCenter,
                     child: LinearProgressIndicator(
-                      backgroundColor: ColorPalette.themeColor.withOpacity(0.5),
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                          ColorPalette.themeColor),
+                      backgroundColor: themeColor.withOpacity(0.5),
+                      valueColor: AlwaysStoppedAnimation<Color>(themeColor),
                     ))
                 : Container(),
             preferredSize: Size.fromHeight(0.0)),

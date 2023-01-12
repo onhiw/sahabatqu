@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:sahabatqu/constants/themes-color.dart';
 import 'package:sahabatqu/pages/page-program/page_detail_program.dart';
 
 class ProgramPage extends StatefulWidget {
@@ -46,22 +46,22 @@ class _ProgramPageState extends State<ProgramPage> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
+      backgroundColor:
+          theme.brightness == Brightness.dark ? bgDarkColor : Colors.grey[100],
       appBar: AppBar(
           iconTheme: IconThemeData(
-            color: theme.brightness == Brightness.dark
-                ? Colors.white
-                : ColorPalette.textColor,
+            color:
+                theme.brightness == Brightness.dark ? Colors.white : textColor,
           ),
-          backgroundColor: theme.brightness == Brightness.dark
-              ? ColorPalette.bgDarkColor
-              : Colors.white,
+          backgroundColor:
+              theme.brightness == Brightness.dark ? bgDarkColor : Colors.white,
           elevation: 0,
           title: Text(
             "Program Kami",
             style: TextStyle(
                 color: theme.brightness == Brightness.dark
                     ? Colors.white
-                    : ColorPalette.textColor,
+                    : textColor,
                 fontWeight: FontWeight.bold),
           )),
       body: ListView.builder(

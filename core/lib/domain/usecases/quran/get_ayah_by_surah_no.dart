@@ -8,7 +8,8 @@ class GetAyahBySurahNo {
 
   GetAyahBySurahNo(this.quranRepositiry);
 
-  Future<Either<Failure, AyahResponseA>> execute(String nomor) {
-    return quranRepositiry.getAyahBySurahNo(nomor);
+  Future<Either<Failure, AyahResponseA>> execute(
+      String nomor, int firstCount, int lastCount) {
+    return quranRepositiry.getAyahBySurahNo(nomor, firstCount, lastCount);
   }
 }

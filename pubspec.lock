@@ -337,6 +337,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.0"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -484,13 +489,6 @@ packages:
     dependency: "direct main"
     description:
       name: hijri
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
-  hijri_picker:
-    dependency: "direct main"
-    description:
-      name: hijri_picker
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
@@ -870,6 +868,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "20.4.43"
+  syncfusion_flutter_datepicker:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_datepicker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "20.4.43"
   synchronized:
     dependency: transitive
     description:

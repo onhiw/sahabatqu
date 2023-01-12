@@ -1,5 +1,5 @@
 import 'package:core/core.dart';
-import 'package:core/domain/entities/quran/ayah_response_a.dart';
+import 'package:core/domain/entities/quran/ayah.dart';
 import 'package:core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,10 +16,38 @@ class QuranBySurahDetail extends StatefulWidget {
 }
 
 class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
+  final ScrollController _scrollController = ScrollController();
+  int _limit = 0;
+  int _firstCount = 1;
+  int _lastCount = 10;
+
   @override
   void initState() {
-    context.read<SurahDetailBloc>().add(GetSurahDetail(widget.nomor));
+    context
+        .read<SurahDetailBloc>()
+        .add(GetSurahDetail(widget.nomor, _firstCount, _lastCount));
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        if (_lastCount < _limit) {
+          setState(() {
+            _firstCount = _firstCount + 10;
+            _lastCount = _lastCount + 10;
+          });
+          context
+              .read<SurahDetailBloc>()
+              .add(GetSurahDetail(widget.nomor, _firstCount, _lastCount));
+        }
+      }
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,7 +78,12 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
         if (state is SurahDetailLoading) {
           return const Center(child: LoadingIndicator());
         } else if (state is SurahDetailLoaded) {
-          return _buildList(context, state.ayahResponseA);
+          if (int.parse(state.ayahResponseA.surah.ayat) < 10) {
+            _lastCount = int.parse(state.ayahResponseA.surah.ayat);
+          }
+          print(_lastCount);
+          _limit = int.parse(state.ayahResponseA.surah.ayat);
+          return _buildList(context, state.ar, state.id);
         } else if (state is SurahDetailError) {
           return Center(
               child: Padding(
@@ -64,9 +97,10 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
     );
   }
 
-  Widget _buildList(BuildContext context, AyahResponseA ayahResponseA) {
+  Widget _buildList(BuildContext context, List<Ayah> ar, List<Ayah> id) {
     final ThemeData theme = Theme.of(context);
     return ListView(
+      controller: _scrollController,
       padding: const EdgeInsets.all(16),
       physics: const BouncingScrollPhysics(),
       children: [
@@ -94,7 +128,7 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
             : const SizedBox(
                 height: 16,
               ),
-        ...ayahResponseA.ayahResponseE.ayahData.ar
+        ...ar
             .asMap()
             .map((i, value) => MapEntry(
                 i,
@@ -158,7 +192,7 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                           ),
                           Expanded(
                             child: Text(
-                              ayahResponseA.ayahResponseE.ayahData.id[i].teks,
+                              id[i].teks,
                               style: TextStyle(
                                   color: theme.brightness == Brightness.dark
                                       ? Colors.white
