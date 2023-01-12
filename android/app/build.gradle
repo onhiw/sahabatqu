@@ -54,8 +54,8 @@ android {
         applicationId "com.ronirusmayadi.sahabatqu"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 23
+        versionName 3.5.0
         multiDexEnabled true
     }
 
