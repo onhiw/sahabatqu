@@ -32,7 +32,7 @@ import 'package:schedule/presentation/bloc/prayer-monthly-bloc/prayer_monthly_bl
 import 'pages/page_splash_screen.dart';
 
 const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+    AndroidInitializationSettings('@mipmap/ic_launcher_foreground');
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'general', //id
     'General', //descriptions
@@ -168,9 +168,9 @@ class _MyAppState extends State<MyApp> {
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
-                color: Colors.blue,
+                color: Color(0xff097233),
                 playSound: true,
-                icon: '@mipmap/ic_launcher',
+                icon: '@mipmap/ic_launcher_foreground',
               ),
             ));
       }
@@ -190,7 +190,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _handleMessage(RemoteMessage message) {
-    Navigator.pushNamed(context, "/");
+    // Navigator.pushNamed(context, "/");
   }
 
   @override
