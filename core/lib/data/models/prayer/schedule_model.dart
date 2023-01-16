@@ -2,7 +2,7 @@ import 'package:core/domain/entities/prayer/schedule.dart';
 import 'package:equatable/equatable.dart';
 
 class ScheduleModel extends Equatable {
-  ScheduleModel({
+  const ScheduleModel({
     required this.tanggal,
     required this.imsak,
     required this.subuh,
@@ -15,16 +15,16 @@ class ScheduleModel extends Equatable {
     required this.date,
   });
 
-  String tanggal;
-  String imsak;
-  String subuh;
-  String terbit;
-  String dhuha;
-  String dzuhur;
-  String ashar;
-  String maghrib;
-  String isya;
-  String date;
+  final String tanggal;
+  final String imsak;
+  final String subuh;
+  final String terbit;
+  final String dhuha;
+  final String dzuhur;
+  final String ashar;
+  final String maghrib;
+  final String isya;
+  final String date;
 
   factory ScheduleModel.fromJson(Map<String, dynamic> json) => ScheduleModel(
         tanggal: json["tanggal"],

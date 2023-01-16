@@ -23,9 +23,11 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
 
   @override
   void initState() {
-    context
-        .read<SurahDetailBloc>()
-        .add(GetSurahDetail(widget.nomor, _firstCount, _lastCount));
+    Future.microtask(() {
+      context
+          .read<SurahDetailBloc>()
+          .add(GetSurahDetail(widget.nomor, _firstCount, _lastCount));
+    });
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -35,9 +37,11 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
             _firstCount = _firstCount + 10;
             _lastCount = _lastCount + 10;
           });
-          context
-              .read<SurahDetailBloc>()
-              .add(GetSurahDetail(widget.nomor, _firstCount, _lastCount));
+          Future.microtask(() {
+            context
+                .read<SurahDetailBloc>()
+                .add(GetSurahDetail(widget.nomor, _firstCount, _lastCount));
+          });
         }
       }
     });
@@ -81,7 +85,6 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
           if (int.parse(state.ayahResponseA.surah.ayat) < 10) {
             _lastCount = int.parse(state.ayahResponseA.surah.ayat);
           }
-          print(_lastCount);
           _limit = int.parse(state.ayahResponseA.surah.ayat);
           return _buildList(context, state.ar, state.id);
         } else if (state is SurahDetailError) {

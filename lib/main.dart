@@ -14,6 +14,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gallery/gallery_page.dart';
 import 'package:makkah/makkah_page.dart';
 import 'package:nearme/presentation/bloc/nearme-bloc/nearme_bloc.dart';
+import 'package:nearme/presentation/bloc/nearme-mosque-bloc/nearme_mosque_bloc.dart';
 import 'package:nearme/presentation/pages/halal_page.dart';
 import 'package:nearme/presentation/pages/mosque_page.dart';
 import 'package:program/detail_program.dart';
@@ -227,6 +228,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (_) => di.locator<NearmeBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<NearmeMosqueBloc>(),
         ),
       ],
       child: MaterialApp(

@@ -86,6 +86,7 @@ dependencies:
 
   program:
     path: program
+  flutter_gen: ^5.1.0+1
 
 dev_dependencies:
   flutter_test:

@@ -3,13 +3,13 @@ import 'package:core/domain/entities/prayer/prayer_daily_response_e.dart';
 import 'package:equatable/equatable.dart';
 
 class PrayerDailyResponse extends Equatable {
-  PrayerDailyResponse({
+  const PrayerDailyResponse({
     required this.status,
     this.data,
   });
 
-  bool status;
-  PrayerDailyModel? data;
+  final bool status;
+  final PrayerDailyModel? data;
 
   factory PrayerDailyResponse.fromJson(Map<String, dynamic> json) =>
       PrayerDailyResponse(

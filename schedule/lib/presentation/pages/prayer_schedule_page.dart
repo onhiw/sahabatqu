@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:core/domain/entities/prayer/prayer_daily_response_e.dart';
 import 'package:core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:schedule/presentation/bloc/city-bloc/city_bloc.dart';
 import 'package:schedule/presentation/bloc/prayer-daily-bloc/prayer_daily_bloc.dart';
@@ -51,6 +52,7 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
         cityId = prefs.getString('cityId');
       });
       Future.microtask(() {
+        context.read<CityBloc>().add(FetchAllCity());
         context.read<PrayerDailyBloc>().add(GetPrayerDaily(
             prefs.getString('cityId') == null ? "" : prefs.getString('cityId')!,
             DateFormat('yyyy/MM/dd').format(DateTime.now())));
@@ -236,6 +238,8 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    DateTime now = DateTime.now();
+    var today = HijriCalendar.now();
     return Scaffold(
       backgroundColor:
           theme.brightness == Brightness.dark ? bgDarkColor : Colors.grey[100],
@@ -337,7 +341,53 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
               if (state is PrayerDailyLoading) {
                 return const Center(child: LoadingIndicator());
               } else if (state is PrayerDailyLoaded) {
-                return _buildList(context, state.prayerDailyResponseE);
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Card(
+                        elevation: 2,
+                        margin:
+                            const EdgeInsets.only(left: 16, right: 16, top: 16),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  MyHelper.formatDate(now),
+                                  style: TextStyle(
+                                      color: theme.brightness == Brightness.dark
+                                          ? Colors.white
+                                          : textColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                                Text(
+                                  "${today.toFormat("dd MMMM yyyy")} H",
+                                  style: TextStyle(
+                                      color: Colors.grey[600],
+                                      // fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Card(
+                          elevation: 2,
+                          margin: const EdgeInsets.all(16),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          child:
+                              _buildList(context, state.prayerDailyResponseE)),
+                    ],
+                  ),
+                );
               } else if (state is PrayerDailyError) {
                 return Center(
                     child: Padding(

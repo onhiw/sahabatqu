@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:nearme/presentation/bloc/nearme-bloc/nearme_bloc.dart';
+import 'package:nearme/presentation/bloc/nearme-mosque-bloc/nearme_mosque_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MosquePage extends StatefulWidget {
@@ -71,7 +71,9 @@ class _MosquePageState extends State<MosquePage> {
     });
 
     Future.microtask(() {
-      context.read<NearmeBloc>().add(FetchNearme('$lat,$long', 'mosque'));
+      context
+          .read<NearmeMosqueBloc>()
+          .add(FetchNearmeMosque('$lat,$long', 'mosque'));
     });
   }
 
@@ -105,14 +107,15 @@ class _MosquePageState extends State<MosquePage> {
                     : textColor,
                 fontWeight: FontWeight.bold),
           )),
-      body: BlocBuilder<NearmeBloc, NearmeState>(builder: (context, state) {
-        if (state is NearmeLoading) {
+      body: BlocBuilder<NearmeMosqueBloc, NearmeMosqueState>(
+          builder: (context, state) {
+        if (state is NearmeMosqueLoading) {
           return const Center(child: LoadingIndicator());
-        } else if (state is NearmeInitial) {
+        } else if (state is NearmeMosqueInitial) {
           return const Center(child: LoadingIndicator());
-        } else if (state is NearmeLoaded) {
+        } else if (state is NearmeMosqueLoaded) {
           return _buildList(context, state.nearmeList);
-        } else if (state is NearmeEmpty) {
+        } else if (state is NearmeMosqueEmpty) {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -138,7 +141,7 @@ class _MosquePageState extends State<MosquePage> {
               ),
             ),
           );
-        } else if (state is NearmeError) {
+        } else if (state is NearmeMosqueError) {
           return Center(
               child: Padding(
             padding: const EdgeInsets.all(16.0),

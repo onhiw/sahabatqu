@@ -2,17 +2,17 @@ import 'package:core/domain/entities/prayer/coordinate.dart';
 import 'package:equatable/equatable.dart';
 
 class CoordinateModel extends Equatable {
-  CoordinateModel({
+  const CoordinateModel({
     required this.lat,
     required this.lon,
     required this.lintang,
     required this.bujur,
   });
 
-  double lat;
-  double lon;
-  String lintang;
-  String bujur;
+  final double lat;
+  final double lon;
+  final String lintang;
+  final String bujur;
 
   factory CoordinateModel.fromJson(Map<String, dynamic> json) =>
       CoordinateModel(

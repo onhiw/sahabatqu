@@ -3,9 +3,9 @@ import 'package:core/domain/entities/nearme/nearme_geometry.dart';
 import 'package:equatable/equatable.dart';
 
 class NearmeGeometryModel extends Equatable {
-  NearmeGeometryModel({required this.nearmeLocationModel});
+  final NearmeLocationModel nearmeLocationModel;
 
-  NearmeLocationModel nearmeLocationModel;
+  const NearmeGeometryModel({required this.nearmeLocationModel});
 
   factory NearmeGeometryModel.fromJson(Map<String, dynamic> json) =>
       NearmeGeometryModel(

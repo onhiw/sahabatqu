@@ -16,6 +16,7 @@ import 'package:core/domain/usecases/quran/get_ayah_by_surah_no.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:nearme/presentation/bloc/nearme-bloc/nearme_bloc.dart';
+import 'package:nearme/presentation/bloc/nearme-mosque-bloc/nearme_mosque_bloc.dart';
 import 'package:quran/presentation/bloc/surah-bloc/surah_bloc.dart';
 import 'package:quran/presentation/bloc/surah-detail-bloc/surah_detail_bloc.dart';
 import 'package:schedule/presentation/bloc/city-bloc/city_bloc.dart';
@@ -34,6 +35,7 @@ void init() {
   locator.registerFactory(() => SurahDetailBloc(locator()));
 
   locator.registerFactory(() => NearmeBloc(locator()));
+  locator.registerFactory(() => NearmeMosqueBloc(locator()));
 
   // use case
   locator.registerLazySingleton(() => GetAllCity(locator()));

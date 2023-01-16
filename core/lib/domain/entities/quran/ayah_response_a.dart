@@ -3,10 +3,10 @@ import 'package:core/domain/entities/quran/surah.dart';
 import 'package:equatable/equatable.dart';
 
 class AyahResponseA extends Equatable {
-  AyahResponseA({required this.ayahResponseE, required this.surah});
+  final AyahResponseE ayahResponseE;
+  final Surah surah;
 
-  AyahResponseE ayahResponseE;
-  Surah surah;
+  const AyahResponseA({required this.ayahResponseE, required this.surah});
 
   @override
   List<Object?> get props => [ayahResponseE, surah];

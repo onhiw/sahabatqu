@@ -4,7 +4,7 @@ import 'package:core/domain/entities/prayer/prayer_daily.dart';
 import 'package:equatable/equatable.dart';
 
 class PrayerDailyModel extends Equatable {
-  PrayerDailyModel({
+  const PrayerDailyModel({
     required this.id,
     required this.lokasi,
     required this.daerah,
@@ -12,11 +12,11 @@ class PrayerDailyModel extends Equatable {
     required this.scheduleModel,
   });
 
-  String id;
-  String lokasi;
-  String daerah;
-  CoordinateModel coordinateModel;
-  ScheduleModel scheduleModel;
+  final String id;
+  final String lokasi;
+  final String daerah;
+  final CoordinateModel coordinateModel;
+  final ScheduleModel scheduleModel;
 
   factory PrayerDailyModel.fromJson(Map<String, dynamic> json) =>
       PrayerDailyModel(

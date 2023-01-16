@@ -3,9 +3,9 @@ import 'package:core/domain/entities/quran/ayah_response_e.dart';
 import 'package:equatable/equatable.dart';
 
 class AyahResponse extends Equatable {
-  AyahResponse({required this.ayahDataModel});
+  const AyahResponse({required this.ayahDataModel});
 
-  AyahDataModel ayahDataModel;
+  final AyahDataModel ayahDataModel;
 
   factory AyahResponse.fromJson(Map<String, dynamic> json) => AyahResponse(
         ayahDataModel: AyahDataModel.fromJson(json["data"]),

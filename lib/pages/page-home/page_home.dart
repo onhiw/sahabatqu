@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
         cityId = prefs.getString('cityId');
       });
       Future.microtask(() {
+        context.read<CityBloc>().add(FetchAllCity());
         context.read<PrayerDailyBloc>().add(GetPrayerDaily(
             prefs.getString('cityId') == null ? "" : prefs.getString('cityId')!,
             DateFormat('yyyy/MM/dd').format(DateTime.now())));
@@ -361,11 +362,16 @@ class _HomePageState extends State<HomePage> {
                   width: 2,
                 ),
                 Expanded(
-                  child: Text(
-                    _currentAddress == null
-                        ? "Sedang mencari lokasi..."
-                        : _currentAddress!,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showChooseCity();
+                    },
+                    child: Text(
+                      _currentAddress == null
+                          ? "Sedang mencari lokasi..."
+                          : _currentAddress!,
+                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                    ),
                   ),
                 ),
               ],
@@ -406,11 +412,16 @@ class _HomePageState extends State<HomePage> {
                   width: 2,
                 ),
                 Expanded(
-                  child: Text(
-                    _currentAddress == null
-                        ? "Sedang mencari lokasi..."
-                        : _currentAddress!,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showChooseCity();
+                    },
+                    child: Text(
+                      _currentAddress == null
+                          ? "Sedang mencari lokasi..."
+                          : _currentAddress!,
+                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                    ),
                   ),
                 ),
               ],
@@ -451,11 +462,16 @@ class _HomePageState extends State<HomePage> {
                   width: 2,
                 ),
                 Expanded(
-                  child: Text(
-                    _currentAddress == null
-                        ? "Sedang mencari lokasi..."
-                        : _currentAddress!,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showChooseCity();
+                    },
+                    child: Text(
+                      _currentAddress == null
+                          ? "Sedang mencari lokasi..."
+                          : _currentAddress!,
+                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                    ),
                   ),
                 ),
               ],
@@ -496,11 +512,16 @@ class _HomePageState extends State<HomePage> {
                   width: 2,
                 ),
                 Expanded(
-                  child: Text(
-                    _currentAddress == null
-                        ? "Sedang mencari lokasi..."
-                        : _currentAddress!,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showChooseCity();
+                    },
+                    child: Text(
+                      _currentAddress == null
+                          ? "Sedang mencari lokasi..."
+                          : _currentAddress!,
+                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                    ),
                   ),
                 ),
               ],
@@ -541,11 +562,16 @@ class _HomePageState extends State<HomePage> {
                   width: 2,
                 ),
                 Expanded(
-                  child: Text(
-                    _currentAddress == null
-                        ? "Sedang mencari lokasi..."
-                        : _currentAddress!,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showChooseCity();
+                    },
+                    child: Text(
+                      _currentAddress == null
+                          ? "Sedang mencari lokasi..."
+                          : _currentAddress!,
+                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                    ),
                   ),
                 ),
               ],
@@ -788,7 +814,7 @@ class _HomePageState extends State<HomePage> {
                             InkWell(
                               borderRadius: BorderRadius.circular(40),
                               onTap: () {
-                                Navigator.pushNamed(context, qiblaRoute);
+                                Navigator.pushNamed(context, programRoute);
                               },
                               child: Container(
                                 // padding: EdgeInsets.all(18),
@@ -799,16 +825,16 @@ class _HomePageState extends State<HomePage> {
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      Icon(Icons.explore_outlined,
-                                          size: 40, color: themeColor),
-                                      // Image.asset("assets/ic_qiblah.png",
-                                      //     color: themeColor),
+                                      Image.asset(
+                                        "assets/ic_program.png",
+                                        color: themeColor,
+                                      ),
                                     ]),
                               ),
                             ),
                             Container(
                               margin: EdgeInsets.only(top: 5),
-                              child: Text("Kiblat",
+                              child: Text("Program",
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -843,7 +869,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Container(
                               margin: EdgeInsets.only(top: 5),
-                              child: Text("Gallery",
+                              child: Text("Galeri",
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -987,7 +1013,7 @@ class _HomePageState extends State<HomePage> {
                               InkWell(
                                 borderRadius: BorderRadius.circular(40),
                                 onTap: () {
-                                  Navigator.pushNamed(context, programRoute);
+                                  Navigator.pushNamed(context, qiblaRoute);
                                 },
                                 child: Container(
                                   // padding: EdgeInsets.all(18),
@@ -999,16 +1025,14 @@ class _HomePageState extends State<HomePage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Image.asset(
-                                          "assets/ic_program.png",
-                                          color: themeColor,
-                                        ),
+                                        Image.asset("assets/ic_qibla.png",
+                                            color: themeColor),
                                       ]),
                                 ),
                               ),
                               Container(
                                 margin: EdgeInsets.only(top: 5),
-                                child: Text("Program",
+                                child: Text("Kiblat",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
