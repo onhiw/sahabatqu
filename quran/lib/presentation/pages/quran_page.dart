@@ -14,6 +14,8 @@ class QuranPage extends StatefulWidget {
 }
 
 class _QuranPageState extends State<QuranPage> {
+  final searchName = TextEditingController();
+
   @override
   void initState() {
     Future.microtask(() {
@@ -62,88 +64,135 @@ class _QuranPageState extends State<QuranPage> {
 
   Widget _buildList(BuildContext context, List<Surah> surah) {
     final ThemeData theme = Theme.of(context);
-    return ListView.separated(
-      physics: const BouncingScrollPhysics(),
-      itemCount: surah.length,
-      itemBuilder: (context, index) {
-        return InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, detailSurahRoute,
-                arguments: QuranBySurahDetail(
-                  nomor: surah[index].nomor,
-                  nama: surah[index].nama,
-                ));
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
+
+    final surahFilter = surah
+        .where(
+            (element) => element.nama.toLowerCase().contains(searchName.text))
+        .toList();
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextFormField(
+            cursorColor:
+                theme.brightness == Brightness.dark ? Colors.white : textColor,
+            controller: searchName,
+            style: TextStyle(
+                color: theme.brightness == Brightness.dark
+                    ? Colors.white
+                    : textColor,
+                fontSize: 14),
+            onChanged: (value) {
+              setState(() {});
+            },
+            decoration: InputDecoration(
+              hintStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
+              contentPadding: const EdgeInsets.only(
+                  left: 16, right: 16, bottom: 14, top: 14),
+              filled: true,
+              fillColor: theme.brightness == Brightness.dark
+                  ? appBarDarkColor
+                  : Colors.grey[300],
+              hintText: 'Cari...',
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide.none),
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            keyboardType: TextInputType.text,
+          ),
+        ),
+        Expanded(
+          child: ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            itemCount: surahFilter.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, detailSurahRoute,
+                      arguments: QuranBySurahDetail(
+                        nomor: surahFilter[index].nomor,
+                        nama: surahFilter[index].nama,
+                        type: surahFilter[index].type,
+                      ));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "${index + 1}.",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: theme.brightness == Brightness.dark
-                                ? Colors.white
-                                : textColor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
                       Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
                           children: [
                             Text(
-                              surah[index].nama,
-                              style: const TextStyle(
+                              surahFilter[index].nomor,
+                              style: TextStyle(
                                   fontSize: 16,
-                                  color: themeColor,
+                                  color: theme.brightness == Brightness.dark
+                                      ? Colors.white
+                                      : textColor,
                                   fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(
-                              height: 2,
+                              width: 16,
                             ),
-                            Text(
-                              "${surah[index].arti} (${surah[index].ayat})",
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey[600],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    surahFilter[index].nama,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: themeColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  Text(
+                                    "${surahFilter[index].arti} (${surahFilter[index].ayat})",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey[600],
+                                    ),
+                                  )
+                                ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Text(
+                          surahFilter[index].asma,
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: theme.brightness == Brightness.dark
+                                  ? Colors.white
+                                  : textColor,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Text(
-                    surah[index].asma,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: theme.brightness == Brightness.dark
-                            ? Colors.white
-                            : textColor,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            ),
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const Divider(
+                thickness: 1,
+              );
+            },
           ),
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const Divider(
-          thickness: 1,
-        );
-      },
+        ),
+      ],
     );
   }
 }

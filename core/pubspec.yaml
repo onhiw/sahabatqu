@@ -16,6 +16,7 @@ dependencies:
   dartz: ^0.10.1
   intl: ^0.17.0
   another_flushbar: ^1.10.29
+  logger: ^1.1.0
 
 dev_dependencies:
   flutter_test:

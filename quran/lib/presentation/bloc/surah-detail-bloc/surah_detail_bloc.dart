@@ -18,7 +18,12 @@ class SurahDetailBloc extends Bloc<SurahDetailEvent, SurahDetailState> {
 
   Future<void> _fetchSurahDetail(
       GetSurahDetail event, Emitter<SurahDetailState> emit) async {
-    emit(SurahDetailLoading());
+    if (event.isClear) {
+      ar.clear();
+      id.clear();
+    }
+
+    // emit(SurahDetailLoading());
 
     final data = await getAyahBySurahNo.execute(
         event.nomor, event.firstCount, event.lastCount);
@@ -26,9 +31,8 @@ class SurahDetailBloc extends Bloc<SurahDetailEvent, SurahDetailState> {
     data.fold((failure) {
       emit(SurahDetailError(failure.message));
     }, (success) {
-      int lastCount = int.parse(success.surah.ayat) < 10
-          ? int.parse(success.surah.ayat)
-          : event.lastCount;
+      int lastCount = int.parse(success.surah.ayat);
+
       if (lastCount <= int.parse(success.surah.ayat)) {
         if (success.ayahResponseE.ayahData.ar.isNotEmpty) {
           ar.addAll(success.ayahResponseE.ayahData.ar);

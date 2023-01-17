@@ -6,9 +6,10 @@ class GetSurahDetail extends SurahDetailEvent {
   final String nomor;
   final int firstCount;
   final int lastCount;
+  final bool isClear;
 
-  GetSurahDetail(this.nomor, this.firstCount, this.lastCount);
+  GetSurahDetail(this.nomor, this.firstCount, this.lastCount, this.isClear);
 
   @override
-  List<Object?> get props => [nomor, firstCount, lastCount];
+  List<Object?> get props => [nomor, firstCount, lastCount, isClear];
 }

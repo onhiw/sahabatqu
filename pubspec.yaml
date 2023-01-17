@@ -1,98 +1,82 @@
 name: sahabatqu
 description: A new Flutter project.
 
-publish_to: 'none' 
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  about:
+    path: about
+  another_flushbar: ^1.12.29
+  asma:
+    path: asma
+  cached_network_image: ^3.2.0
+  calendar:
+    path: calendar
+  carousel_slider: ^4.0.0
+  core:
+    path: core
+  cupertino_icons: ^1.0.0
+  curved_navigation_bar: ^1.0.3
+  dio: ^4.0.6
+  doa:
+    path: doa
+  expand_widget: ^3.1.0
+  firebase_core: ^2.3.0
+  firebase_messaging: ^14.1.2
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-
-  cupertino_icons: ^1.0.0
   flutter_bloc: ^8.0.1
-  dio: ^4.0.6
-  provider: ^6.0.2
-  cached_network_image: ^3.2.0
-  carousel_slider: ^4.0.0
-  firebase_messaging: ^14.1.2
-  firebase_core: ^2.3.0
-  geolocator: ^9.0.2
-  geocoding: ^2.0.4
-  google_maps_flutter: ^2.1.3
-  google_maps_webservice: ^0.0.20-nullsafety.5
-  lottie: ^2.1.0
-  photo_view: ^0.14.0
-  shared_preferences: ^2.0.13
-  shimmer: ^2.0.0
-  intl: ^0.17.0
-  flutter_qiblah: ^2.1.0
-  curved_navigation_bar: ^1.0.3
-  flutter_svg: ^1.0.3
-  hijri: ^3.0.0
-  url_launcher: ^6.0.20
-  # hijri_picker: ^3.0.0
-  rxdart: ^0.27.3
-  flutter_staggered_grid_view: ^0.6.1
-  flutter_inappwebview: ^5.5.0+2
-  flutter_local_notifications: ^13.0.0
-  expand_widget: ^3.1.0
-  # youtube_player_flutter: ^8.0.0
-  youtube_player_iframe: ^3.0.4
-  another_flushbar: ^1.12.29
-  get_it: ^7.2.0
-  syncfusion_flutter_datepicker: ^20.4.43
+  flutter_gen: ^5.1.0+1
   flutter_html:
     git:
       url: https://github.com/onhiw/flutter_html.git
       ref: master
-
-  about:
-    path: about
-
-  core:
-    path: core
-
-  schedule:
-    path: schedule
-
-  asma:
-    path: asma
-
-  doa:
-    path: doa
-
-  qibla:
-    path: qibla
-
+  flutter_inappwebview: ^5.5.0+2
+  flutter_local_notifications: ^13.0.0
+  flutter_localizations:
+    sdk: flutter
+  flutter_qiblah: ^2.1.0
+  flutter_staggered_grid_view: ^0.6.1
+  flutter_svg: ^1.0.3
   gallery:
     path: gallery
-
-  quran:
-    path: quran
-
+  geocoding: ^2.0.4
+  geolocator: ^9.0.2
+  get_it: ^7.2.0
+  google_maps_flutter: ^2.1.3
+  google_maps_webservice: ^0.0.20-nullsafety.5
+  hijri: ^3.0.0
+  intl: ^0.17.0
+  logger: ^1.1.0
+  lottie: ^2.1.0
   makkah:
     path: makkah
-
   nearme:
     path: nearme
-
-  calendar:
-    path: calendar
-
+  photo_view: ^0.14.0
   program:
     path: program
-  flutter_gen: ^5.1.0+1
+  provider: ^6.0.2
+  qibla:
+    path: qibla
+  quran:
+    path: quran
+  rxdart: ^0.27.3
+  schedule:
+    path: schedule
+  shared_preferences: ^2.0.13
+  shimmer: ^2.0.0
+  syncfusion_flutter_datepicker: ^20.4.43
+  url_launcher: ^6.0.20
+  youtube_player_iframe: ^3.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  # flutter_launcher_icons: ^0.9.0
-
 dependency_overrides:
   firebase_messaging_platform_interface: 4.2.10
 

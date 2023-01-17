@@ -8,8 +8,9 @@ import 'package:quran/presentation/bloc/surah-detail-bloc/surah_detail_bloc.dart
 class QuranBySurahDetail extends StatefulWidget {
   final String nomor;
   final String nama;
+  final String type;
   const QuranBySurahDetail(
-      {super.key, required this.nomor, required this.nama});
+      {super.key, required this.nomor, required this.nama, required this.type});
 
   @override
   State<QuranBySurahDetail> createState() => _QuranBySurahDetailState();
@@ -24,9 +25,11 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
   @override
   void initState() {
     Future.microtask(() {
+      _firstCount = 1;
+      _lastCount = 10;
       context
           .read<SurahDetailBloc>()
-          .add(GetSurahDetail(widget.nomor, _firstCount, _lastCount));
+          .add(GetSurahDetail(widget.nomor, _firstCount, _lastCount, true));
     });
 
     _scrollController.addListener(() {
@@ -38,9 +41,8 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
             _lastCount = _lastCount + 10;
           });
           Future.microtask(() {
-            context
-                .read<SurahDetailBloc>()
-                .add(GetSurahDetail(widget.nomor, _firstCount, _lastCount));
+            context.read<SurahDetailBloc>().add(
+                GetSurahDetail(widget.nomor, _firstCount, _lastCount, false));
           });
         }
       }
@@ -67,14 +69,26 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
         iconTheme: IconThemeData(
             color:
                 theme.brightness == Brightness.dark ? Colors.white : textColor),
-        title: Text(
-          widget.nama,
-          style: TextStyle(
-              color: theme.brightness == Brightness.dark
-                  ? Colors.white
-                  : textColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 16),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.nama,
+              style: TextStyle(
+                  color: theme.brightness == Brightness.dark
+                      ? Colors.white
+                      : textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+            Text(
+              "${widget.type[0].toUpperCase()}${widget.type.substring(1).toLowerCase()}",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey[600],
+              ),
+            )
+          ],
         ),
       ),
       body: BlocBuilder<SurahDetailBloc, SurahDetailState>(

@@ -22,6 +22,7 @@ class AyahResponseAModel extends Equatable {
 
   Map<String, dynamic> toJson() => {
         "ayat": ayahResponse.toJson(),
+        "surah": surahModel.toJson(),
       };
 
   AyahResponseA toEntity() {
@@ -30,5 +31,5 @@ class AyahResponseAModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => [ayahResponse];
+  List<Object?> get props => [ayahResponse, surahModel];
 }

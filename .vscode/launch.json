@@ -1,0 +1,265 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "sahabatqu",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "sahabatqu (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "sahabatqu (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "about",
+            "cwd": "about",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "about (profile mode)",
+            "cwd": "about",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "about (release mode)",
+            "cwd": "about",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "asma",
+            "cwd": "asma",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "asma (profile mode)",
+            "cwd": "asma",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "asma (release mode)",
+            "cwd": "asma",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "calendar",
+            "cwd": "calendar",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "calendar (profile mode)",
+            "cwd": "calendar",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "calendar (release mode)",
+            "cwd": "calendar",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "core",
+            "cwd": "core",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "core (profile mode)",
+            "cwd": "core",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "core (release mode)",
+            "cwd": "core",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "doa",
+            "cwd": "doa",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "doa (profile mode)",
+            "cwd": "doa",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "doa (release mode)",
+            "cwd": "doa",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "gallery",
+            "cwd": "gallery",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "gallery (profile mode)",
+            "cwd": "gallery",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "gallery (release mode)",
+            "cwd": "gallery",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "makkah",
+            "cwd": "makkah",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "makkah (profile mode)",
+            "cwd": "makkah",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "makkah (release mode)",
+            "cwd": "makkah",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "nearme",
+            "cwd": "nearme",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "nearme (profile mode)",
+            "cwd": "nearme",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "nearme (release mode)",
+            "cwd": "nearme",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "program",
+            "cwd": "program",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "program (profile mode)",
+            "cwd": "program",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "program (release mode)",
+            "cwd": "program",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "qibla",
+            "cwd": "qibla",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "qibla (profile mode)",
+            "cwd": "qibla",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "qibla (release mode)",
+            "cwd": "qibla",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "quran",
+            "cwd": "quran",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "quran (profile mode)",
+            "cwd": "quran",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "quran (release mode)",
+            "cwd": "quran",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "schedule",
+            "cwd": "schedule",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "schedule (profile mode)",
+            "cwd": "schedule",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "schedule (release mode)",
+            "cwd": "schedule",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

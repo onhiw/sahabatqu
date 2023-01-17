@@ -279,6 +279,7 @@ class _MyAppState extends State<MyApp> {
                   builder: (_) => QuranBySurahDetail(
                         nomor: args.nomor,
                         nama: args.nama,
+                        type: args.type,
                       ));
             case programDetailRoute:
               final args = settings.arguments as DetailProgramPage;
