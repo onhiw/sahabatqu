@@ -23,7 +23,9 @@ class SurahDetailBloc extends Bloc<SurahDetailEvent, SurahDetailState> {
       id.clear();
     }
 
-    // emit(SurahDetailLoading());
+    if (ar.isEmpty && id.isEmpty) {
+      emit(SurahDetailLoading());
+    }
 
     final data = await getAyahBySurahNo.execute(
         event.nomor, event.firstCount, event.lastCount);
