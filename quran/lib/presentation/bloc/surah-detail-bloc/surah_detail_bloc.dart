@@ -10,6 +10,7 @@ part 'surah_detail_state.dart';
 class SurahDetailBloc extends Bloc<SurahDetailEvent, SurahDetailState> {
   final GetAyahBySurahNo getAyahBySurahNo;
   List<Ayah> ar = [];
+  List<Ayah> idt = [];
   List<Ayah> id = [];
 
   SurahDetailBloc(this.getAyahBySurahNo) : super(const SurahDetailEmpty()) {
@@ -20,6 +21,7 @@ class SurahDetailBloc extends Bloc<SurahDetailEvent, SurahDetailState> {
       GetSurahDetail event, Emitter<SurahDetailState> emit) async {
     if (event.isClear) {
       ar.clear();
+      idt.clear();
       id.clear();
     }
 
@@ -39,11 +41,14 @@ class SurahDetailBloc extends Bloc<SurahDetailEvent, SurahDetailState> {
         if (success.ayahResponseE.ayahData.ar.isNotEmpty) {
           ar.addAll(success.ayahResponseE.ayahData.ar);
         }
+        if (success.ayahResponseE.ayahData.idt.isNotEmpty) {
+          idt.addAll(success.ayahResponseE.ayahData.idt);
+        }
         if (success.ayahResponseE.ayahData.id.isNotEmpty) {
           id.addAll(success.ayahResponseE.ayahData.id);
         }
       }
-      emit(SurahDetailLoaded(success, ar, id));
+      emit(SurahDetailLoaded(success, ar, idt, id));
     });
   }
 }

@@ -13,4 +13,12 @@ class MyHelper {
     initializeDateFormatting("id");
     return DateFormat.yMMMMEEEEd("id").format(dateTime);
   }
+
+  static String removeAllHtmlTags(String htmlText) {
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+    return htmlText
+        .replaceAll(exp, '')
+        .replaceAll('&nbsp;', '')
+        .replaceAll('&amp;', '');
+  }
 }

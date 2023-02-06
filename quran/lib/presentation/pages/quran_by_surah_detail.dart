@@ -100,7 +100,7 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
             _lastCount = int.parse(state.ayahResponseA.surah.ayat);
           }
           _limit = int.parse(state.ayahResponseA.surah.ayat);
-          return _buildList(context, state.ar, state.id);
+          return _buildList(context, state.ar, state.idt, state.id);
         } else if (state is SurahDetailError) {
           return Center(
               child: Padding(
@@ -114,7 +114,8 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
     );
   }
 
-  Widget _buildList(BuildContext context, List<Ayah> ar, List<Ayah> id) {
+  Widget _buildList(
+      BuildContext context, List<Ayah> ar, List<Ayah> idt, List<Ayah> id) {
     final ThemeData theme = Theme.of(context);
     return ListView(
       controller: _scrollController,
@@ -136,7 +137,7 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 35),
+                        fontSize: 25),
                   ),
                 ),
               ),
@@ -159,38 +160,11 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                               "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", ""),
                       textAlign: TextAlign.end,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 35),
+                          fontWeight: FontWeight.bold, fontSize: 25),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   child: Row(
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //       Text(
-                    //         "${i + 1}.",
-                    //         style: TextStyle(
-                    //             color: theme.brightness == Brightness.dark
-                    //                 ? Colors.white
-                    //                 : textColor,
-                    //             fontSize: 16),
-                    //       ),
-                    //       const SizedBox(
-                    //         width: 15,
-                    //       ),
-                    //       Expanded(
-                    //         child: Html(
-                    //             data: ayahResponseA
-                    //                 .ayahResponseE.ayahData.idt[i].teks),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // const SizedBox(
-                    //   height: 8,
-                    // ),
                     SizedBox(
                       width: double.infinity,
                       child: Row(
@@ -202,7 +176,38 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                                 color: theme.brightness == Brightness.dark
                                     ? Colors.white
                                     : textColor,
-                                fontSize: 16),
+                                fontStyle: FontStyle.italic,
+                                fontSize: 15),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Expanded(
+                            child: Text(
+                              MyHelper.removeAllHtmlTags(idt[i].teks),
+                              style: TextStyle(
+                                  color: theme.brightness == Brightness.dark
+                                      ? Colors.white
+                                      : textColor,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 15),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${i + 1}.",
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 16),
                           ),
                           const SizedBox(
                             width: 15,
@@ -211,10 +216,7 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                             child: Text(
                               id[i].teks,
                               style: TextStyle(
-                                  color: theme.brightness == Brightness.dark
-                                      ? Colors.white
-                                      : textColor,
-                                  fontSize: 16),
+                                  color: Colors.grey[600], fontSize: 16),
                             ),
                           ),
                         ],
