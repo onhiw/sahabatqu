@@ -57,6 +57,12 @@ class _GalleryPageState extends State<GalleryPage> {
     "assets/images43.jpg",
     "assets/images44.jpg",
     "assets/images45.jpg",
+    "assets/images46.jpeg",
+    "assets/images47.jpeg",
+    "assets/images48.jpeg",
+    "assets/images49.jpeg",
+    "assets/images50.jpeg",
+    "assets/images51.jpeg",
   ];
 
   List<String> dateList = [
@@ -105,6 +111,12 @@ class _GalleryPageState extends State<GalleryPage> {
     "2021-05-09",
     "2021-05-09",
     "2021-05-09",
+    "2023-04-22",
+    "2023-04-22",
+    "2023-04-22",
+    "2023-04-22",
+    "2023-04-22",
+    "2023-04-22",
   ];
   @override
   Widget build(BuildContext context) {

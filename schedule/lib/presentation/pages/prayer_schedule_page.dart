@@ -160,6 +160,7 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
                                                     kota.lokasi);
                                               });
                                               _getPrayerSchedule();
+                                              _setCurrentAddress();
                                               Navigator.pop(context);
                                             },
                                             child: Padding(

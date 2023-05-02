@@ -69,8 +69,8 @@ android {
         applicationId "com.ronirusmayadi.sahabatqu"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 28
-        versionName "3.6.2"
+        versionCode 29
+        versionName "3.6.3"
         multiDexEnabled true
     }
 
