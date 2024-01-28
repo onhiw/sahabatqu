@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  youtube_player_iframe: ^3.0.4
+  youtube_player_iframe: ^3.1.0
 
   core:
     path: ../core

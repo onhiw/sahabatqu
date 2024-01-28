@@ -12,9 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_qiblah: ^2.1.0
-  flutter_svg: ^1.0.3
-  geolocator: ^9.0.2
+  flutter_qiblah: ^2.2.1
+  flutter_svg: ^2.0.9
+  geolocator: ^10.1.0
   google_maps_flutter: ^2.1.3
 
   core:

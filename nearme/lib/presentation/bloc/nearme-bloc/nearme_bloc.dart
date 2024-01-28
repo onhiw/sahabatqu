@@ -1,7 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/nearme/nearme.dart';
 import 'package:core/domain/usecases/nearme/get_nearme.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'nearme_event.dart';
 part 'nearme_state.dart';

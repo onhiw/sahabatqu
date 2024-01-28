@@ -14,9 +14,9 @@ dependencies:
   equatable: ^2.0.5
   http: ^0.13.5
   dartz: ^0.10.1
-  intl: ^0.17.0
+  intl: ^0.18.1
   another_flushbar: ^1.10.29
-  logger: ^1.1.0
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:

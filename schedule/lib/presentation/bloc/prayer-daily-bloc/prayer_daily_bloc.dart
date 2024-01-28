@@ -1,7 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/prayer/prayer_daily_response_e.dart';
 import 'package:core/domain/usecases/prayer/get_prayer_schedule_daily.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'prayer_daily_event.dart';
 part 'prayer_daily_state.dart';

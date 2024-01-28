@@ -20,17 +20,12 @@ class _MyWebviewState extends State<MyWebview> {
   final GlobalKey webViewKey = GlobalKey();
 
   InAppWebViewController? webViewController;
-  InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
-      crossPlatform: InAppWebViewOptions(
-        useShouldOverrideUrlLoading: true,
-        mediaPlaybackRequiresUserGesture: false,
-      ),
-      android: AndroidInAppWebViewOptions(
-        useHybridComposition: true,
-      ),
-      ios: IOSInAppWebViewOptions(
-        allowsInlineMediaPlayback: true,
-      ));
+  InAppWebViewSettings setting = InAppWebViewSettings(
+    useShouldOverrideUrlLoading: true,
+    mediaPlaybackRequiresUserGesture: false,
+    useHybridComposition: true,
+    allowsInlineMediaPlayback: true,
+  );
 
   @override
   void initState() {
@@ -84,8 +79,8 @@ class _MyWebviewState extends State<MyWebview> {
       ),
       body: InAppWebView(
         key: webViewKey,
-        initialOptions: options,
-        initialUrlRequest: URLRequest(url: Uri.parse(widget.url!)),
+        initialSettings: setting,
+        initialUrlRequest: URLRequest(url: WebUri(widget.url!)),
         onWebViewCreated: (controller) {
           webViewController = controller;
         },

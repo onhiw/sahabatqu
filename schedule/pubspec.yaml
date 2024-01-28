@@ -16,10 +16,10 @@ dependencies:
   http: ^0.13.5
   dartz: ^0.10.1
   flutter_bloc: ^8.0.1
-  geolocator: ^9.0.2
+  geolocator: ^10.1.0
   geocoding: ^2.0.4
   shared_preferences: ^2.0.15
-  intl: ^0.17.0
+  intl: ^0.18.1
   hijri: ^3.0.0
 
   core:

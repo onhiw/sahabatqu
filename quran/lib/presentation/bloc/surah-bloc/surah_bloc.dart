@@ -1,7 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/quran/surah.dart';
 import 'package:core/domain/usecases/quran/get_all_surah.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'surah_event.dart';
 part 'surah_state.dart';

@@ -75,9 +75,7 @@ void main() async {
   await Firebase.initializeApp();
   di.init();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  Platform.isIOS
-      ? messaging.subscribeToTopic('notification_ios')
-      : messaging.subscribeToTopic('notification');
+  messaging.subscribeToTopic('notification');
 
   NotificationSettings settings = await messaging.getNotificationSettings();
 
@@ -144,7 +142,8 @@ class _MyAppState extends State<MyApp> {
           flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>();
 
-      final bool? granted = await androidImplementation?.requestPermission();
+      final bool? granted =
+          await androidImplementation?.requestNotificationsPermission();
       setState(() {
         notificationsEnabled = granted ?? false;
       });

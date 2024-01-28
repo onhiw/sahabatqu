@@ -1,8 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/quran/ayah.dart';
 import 'package:core/domain/entities/quran/ayah_response_a.dart';
 import 'package:core/domain/usecases/quran/get_ayah_by_surah_no.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'surah_detail_event.dart';
 part 'surah_detail_state.dart';

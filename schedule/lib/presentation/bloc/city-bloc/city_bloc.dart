@@ -1,7 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/prayer/city.dart';
 import 'package:core/domain/usecases/prayer/get_all_city.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'city_event.dart';
 part 'city_state.dart';

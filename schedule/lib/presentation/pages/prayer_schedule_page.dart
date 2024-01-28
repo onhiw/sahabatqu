@@ -69,12 +69,11 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
       isScrollControlled: true,
       builder: (context) {
         return StatefulBuilder(builder: (context, setState) {
-          return WillPopScope(
-            onWillPop: () async {
+          return PopScope(
+            onPopInvoked: (didPop) async {
               setState(() {
                 searchCity.text = '';
               });
-              return true;
             },
             child: Container(
               height: MediaQuery.of(context).size.height * 0.90,
@@ -148,20 +147,20 @@ class _PrayerSchedulePageState extends State<PrayerSchedulePage> {
                                         children: [
                                           InkWell(
                                             onTap: () async {
-                                              SharedPreferences prefs =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              setState(() {
-                                                prefs.setString(
-                                                    'cityId', kota.id);
-                                                searchCity.text = '';
-                                                prefs.setString(
-                                                    'currentAddress',
-                                                    kota.lokasi);
+                                              SharedPreferences.getInstance()
+                                                  .then((prefs) {
+                                                setState(() {
+                                                  prefs.setString(
+                                                      'cityId', kota.id);
+                                                  searchCity.text = '';
+                                                  prefs.setString(
+                                                      'currentAddress',
+                                                      kota.lokasi);
+                                                });
+                                                _getPrayerSchedule();
+                                                _setCurrentAddress();
+                                                Navigator.pop(context);
                                               });
-                                              _getPrayerSchedule();
-                                              _setCurrentAddress();
-                                              Navigator.pop(context);
                                             },
                                             child: Padding(
                                               padding: const EdgeInsets.only(

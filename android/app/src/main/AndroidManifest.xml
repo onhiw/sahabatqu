@@ -78,12 +78,12 @@ xmlns:tools="http://schemas.android.com/tools"
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBFRpXPf8BXaR22nDvvx2ghBfbUbGGX8N8" />
-        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+                  android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
             </intent-filter>
         </receiver>
-        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="high_importance_channel" />

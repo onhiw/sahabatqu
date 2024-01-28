@@ -25,8 +25,7 @@ class PrayerDailyResponse extends Equatable {
       };
 
   PrayerDailyResponseE toEntity() {
-    return PrayerDailyResponseE(
-        status: status, prayerDaily: data == null ? null : data!.toEntity());
+    return PrayerDailyResponseE(status: status, prayerDaily: data?.toEntity());
   }
 
   @override

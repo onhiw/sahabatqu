@@ -16,7 +16,7 @@ dependencies:
 
   hijri: ^3.0.0
   # hijri_picker: ^3.0.0
-  syncfusion_flutter_datepicker: ^20.4.43
+  syncfusion_flutter_datepicker: ^24.1.47
 
   core:
     path: ../core
