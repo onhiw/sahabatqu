@@ -35,7 +35,17 @@ class SurahDetailBloc extends Bloc<SurahDetailEvent, SurahDetailState> {
         ayah.addAll(success.data);
       }
 
-      emit(SurahDetailLoaded(success, ayah));
+      emit(SurahDetailLoaded(success, removeDuplicates(ayah)));
     });
+  }
+
+  List<Ayah> removeDuplicates(List<Ayah> items) {
+    List<Ayah> uniqueItems = []; // uniqueList
+    var uniqueIDs =
+        items.map((e) => e.id).toSet(); //list if UniqueID to remove duplicates
+    for (var e in uniqueIDs) {
+      uniqueItems.add(items.firstWhere((i) => i.id == e));
+    } // populate uniqueItems with equivalent original Batch items
+    return uniqueItems; //send back the unique items list
   }
 }
