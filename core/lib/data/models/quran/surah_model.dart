@@ -3,86 +3,104 @@ import 'package:equatable/equatable.dart';
 
 class SurahModel extends Equatable {
   const SurahModel({
-    required this.nomor,
-    required this.nama,
-    required this.asma,
-    required this.name,
-    required this.start,
-    required this.ayat,
-    required this.type,
-    required this.urut,
-    required this.rukuk,
-    required this.arti,
-    required this.keterangan,
+    required this.audioUrl,
+    required this.nameEn,
+    required this.nameId,
+    required this.nameLong,
+    required this.nameShort,
+    required this.number,
+    required this.numberOfVerses,
+    required this.revelation,
+    required this.revelationEn,
+    required this.revelationId,
+    required this.sequence,
+    required this.tafsir,
+    required this.translationEn,
+    required this.translationId,
   });
 
-  final String nomor;
-  final String nama;
-  final String asma;
-  final String name;
-  final String start;
-  final String ayat;
-  final String type;
-  final String urut;
-  final String rukuk;
-  final String arti;
-  final String keterangan;
+  final String audioUrl;
+  final String nameEn;
+  final String nameId;
+  final String nameLong;
+  final String nameShort;
+  final String number;
+  final String numberOfVerses;
+  final String revelation;
+  final String revelationEn;
+  final String revelationId;
+  final String sequence;
+  final String tafsir;
+  final String translationEn;
+  final String translationId;
 
   factory SurahModel.fromJson(Map<String, dynamic> json) => SurahModel(
-        nomor: json["nomor"],
-        nama: json["nama"],
-        asma: json["asma"],
-        name: json["name"],
-        start: json["start"],
-        ayat: json["ayat"],
-        type: json["type"],
-        urut: json["urut"],
-        rukuk: json["rukuk"],
-        arti: json["arti"],
-        keterangan: json["keterangan"],
+        audioUrl: json["audio_url"],
+        nameEn: json["name_en"],
+        nameId: json["name_id"],
+        nameLong: json["name_long"],
+        nameShort: json["name_short"],
+        number: json["number"],
+        numberOfVerses: json["number_of_verses"],
+        revelation: json["revelation"],
+        revelationEn: json["revelation_en"],
+        revelationId: json["revelation_id"],
+        sequence: json["sequence"],
+        tafsir: json["tafsir"],
+        translationEn: json["translation_en"],
+        translationId: json["translation_id"],
       );
 
   Map<String, dynamic> toJson() => {
-        "nomor": nomor,
-        "nama": nama,
-        "asma": asma,
-        "name": name,
-        "start": start,
-        "ayat": ayat,
-        "type": type,
-        "urut": urut,
-        "rukuk": rukuk,
-        "arti": arti,
-        "keterangan": keterangan,
+        "audio_url": audioUrl,
+        "name_en": nameEn,
+        "name_id": nameId,
+        "name_long": nameLong,
+        "name_short": nameShort,
+        "number": number,
+        "number_of_verses": numberOfVerses,
+        "revelation": revelation,
+        "revelation_en": revelationEn,
+        "revelation_id": revelationId,
+        "sequence": sequence,
+        "tafsir": tafsir,
+        "translation_en": translationEn,
+        "translation_id": translationId,
       };
 
   Surah toEntity() {
     return Surah(
-        nomor: nomor,
-        nama: nama,
-        asma: asma,
-        name: name,
-        start: start,
-        ayat: ayat,
-        type: type,
-        urut: urut,
-        rukuk: rukuk,
-        arti: arti,
-        keterangan: keterangan);
+        audioUrl: audioUrl,
+        nameEn: nameEn,
+        nameId: nameId,
+        nameLong: nameLong,
+        nameShort: nameShort,
+        number: number,
+        numberOfVerses: numberOfVerses,
+        revelation: revelation,
+        revelationEn: revelationEn,
+        revelationId: revelationId,
+        sequence: sequence,
+        tafsir: tafsir,
+        translationEn: translationEn,
+        translationId: translationId);
   }
 
   @override
   List<Object?> get props => [
-        nomor,
-        nama,
-        asma,
-        name,
-        start,
-        ayat,
-        type,
-        urut,
-        rukuk,
-        arti,
-        keterangan
+        audioUrl,
+        nameEn,
+        nameId,
+        nameLong,
+        nameShort,
+        number,
+        numberOfVerses,
+        revelation,
+        revelationEn,
+        revelationId,
+        sequence,
+        tafsir,
+        translationEn,
+        translationId
       ];
 }

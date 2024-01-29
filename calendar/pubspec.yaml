@@ -5,7 +5,7 @@ publish_to: none
 homepage:
 
 environment:
-  sdk: '>=2.18.2 <3.0.0'
+  sdk: ">=2.18.2 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -16,7 +16,7 @@ dependencies:
 
   hijri: ^3.0.0
   # hijri_picker: ^3.0.0
-  syncfusion_flutter_datepicker: ^24.1.47
+  syncfusion_flutter_datepicker: ^19.4.38
 
   core:
     path: ../core

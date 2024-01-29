@@ -3,6 +3,7 @@ import 'package:core/domain/entities/quran/ayah.dart';
 import 'package:core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/presentation/bloc/surah-detail-bloc/surah_detail_bloc.dart';
 
 class QuranBySurahDetail extends StatefulWidget {
@@ -83,7 +84,7 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
             ),
             Text(
               "${widget.type[0].toUpperCase()}${widget.type.substring(1).toLowerCase()}",
-              style: TextStyle(
+              style: GoogleFonts.notoSansArabic(
                 fontSize: 14,
                 color: Colors.grey[600],
               ),
@@ -96,11 +97,8 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
         if (state is SurahDetailLoading) {
           return const Center(child: LoadingIndicator());
         } else if (state is SurahDetailLoaded) {
-          if (int.parse(state.ayahResponseA.surah.ayat) < 10) {
-            _lastCount = int.parse(state.ayahResponseA.surah.ayat);
-          }
-          _limit = int.parse(state.ayahResponseA.surah.ayat);
-          return _buildList(context, state.ar, state.idt, state.id);
+          _limit = state.ayahResponseE.infoAyahModel.surat.ayatMax;
+          return _buildList(context, state.ayah);
         } else if (state is SurahDetailError) {
           return Center(
               child: Padding(
@@ -114,8 +112,7 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
     );
   }
 
-  Widget _buildList(
-      BuildContext context, List<Ayah> ar, List<Ayah> idt, List<Ayah> id) {
+  Widget _buildList(BuildContext context, List<Ayah> ayah) {
     final ThemeData theme = Theme.of(context);
     return ListView(
       controller: _scrollController,
@@ -131,13 +128,13 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: Colors.white),
-                  child: const Text(
+                  child: Text(
                     "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: GoogleFonts.notoSansArabic(
                         color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20),
                   ),
                 ),
               ),
@@ -146,7 +143,7 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
             : const SizedBox(
                 height: 16,
               ),
-        ...ar
+        ...ayah
             .asMap()
             .map((i, value) => MapEntry(
                 i,
@@ -155,12 +152,12 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                   children: [
                     Text(
                       widget.nomor == "1"
-                          ? value.teks
-                          : value.teks.replaceAll(
+                          ? value.arab
+                          : value.arab.replaceAll(
                               "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", ""),
                       textAlign: TextAlign.end,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 25),
+                      style: GoogleFonts.notoSansArabic(
+                          fontWeight: FontWeight.w600, fontSize: 20),
                     ),
                     const SizedBox(
                       height: 5,
@@ -171,7 +168,7 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${i + 1}.",
+                            value.ayah,
                             style: TextStyle(
                                 color: theme.brightness == Brightness.dark
                                     ? Colors.white
@@ -184,8 +181,8 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                           ),
                           Expanded(
                             child: Text(
-                              MyHelper.removeAllHtmlTags(idt[i].teks),
-                              style: TextStyle(
+                              value.latin,
+                              style: GoogleFonts.roboto(
                                   color: theme.brightness == Brightness.dark
                                       ? Colors.white
                                       : textColor,
@@ -214,9 +211,9 @@ class _QuranBySurahDetailState extends State<QuranBySurahDetail> {
                           ),
                           Expanded(
                             child: Text(
-                              id[i].teks,
-                              style: TextStyle(
-                                  color: Colors.grey[600], fontSize: 16),
+                              value.text,
+                              style: GoogleFonts.roboto(
+                                  color: Colors.grey[600], fontSize: 15),
                             ),
                           ),
                         ],

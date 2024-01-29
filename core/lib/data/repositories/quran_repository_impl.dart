@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:core/core.dart';
 import 'package:core/data/datasources/quran_remote_data_source.dart';
-import 'package:core/domain/entities/quran/ayah_response_a.dart';
+import 'package:core/domain/entities/quran/ayah_response_e.dart';
 import 'package:core/domain/entities/quran/surah.dart';
 import 'package:core/domain/repositories/quran_repository.dart';
 import 'package:dartz/dartz.dart';
@@ -25,7 +25,7 @@ class QuranRepositoryImpl implements QuranRepository {
   }
 
   @override
-  Future<Either<Failure, AyahResponseA>> getAyahBySurahNo(
+  Future<Either<Failure, AyahResponseE>> getAyahBySurahNo(
       String nomor, int firstCount, int lastCount) async {
     try {
       final result = await quranRemoteDataSource.getAyahBySurahNo(

@@ -3,6 +3,7 @@ import 'package:core/domain/entities/quran/surah.dart';
 import 'package:core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/presentation/bloc/surah-bloc/surah_bloc.dart';
 import 'package:quran/presentation/pages/quran_by_surah_detail.dart';
 
@@ -67,7 +68,7 @@ class _QuranPageState extends State<QuranPage> {
 
     final surahFilter = surah
         .where(
-            (element) => element.nama.toLowerCase().contains(searchName.text))
+            (element) => element.nameId.toLowerCase().contains(searchName.text))
         .toList();
 
     return Column(
@@ -115,9 +116,9 @@ class _QuranPageState extends State<QuranPage> {
                 onTap: () {
                   Navigator.pushNamed(context, detailSurahRoute,
                       arguments: QuranBySurahDetail(
-                        nomor: surahFilter[index].nomor,
-                        nama: surahFilter[index].nama,
-                        type: surahFilter[index].type,
+                        nomor: surahFilter[index].number,
+                        nama: surahFilter[index].nameId,
+                        type: surahFilter[index].revelation,
                       ));
                 },
                 child: Padding(
@@ -129,7 +130,7 @@ class _QuranPageState extends State<QuranPage> {
                         child: Row(
                           children: [
                             Text(
-                              surahFilter[index].nomor,
+                              surahFilter[index].number,
                               style: TextStyle(
                                   fontSize: 16,
                                   color: theme.brightness == Brightness.dark
@@ -145,7 +146,7 @@ class _QuranPageState extends State<QuranPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    surahFilter[index].nama,
+                                    surahFilter[index].nameId,
                                     style: const TextStyle(
                                         fontSize: 16,
                                         color: themeColor,
@@ -155,7 +156,7 @@ class _QuranPageState extends State<QuranPage> {
                                     height: 2,
                                   ),
                                   Text(
-                                    "${surahFilter[index].arti} (${surahFilter[index].ayat})",
+                                    "${surahFilter[index].translationId} (${surahFilter[index].numberOfVerses})",
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.grey[600],
@@ -170,14 +171,13 @@ class _QuranPageState extends State<QuranPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8),
                         child: Text(
-                          surahFilter[index].asma,
-                          style: TextStyle(
-                              fontSize: 20,
+                          surahFilter[index].nameShort,
+                          style: GoogleFonts.notoSansArabic(
+                              fontSize: 16,
                               color: theme.brightness == Brightness.dark
                                   ? Colors.white
                                   : textColor,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                         ),
                       )
                     ],

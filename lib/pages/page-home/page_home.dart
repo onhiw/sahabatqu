@@ -70,11 +70,13 @@ class _HomePageState extends State<HomePage> {
       isScrollControlled: true,
       builder: (context) {
         return StatefulBuilder(builder: (context, setState) {
-          return PopScope(
-            onPopInvoked: (didPop) {
+          return WillPopScope(
+            onWillPop: () async {
               setState(() {
                 searchCity.text = '';
               });
+
+              return true;
             },
             child: Container(
               height: MediaQuery.of(context).size.height * 0.90,

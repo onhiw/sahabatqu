@@ -8,11 +8,11 @@ class SurahResponse extends Equatable {
 
   factory SurahResponse.fromJson(Map<String, dynamic> json) => SurahResponse(
         surahList: List<SurahModel>.from(
-            (json["hasil"] as List).map((x) => SurahModel.fromJson(x))),
+            json["data"].map((x) => SurahModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "hasil": List<dynamic>.from(surahList.map((x) => x.toJson())),
+        "data": List<dynamic>.from(surahList.map((x) => x.toJson())),
       };
 
   @override

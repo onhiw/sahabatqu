@@ -206,9 +206,10 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return PopScope(
-      onPopInvoked: (didPop) {
+    return WillPopScope(
+      onWillPop: () async {
         _onWillPop();
+        return true;
       },
       child: Scaffold(
           bottomNavigationBar: CurvedNavigationBar(

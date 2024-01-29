@@ -1,11 +1,11 @@
 name: sahabatqu
 description: A new Flutter project.
 
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.2.6 <4.0.0"
+  sdk: ">=3.0.6 <4.0.0"
 
 dependencies:
   about:
@@ -52,7 +52,6 @@ dependencies:
   hijri: ^3.0.0
   intl: ^0.18.1
   logger: ^2.0.2+1
-  lottie: ^3.0.0
   makkah:
     path: makkah
   nearme:
@@ -70,9 +69,10 @@ dependencies:
     path: schedule
   shared_preferences: ^2.0.13
   shimmer: ^3.0.0
-  syncfusion_flutter_datepicker: ^24.1.47
+  syncfusion_flutter_datepicker: ^19.4.38
   url_launcher: ^6.0.20
   youtube_player_iframe: ^3.1.0
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:

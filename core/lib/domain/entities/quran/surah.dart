@@ -2,43 +2,52 @@ import 'package:equatable/equatable.dart';
 
 class Surah extends Equatable {
   const Surah({
-    required this.nomor,
-    required this.nama,
-    required this.asma,
-    required this.name,
-    required this.start,
-    required this.ayat,
-    required this.type,
-    required this.urut,
-    required this.rukuk,
-    required this.arti,
-    required this.keterangan,
+    required this.audioUrl,
+    required this.nameEn,
+    required this.nameId,
+    required this.nameLong,
+    required this.nameShort,
+    required this.number,
+    required this.numberOfVerses,
+    required this.revelation,
+    required this.revelationEn,
+    required this.revelationId,
+    required this.sequence,
+    required this.tafsir,
+    required this.translationEn,
+    required this.translationId,
   });
 
-  final String nomor;
-  final String nama;
-  final String asma;
-  final String name;
-  final String start;
-  final String ayat;
-  final String type;
-  final String urut;
-  final String rukuk;
-  final String arti;
-  final String keterangan;
+  final String audioUrl;
+  final String nameEn;
+  final String nameId;
+  final String nameLong;
+  final String nameShort;
+  final String number;
+  final String numberOfVerses;
+  final String revelation;
+  final String revelationEn;
+  final String revelationId;
+  final String sequence;
+  final String tafsir;
+  final String translationEn;
+  final String translationId;
 
   @override
   List<Object?> get props => [
-        nomor,
-        nama,
-        asma,
-        name,
-        start,
-        ayat,
-        type,
-        urut,
-        rukuk,
-        arti,
-        keterangan
+        audioUrl,
+        nameEn,
+        nameId,
+        nameLong,
+        nameShort,
+        number,
+        numberOfVerses,
+        revelation,
+        revelationEn,
+        revelationId,
+        sequence,
+        tafsir,
+        translationEn,
+        translationId
       ];
 }

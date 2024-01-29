@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:core/core.dart';
 import 'package:core/data/models/prayer/city_model.dart';
+import 'package:core/data/models/prayer/city_response.dart';
 import 'package:core/data/models/prayer/prayer_daily_response.dart';
 import 'package:core/data/models/prayer/prayer_monthly_response.dart';
 import 'package:http/http.dart' as http;
@@ -21,11 +22,12 @@ class PrayerRemoteDataSourceImpl extends PrayerRemoteDataSource {
   @override
   Future<List<CityModel>> getAllCity() async {
     final response = await client
-        .get(Uri.parse('https://api.myquran.com/v1/sholat/kota/semua'));
+        .get(Uri.parse('https://api.myquran.com/v2/sholat/kota/semua'));
 
     if (response.statusCode == 200) {
-      return List<CityModel>.from(
-          json.decode(response.body).map((x) => CityModel.fromJson(x)));
+      CityResponse cityResponse =
+          CityResponse.fromJson(json.decode(response.body));
+      return cityResponse.data;
     } else {
       throw ServerException();
     }
@@ -34,7 +36,7 @@ class PrayerRemoteDataSourceImpl extends PrayerRemoteDataSource {
   @override
   Future<PrayerDailyResponse> getPrayerDaily(String cityId, String date) async {
     final response = await client.get(
-        Uri.parse('https://api.myquran.com/v1/sholat/jadwal/$cityId/$date'));
+        Uri.parse('https://api.myquran.com/v2/sholat/jadwal/$cityId/$date'));
 
     if (response.statusCode == 200) {
       return PrayerDailyResponse.fromJson(json.decode(response.body));
@@ -47,7 +49,7 @@ class PrayerRemoteDataSourceImpl extends PrayerRemoteDataSource {
   Future<PrayerMonthlyResponse> getPrayerMonthly(
       String cityId, int year, int month) async {
     final response = await client.get(Uri.parse(
-        'https://api.myquran.com/v1/sholat/jadwal/$cityId/$year/$month'));
+        'https://api.myquran.com/v2/sholat/jadwal/$cityId/$year/$month'));
 
     if (response.statusCode == 200) {
       return PrayerMonthlyResponse.fromJson(json.decode(response.body));
