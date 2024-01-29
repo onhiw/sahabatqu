@@ -16,7 +16,7 @@ class _MakkahPageState extends State<MakkahPage> {
   void initState() {
     _youtubeController = YoutubePlayerController.fromVideoId(
       videoId: YoutubePlayerController.convertUrlToId(
-              'https://www.youtube.com/watch?v=HU65fWdHiMI')
+              'https://www.youtube.com/watch?v=cqVgzABbRG8')
           .toString(),
       autoPlay: true,
       params: const YoutubePlayerParams(
