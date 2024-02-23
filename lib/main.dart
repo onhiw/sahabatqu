@@ -6,6 +6,7 @@ import 'package:core/core.dart';
 import 'package:doa/doa.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,8 +37,9 @@ const AndroidInitializationSettings initializationSettingsAndroid =
     AndroidInitializationSettings('@mipmap/ic_launcher_foreground');
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'general', //id
-    'General', //descriptions
-    importance: Importance.max,
+    'General', // title
+    description: 'General',
+    importance: Importance.high,
     playSound: true);
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -65,26 +67,48 @@ class ReceivedNotification {
   final String? payload;
 }
 
+final DarwinInitializationSettings initializationSettingsDarwin =
+    DarwinInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true,
+        onDidReceiveLocalNotification: (
+          int id,
+          String? title,
+          String? body,
+          String? payload,
+        ) async {
+          didReceiveLocalNotificationSubject.add(
+            ReceivedNotification(
+              id: id,
+              title: title,
+              body: body,
+              payload: payload,
+            ),
+          );
+        });
+
+final InitializationSettings initializationSettings = InitializationSettings(
+  android: initializationSettingsAndroid,
+  iOS: initializationSettingsDarwin,
+);
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('A bg message just showed up: ${message.messageId}');
 }
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  di.init();
+Future<void> setupFlutterNotifications() async {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   messaging.subscribeToTopic('notification');
 
   NotificationSettings settings = await messaging.getNotificationSettings();
 
   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-    print('User granted permission');
+    // Logger().d('User granted permission');
   } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-    print('User granted provisional permission');
+    // Logger().d('User granted provisional permission');
   } else {
-    print('User declined or has not accepted permission');
+    // Logger().d('User declined or has not accepted permission');
   }
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -95,7 +119,17 @@ void main() async {
 
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true, badge: true, sound: true);
+}
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  if (!kIsWeb) {
+    await setupFlutterNotifications();
+  }
+
+  di.init();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: SplashScreen(),
@@ -121,9 +155,9 @@ class _MyAppState extends State<MyApp> {
               ?.areNotificationsEnabled() ??
           false;
 
-      setState(() {
-        notificationsEnabled = granted;
-      });
+      // setState(() {
+      notificationsEnabled = granted;
+      // });
     }
   }
 
@@ -144,16 +178,22 @@ class _MyAppState extends State<MyApp> {
 
       final bool? granted =
           await androidImplementation?.requestNotificationsPermission();
-      setState(() {
-        notificationsEnabled = granted ?? false;
-      });
+      // setState(() {
+      notificationsEnabled = granted ?? false;
+      // });
     }
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   void initState() {
-    super.initState();
     _isAndroidPermissionGranted();
     _requestPermissions();
+
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -168,7 +208,7 @@ class _MyAppState extends State<MyApp> {
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
-                color: Color(0xff097233),
+                channelDescription: channel.description,
                 playSound: true,
                 icon: '@mipmap/ic_launcher_foreground',
               ),
@@ -177,6 +217,7 @@ class _MyAppState extends State<MyApp> {
     });
 
     setupInteractedMessage();
+    super.initState();
   }
 
   Future<void> setupInteractedMessage() async {
@@ -191,11 +232,6 @@ class _MyAppState extends State<MyApp> {
 
   void _handleMessage(RemoteMessage message) {
     // Navigator.pushNamed(context, "/");
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
   }
 
   @override
